@@ -1,18 +1,15 @@
 import NextHead from 'next/head';
 
-const siteDescription = 'ShareSell Africa  ';
+const siteDescription = 'TheChoice 9ja';
 
 const Head = ({ title }) => {
   const newTitle = title ? `${title} | ` : '';
   return (
     <NextHead>
-      <title>{newTitle} - ShareSell Africa</title>
-      <meta
-        name='keywords'
-        content='airbnb, house, listing, property, buy houses, rent, duplex, apartment'
-      />
+      <title>{newTitle} - TheChoice 9ja</title>
+      <meta name='keywords' content='politics' />
       <meta name='description' content={siteDescription} />
-      <meta property='og:title' content='ShareSell Africa' />
+      <meta property='og:title' content='TheChoice 9ja' />
       <meta property='og:type' content='website' />
       {/* <meta property="og:url" content={process.env.BASE_URL} /> */}
       <meta property='og:description' content={siteDescription} />
@@ -20,10 +17,6 @@ const Head = ({ title }) => {
       /favicon/logo.ico
       <link rel='shortcut icon' href='/svg/logo.svg' type='image/x-icon' />
       <meta property='twitter:card' content='summary_large_image' />
-      <script
-        src='https://widget.cloudinary.com/v2.0/global/all.js'
-        type='text/javascript'
-      ></script>
     </NextHead>
   );
 };

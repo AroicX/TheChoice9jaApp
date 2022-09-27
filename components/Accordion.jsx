@@ -1,4 +1,5 @@
-import React, { useState, ueseRef, useRef } from 'react';
+import Image from 'next/image';
+import React, { useState, useRef } from 'react';
 import SVG from 'react-inlinesvg';
 
 export default function Accourdion({ faq }) {
@@ -31,7 +32,7 @@ export default function Accourdion({ faq }) {
         ref={content}
       >
         <p className='text-xs text-app-color mb-3'>{faq.answer}</p>
-        {faq.image && <img src={faq.image} />}
+        {faq.image && <Image src={faq.image} alt='image' />}
       </div>
     </div>
   );
