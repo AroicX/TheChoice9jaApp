@@ -23,12 +23,11 @@ export default function Input({
     }
   };
   return (
-    <div className={`input ${inputStyle} `}>
-      <label htmlFor=''>{label}</label>
+    <div className={`relative border border-coolblack-500 px-3 py-2 focus-within:border-green-600 focus-within:ring-1 focus-within:ring-green-600 ${inputStyle}`}>
+      <label className='absolute -top-2 left-2 -mt-px inline-block bg-white px-1 text-xs font-medium text-gray-900' htmlFor={id}>{label}</label>
 
-      {price && <span className='price m-auto'>₦</span>}
       <input
-        className={`${styles} ${price ? 'with-price' : ''} ${
+        className={`block w-full border-0 py-4 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm ${styles} ${
           type === 'password' ? 'password' : ''
         }`}
         id={id}

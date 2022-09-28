@@ -10,6 +10,7 @@ const Button = ({
   iconLeft,
   iconRight,
   loading,
+  type = "button",
   loadingText = null,
   rest,
   color,
@@ -53,7 +54,8 @@ const Button = ({
         </Link>
       ) : (
         <button
-          className={`w-full bg-app-color  p-4 flex text-white rounded my-1 ${styles} ${
+          type={type}
+          className={`w-full p-4 flex my-1 ${styles} ${
             loading && !loadingText
               ? 'center text-center align-middle justify-center items-center'
               : 'justify-between'
