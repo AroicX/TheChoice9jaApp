@@ -62,7 +62,7 @@ export default function Login() {
         </a>
         </Link>
         <p className="text-center">
-          Don't have an account? <Link passHref href="/signup">
+          Don&apos;t have an account? <Link passHref href="/signup">
             <a className="text-green-600">Sign Up</a>
           </Link>
         </p>
