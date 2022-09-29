@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import BackButton from "@/components/BackButton";
 
 export default function CreatePassword() {
   const [password, setPassword] = useState("");
@@ -22,16 +23,12 @@ export default function CreatePassword() {
 
   const router = useRouter();
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen px-4">
       <div className="flex items-center space-x-4 xl:mt-0 mt-4">
-        <img src="/arrow_back.svg" onClick={() => router.push("/signup/confirm")} className="w-4 h-4 cursor-pointer" alt="Close icon"/>
-        <span className="text-xl font-semibold">
-          <span>Step </span>
-          <span>3 of 5</span>
-        </span>
+        <BackButton title="Step 3 of 5" />
       </div>
       <form className="space-y-8">
-        <h3 className="mt-8 font-bold text-2xl">Create Account</h3>
+        <h3 className="mt-8 font-bold text-2xl">Create Password</h3>
         <p>
           Ahmed, create a password you can remember
           to secure your account.

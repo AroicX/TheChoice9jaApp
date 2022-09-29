@@ -87,9 +87,6 @@
     button {
       padding: 0.8rem;
       background: white;
-      color: $app-color;
-      text-align: left;
-      border-bottom: 0.001rem solid $app-color;
       transition: all 0.5s ease-in-out;
       &:hover {
         transition: all 0.2s ease-in-out;

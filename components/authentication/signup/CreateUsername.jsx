@@ -1,19 +1,16 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import BackButton from "@/components/BackButton";
 
 export default function CreateUserName() {
   const [username, setUsername] = useState("");
 
   const router = useRouter();
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen px-4">
       <div className="flex items-center space-x-4 xl:mt-0 mt-4">
-        <img onClick={() => router.push("/signup/create_password")} className="w-4 h-4 cursor-pointer" alt="Close icon" src="/arrow_back.svg"/>
-        <span className="text-xl font-semibold">
-          <span>Step </span>
-          <span>4 of 5</span>
-        </span>
+        <BackButton title="Step 4 of 5"/>
       </div>
       <form className="space-y-8">
         <h3 className="mt-8 font-bold text-2xl">Create a Username</h3>

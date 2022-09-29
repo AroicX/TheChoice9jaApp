@@ -10,7 +10,7 @@ export default function Login() {
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const router = useRouter();
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen px-4">
       <h3 className="text-green-600 mt-8 font-bold text-2xl">Choice9ja</h3>
       <form className="space-y-8">
         <h3 className="mt-8 font-bold text-2xl">Login to your Account</h3>
@@ -55,7 +55,7 @@ export default function Login() {
       <div className="flex mt-12 flex-col h-full">
         <Link
           passHref
-          href="/signup/confirm"
+          href="/home"
         >
         <a className="inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 text-base font-medium text-white shadow-sm">
           continue
