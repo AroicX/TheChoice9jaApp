@@ -44,7 +44,6 @@ module.exports = {
           900: '#07190B',
         },
         blue: {
-          secondary: '#2196F3',
           50: '#EFF7FE',
           100: '#DFF0FD',
           200: '#BFE1FC',

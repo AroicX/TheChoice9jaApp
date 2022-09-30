@@ -4,16 +4,18 @@ import SVG from 'react-inlinesvg';
 export default function SearchBar({ handleSubmit, dispatch = () => {} }) {
   return (
     <form
-      className='flex justify-between items-center p-3 border rounded mb-4'
+      className='relative flex justify-between items-center p-3 rounded mb-4'
       onSubmit={handleSubmit}
     >
+      <div className="pointer-events-none absolute inset-y-0 left-2 flex items-center pl-3">
+        <SVG src='/search.svg' className="h-7 w-7" />
+      </div>
       <input
         type={'text'}
-        className='text-app-color w-11/12 outline-none'
-        placeholder='Search for any product'
+        className='block w-full rounded-lg border-gray-300 pl-10 p-4 sm:text-sm'
+        placeholder='Search for Candidate'
         onChange={(event) => dispatch(event.target.value)}
       />
-      <SVG src='/svg/search-icon.svg' />
     </form>
   );
 }

@@ -12,7 +12,7 @@ export default function CreateAccount({ next }) {
   });
   const router = useRouter();
   return (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col h-screen px-4">
       <div className="flex items-center space-x-4 xl:mt-0 mt-4">
         <img onClick={() => router.push("/")} className="w-4 h-4 cursor-pointer" alt="Close icon" src="/close.svg"/>
         <span className="text-xl font-semibold">
