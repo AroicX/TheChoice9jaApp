@@ -1,51 +1,56 @@
-import { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import BackButton from "@/components/BackButton";
+import { useState } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import BackButton from '@/components/BackButton';
+import AuthProvider from '@/components/AuthProvider';
 
 export default function CreateUserName() {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState('');
 
   const router = useRouter();
   return (
-    <div className="flex flex-col h-screen px-4">
-      <div className="flex items-center space-x-4 xl:mt-0 mt-4">
-        <BackButton title="Step 4 of 5"/>
+    <AuthProvider>
+      <div className='flex items-center space-x-4 xl:mt-0 mt-4'>
+        <BackButton title='Step 4 of 5' />
       </div>
-      <form className="space-y-8">
-        <h3 className="mt-8 font-bold text-2xl">Create a Username</h3>
-        <p className="text-slate-500">
-          Create a unique  name you can easily 
-          change later. 
+      <form className='space-y-8'>
+        <h3 className='mt-8 font-bold text-2xl'>Create a Username</h3>
+        <p className='text-slate-500'>
+          Create a unique name you can easily change later.
         </p>
-        <div className="relative rounded-md border border-gray-300 p-3 shadow-sm focus-within:border-green-600 focus-within:ring-1 focus-within:ring-green">
+        <div className='relative rounded-md border border-gray-300 p-3 shadow-sm focus-within:border-green-600 focus-within:ring-1 focus-within:ring-green'>
           <label
-            htmlFor="username"
-            className="absolute -top-2 left-2 -mt-px inline-block bg-white px-1 text-sm font-medium text-gray-900"
+            htmlFor='username'
+            className='absolute -top-2 left-2 -mt-px inline-block bg-white px-1 text-sm font-medium text-gray-900'
           >
             Create @username
           </label>
           <input
-            type="text"
-            name="username"
-            id="username"
+            type='text'
+            name='username'
+            id='username'
             value={username}
-            onChange={event => setUsername(event.target.value)}
-            className="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
-            placeholder="@thebash"
+            onChange={(event) => setUsername(event.target.value)}
+            className='block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm'
+            placeholder='@thebash'
           />
         </div>
       </form>
-      <div className="flex items-end h-full mb-8">
-        <div className="w-full">
-          <Link
-            href="/signup/verification"
-          >
-            <a className="inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 text-base font-medium text-white shadow-sm">Next</a>
+      <div className='flex items-end h-full mb-8'>
+        <div className='w-full'>
+          <Link href='/signup/verification'>
+            <a className='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 text-base font-medium text-white shadow-sm'>
+              Next
+            </a>
           </Link>
-          <button onClick={() => router.push('/home')} className="text-center w-full text-lg text-green-600 font-bold">Skip for now</button>
+          <button
+            onClick={() => router.push('/home')}
+            className='text-center w-full text-lg text-green-600 font-bold'
+          >
+            Skip for now
+          </button>
         </div>
       </div>
-    </div>
-  )
+    </AuthProvider>
+  );
 }

@@ -1,6 +1,6 @@
-import HomeHeader from "@/components/HomeHeader"
-import ElectionCandidates from "@/components/ElectionCandidates"
-import Footer from "@/components/Footer"
+import HomeHeader from '@/components/HomeHeader';
+import ElectionCandidates from '@/components/ElectionCandidates';
+import Layout from '@/components/layout';
 
 const people = [
   {
@@ -11,21 +11,29 @@ const people = [
     twitterUrl: '#',
     linkedinUrl: '#',
   },
-]
-
+];
 
 export default function Home() {
   return (
-    <>
-    <HomeHeader />
-     <div className="lg:px-0 px-10 space-y-3 my-5">
-        <h3 className="text-2xl font-bold text-coolblack-800">Know, share &amp; vote your choice.</h3>
-        <p className="text-lg font-normal text-green-neutral-800">Learn about your nigerian politician and discuss politics, raise issues and vote your choice.</p>
+    <Layout active='home'>
+      <HomeHeader />
+      <div className='lg:px-0 px-10 space-y-3 my-5'>
+        <h3 className='text-2xl font-bold text-coolblack-800'>
+          Know, share &amp; vote your choice.
+        </h3>
+        <p className='text-lg font-normal text-green-neutral-800'>
+          Learn about your nigerian politician and discuss politics, raise
+          issues and vote your choice.
+        </p>
       </div>
-      <ul className="lg:px-0 px-10 space-y-4 py-3 h-full overflow-y-scroll">
+      <ul className='lg:px-0 px-10 space-y-4 py-3 h-full overflow-y-scroll'>
+        <ElectionCandidates people={people} />
+        <ElectionCandidates people={people} />
+        <ElectionCandidates people={people} />
+        <ElectionCandidates people={people} />
+        <ElectionCandidates people={people} />
         <ElectionCandidates people={people} />
       </ul>
-      <Footer />
-    </>
-  )
+    </Layout>
+  );
 }

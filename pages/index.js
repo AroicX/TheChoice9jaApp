@@ -1,6 +1,7 @@
 import { LOGIN_ACCOUNT } from '@/services/authentication';
 import Button from '@/reusable/Button';
 import { useRouter } from 'next/router';
+import AuthProvider from '@/components/AuthProvider';
 
 export default function Home() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function Home() {
     await LOGIN_ACCOUNT(data, callback, onError);
   };
   return (
-    <div className='flex'>
+    <AuthProvider>
       <div className='px-4'>
         <div className='my-10'>
           <h1 className='text-green-700 text-4xl font-bold'>Choice9ja</h1>
@@ -63,6 +64,6 @@ export default function Home() {
           />
         </div>
       </div>
-    </div>
+    </AuthProvider>
   );
 }

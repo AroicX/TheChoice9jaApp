@@ -42,12 +42,9 @@ body {
   height: 100vh;
   transform: translate(27%, 0%);
   overflow-y: scroll !important;
-  padding: 1rem;
-  padding-top: 2rem;
   @include shadow();
   background: #fff;
   transition: all 0.5s ease-in-out;
-  padding-bottom: 2rem;
 
   @include media("<tablet") {
     position: relative;
