@@ -1,5 +1,6 @@
 import HomeHeader from '@/components/HomeHeader';
 import ElectionCandidates from '@/components/ElectionCandidates';
+import Poll from '@/components/Poll';
 import Layout from '@/components/layout';
 
 const people = [
@@ -28,12 +29,8 @@ export default function Home() {
       </div>
       <ul className='lg:px-0 px-10 space-y-4 py-3 h-full overflow-y-scroll'>
         <ElectionCandidates people={people} />
-        <ElectionCandidates people={people} />
-        <ElectionCandidates people={people} />
-        <ElectionCandidates people={people} />
-        <ElectionCandidates people={people} />
-        <ElectionCandidates people={people} />
       </ul>
+      <Poll />
     </Layout>
   );
 }

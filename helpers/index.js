@@ -347,26 +347,17 @@ export const inputValidatorErrorState = (value, setState, field, errMsg) => {
   }
 };
 
-export const numberFormatter = (value) => {
-  let formattedNumber = '';
-  let allNumbers = {
-    0: true,
-    1: true,
-    2: true,
-    3: true,
-    4: true,
-    5: true,
-    6: true,
-    7: true,
-    8: true,
-    9: true,
-  };
-  for (let i = 0; i < value.length; i++) {
-    if (allNumbers[value[i]]) {
-      formattedNumber = `${formattedNumber}${value[i]}`;
-    }
+export const numberFormatter = (num) => {
+  if (num >= 1000000000) {
+    return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
   }
-  return formattedNumber;
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  }
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  }
+  return num;
 };
 
 export const cardDetailsFormatter = (value) => {
