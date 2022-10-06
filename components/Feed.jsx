@@ -1,8 +1,7 @@
 import Avatar from "./Avatar";
 import Verified from "./Verified";
-import { ICONS } from "./Poll";
+import { ICONS } from "@/reusable/Icons";
 import { numberFormatter } from "../helpers";
-import Button from "@/reusable/Button";
 
 export default function Feed() {
   return (

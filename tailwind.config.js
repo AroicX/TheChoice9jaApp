@@ -89,6 +89,12 @@ module.exports = {
       screens: {
         md: '800px',
       },
+      boderWidth: {
+        xs: '0.5px',
+        sm: '1px',
+        md: '2px',
+        lg: '3px',
+      },
     },
   },
   variants: {

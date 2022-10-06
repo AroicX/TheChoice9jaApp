@@ -390,3 +390,7 @@ export const favouriteFormatterToJSON = (favourite) => {
 
   return formattedFavourite;
 };
+
+export const classNames = (...classes) => {
+  return classes.filter(Boolean).join(' ');
+};
