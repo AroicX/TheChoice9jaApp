@@ -1,8 +1,9 @@
 import Avatar from "@/components/Avatar";
 import Layout from "@/components/layout";
-import Poll from "@/components/Poll";
+import Discourse from "@/components/Discourse";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
+
 
 const DISCOURSE_FORUMS = [
   {
@@ -63,7 +64,7 @@ export default function Discussion() {
           ))}
         </ul>
       </main>
-      <Poll poll="restructuring nigeria"/>
+      <Discourse poll="restructuring nigeria"/>
     </Layout>
     </>
   )

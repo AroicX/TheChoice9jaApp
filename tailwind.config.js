@@ -7,6 +7,7 @@ module.exports = {
     extend: {
       colors: {
         coolblack: {
+          primary: '#282828',
           50: '#FAFAFA',
           100: '#EBECEC',
           200: '#D3D5D6',

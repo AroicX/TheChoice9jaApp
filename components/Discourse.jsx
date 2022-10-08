@@ -13,7 +13,8 @@ import Modal from "@/reusable/Modal";
 import { 
   EllipsisHorizontalIcon,
   ChartBarSquareIcon,
-  FlagIcon 
+  FlagIcon ,
+  TrashIcon
 } from "@heroicons/react/24/outline";
 
 import { comments } from "data/comments";
@@ -60,7 +61,7 @@ const Candidates = ({person}) => {
   )
 }
 
-export default function Poll({poll}) {
+export default function Discourse({poll}) {
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [modal, setModal] = useState(false);
   const router = useRouter();
@@ -154,7 +155,11 @@ export default function Poll({poll}) {
         <div className="divide-y">
           <div onClick={() => router.push("/analytics")} className="flex items-center py-2 px-3 space-x-2">
             <ChartBarSquareIcon className="w-5 h-5 text-green-neutral-500" />
-            <span className="text-coolblack-primary font-normal">Expand poll results</span>
+            <span className="text-coolblack-primary font-normal">Edit Discourse Post</span>
+          </div>
+          <div className="flex items-center py-2 px-3 space-x-2">
+            <TrashIcon className="w-5 h-5 text-green-neutral-500" />
+            <span className="text-coolblack-primary font-normal">Delete Post</span>
           </div>
           <div onClick={() => router.push("/reports")} className="flex items-center py-2 px-3 space-x-2">
             <FlagIcon className="w-5 h-5 text-green-neutral-500" />
