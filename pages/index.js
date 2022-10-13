@@ -22,45 +22,49 @@ export default function Home() {
     <AuthProvider>
       <div className='px-4'>
         <div className='my-10'>
-          <h1 className='text-green-700 text-4xl font-bold'>Choice9ja</h1>
-          <p className='text-lg mt-8 text-coolblack-500'>
+          <h1 className='text-green-neutral-primary text-large-bold'>
+            Choice9ja
+          </h1>
+          <p className='mt-8 text-body-2-regular text-green-neutral-700'>
             A place for nigerians to learn about politicians & parties, raise
             issues and pseudo-vote candidates.
           </p>
         </div>
         <form className='space-y-3'>
-          <h2 className='font-bold text-lg text-coolblack-900'>
+          <h2 className='text-coolblack-900 text-headline-semibold'>
             Join Choice9ja today.
           </h2>
           <div className='space-y-4'>
             <Button
               type='button'
-              styles='bg-green-600 text-white rounded-full font-bold text-md'
+              styles='bg-green-neutral-primary text-white rounded-full text-body-2-bold'
               text='Sign up with Phone Number'
             />
             <Button
               type='button'
               click={() => router.push('/signup')}
-              styles='bg-green-600 text-white rounded-full font-bold text-md'
+              styles='bg-green-neutral-primary text-white rounded-full text-body-2-bold'
               text='Sign up with Email'
             />
           </div>
-          <div>
-            <p className='text-coolblack-500'>
+          <div className='space-y-3'>
+            <p className='text-green-neutral-500 text-paragraph-2-light'>
               By signing up, you agree to our
             </p>
-            <p className='text-green-500'>
+            <p className='text-green-neutral-primary text-paragraph-2-light'>
               Terms of Service and Privacy Policy
             </p>
           </div>
         </form>
         <div className='mt-12 space-y-1'>
-          <h3 className='text-xl font-bold'>Already have an account?</h3>
+          <h3 className='text-green-neutral-900 text-headline-semibold'>
+            Already have an account?
+          </h3>
           <Button
             type='button'
             click={() => router.push('/login')}
             text='Log In'
-            styles='rounded-full border border-green-700 text-green-600 focus:bg-green-600 focus:text-white'
+            styles='rounded-full text-body-2-bold border-2 border-green-700 text-green-700 focus:bg-green-800 focus:text-white'
           />
         </div>
       </div>

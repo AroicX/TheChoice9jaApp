@@ -18,8 +18,6 @@ import {
 
 import { comments } from "data/comments";
 
-
-
 const people = [
   {
     id: 0,
@@ -51,8 +49,8 @@ const Candidates = ({person}) => {
               <img className="w-full rounded-t-md" src={person.imageUrl} alt="" />
             </div>
             <div className="-mt-px p-4 font-bold flex items-center space-x-4 bg-coolblack-50">
-              <input checked={checked} type="radio" name="candidate" className="h-5 w-5 checked:bg-green-500 border border-3 border-green-neutral-300 focus:ring-green-neutral-500"/>
-              <p className="text-green-neutral-900">{person.name}</p>
+              <input readOnly checked={checked} type="radio" name="candidate" className="h-5 w-5 checked:bg-green-500 border border-3 border-green-neutral-300 focus:ring-green-neutral-500"/>
+              <p className="text-coolblack-primary">{person.name}</p>
               </div>
           </>
         )}
@@ -78,17 +76,17 @@ export default function Poll({poll}) {
         <div className="flex-1">
           <header className="flex justify-between">
             <div className="flex space-x-2">
-              <h3>Choice9ja</h3>
+              <h3 className="text-coolblack-primary text-heading-3-semibold">Choice9ja</h3>
               <Verified />
             </div>
             <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
           </header>
           <div className="mt-2 space-y-2">
             <header onClick={() => router.push("/poll")}>
-              <h3 className="uppercase flex items-center space-x-2 text-green-neutral-500">
+              <h3 className="uppercase text-body-regular flex items-center space-x-2 text-green-neutral-500">
                 <span>poll</span>
                 <span className="text-2xl -mt-2">.</span>
-                <span>{poll}</span>
+                <span className="text-coolblack-primary text-body-2-regular">{poll}</span>
               </h3>
               <p className="text-coolblack-900 font-bold text-lg">From this options, who do you think is the 
                 the best fit for Minister of Petroleum?

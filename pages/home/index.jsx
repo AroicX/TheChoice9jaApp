@@ -16,21 +16,26 @@ const people = [
 
 export default function Home() {
   return (
-    <Layout active='home'>
-      <HomeHeader />
+    <>
+    <HomeHeader />
       <div className='lg:px-0 px-10 space-y-3 my-5'>
-        <h3 className='text-2xl font-bold text-coolblack-800'>
+        <h3 className='text-coolblack-primary text-heading-1-bold'>
           Know, share &amp; vote your choice.
         </h3>
-        <p className='text-lg font-normal text-green-neutral-800'>
+        <p className='text-green-neutral-800 text-headline-regular'>
           Learn about your nigerian politician and discuss politics, raise
           issues and vote your choice.
         </p>
       </div>
-      <ul className='lg:px-0 px-10 space-y-4 py-3 h-full overflow-y-scroll'>
+      <ul className='lg:px-0 px-4 border-b space-y-4 py-3 overflow-y-scroll'>
         <ElectionCandidates people={people} />
       </ul>
+      <div className='px-3 pt-6 border-b pb-4'>
+        <h3 className='text-headline-semibold'>See what is happening</h3>
+      </div>
+    <Layout active='home'>
       <Poll />
     </Layout>
+    </>
   );
 }

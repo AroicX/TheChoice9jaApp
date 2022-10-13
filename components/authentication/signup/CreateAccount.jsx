@@ -27,7 +27,7 @@ export default function CreateAccount({ next }) {
         </span>
       </div>
       <form className='space-y-8'>
-        <h3 className='mt-8 font-bold text-2xl'>Create a Password</h3>
+        <h3 className='mt-8 text-heading-2-semibold'>Create a Password</h3>
         <Input
           id='name'
           label='First Name'
@@ -57,7 +57,7 @@ export default function CreateAccount({ next }) {
         />
       </form>
       <div className='flex justify-end mt-2'>
-        <p className='text-green-600 font-semibold'>Use Phone Number Instead</p>
+        <p className='text-green-600 text-caption-3-medium'>Use Phone Number Instead</p>
       </div>
       <div className='flex md:mt-12 mt-10'>
         <Link passHref href='/signup/confirm'>

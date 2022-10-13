@@ -52,7 +52,7 @@ const Candidates = ({person}) => {
               <img className="w-full rounded-t-md" src={person.imageUrl} alt="" />
             </div>
             <div className="-mt-px p-4 font-bold flex items-center space-x-4 bg-coolblack-50">
-              <input checked={checked} type="radio" name="candidate" className="h-5 w-5 checked:bg-green-500 border border-3 border-green-neutral-300 focus:ring-green-neutral-500"/>
+              <input readOnly checked={checked} type="radio" name="candidate" className="h-5 w-5 checked:bg-green-500 border border-3 border-green-neutral-300 focus:ring-green-neutral-500"/>
               <p className="text-green-neutral-900">{person.name}</p>
               </div>
           </>

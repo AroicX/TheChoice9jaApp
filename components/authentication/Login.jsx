@@ -10,11 +10,12 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [passwordVisibility, setPasswordVisibility] = useState(false);
   const router = useRouter();
+
   return (
     <AuthProvider>
-      <h3 className='text-green-600 mt-8 font-bold text-2xl'>Choice9ja</h3>
+      <h3 className='text-green-neutral-primary text-large-bold mt-8'>Choice9ja</h3>
       <form className='space-y-8'>
-        <h3 className='mt-8 font-bold text-2xl'>Login to your Account</h3>
+        <h3 className='mt-8 text-heading-2-bold'>Login to your Account</h3>
         <Input
           id='email'
           type='email'
@@ -59,14 +60,14 @@ export default function Login() {
       </div>
       <div className='flex mt-12 flex-col h-full'>
         <Link passHref href='/home'>
-          <button className='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 text-base font-medium text-white shadow-sm'>
+          <button className='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 text-button-bold text-white shadow-sm'>
             continue
           </button>
         </Link>
         <p className='text-center'>
-          Don&apos;t have an account?{' '}
+          <span className='text-green-neutral-500 text-body-2-semibold'>Don&apos;t have an account?{' '}</span>
           <Link passHref href='/signup'>
-            <a className='text-green-600'>Sign Up</a>
+            <a className='text-green-neutral-primary text-body-2-semibold'>Sign Up</a>
           </Link>
         </p>
       </div>

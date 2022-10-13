@@ -46,8 +46,9 @@ export default function Discussion() {
     <header className="flex items-center px-2 space-x-10 py-2 border-b border-coolblack-200 pb-2">
       <Avatar 
         alt="Bash picture" 
+        style="w-9 h-9"
         imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
-      <h3 className="text-green-500 font-bold text-lg">Choice9ja</h3>
+      <h3 className="text-green-neutral-primary text-paragraph-1-bold">Choice9ja</h3>
     </header>
     <Layout>
       <main className="mt-6 border-b-4 pb-6">

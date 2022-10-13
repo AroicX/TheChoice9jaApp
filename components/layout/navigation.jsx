@@ -19,17 +19,17 @@ export default function Navigation() {
     },
     {
       title: 'Voting',
-      link: '/voting ',
+      link: '/voting',
       icon: 'vote',
     },
     {
       title: 'Results',
-      link: '/results ',
+      link: '/results',
       icon: 'results',
     },
     {
       title: 'Notifications',
-      link: '/notifications ',
+      link: '/notifications',
       icon: 'notifications',
     },
   ];
@@ -41,7 +41,7 @@ export default function Navigation() {
         return (
           <Link href={item.link} className='cursor-pointer ' key={item.title}>
             <div className={`${isActive ? 'text-green-600' : 'text-green-neutral-500'} flex flex-col justify-center items-center`}>
-              <SVG className='w-9' src={`/${item.icon}.svg`} height='20px' />
+              <SVG className="w-9" src={`/${item.icon}.svg`} height='20px' />
               <p className='text-sm'>{item.title}</p>
             </div>
           </Link>
