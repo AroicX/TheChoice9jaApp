@@ -13,7 +13,7 @@ export default function CreatePost() {
       <div className="flex items-center px-3 mt-6 h-fit space-x-4">
         <Avatar 
           alt="" 
-          style="border border-green-500 self-start"
+          style="border border-green-500 self-start w-9 h-9"
           imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
           <form className="min-w-0 flex-1">
             <div className="focus-within:border-indigo-600">

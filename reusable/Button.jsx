@@ -69,7 +69,7 @@ const Button = ({
               <SVG
                 className='animate-spin'
                 width='20px'
-                src={'/svg/loading.svg'}
+                src={'/svgs/loading.svg'}
               />
               <span className='text-app-color'>{'.'}</span>
               {''}
