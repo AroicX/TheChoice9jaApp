@@ -62,7 +62,7 @@
     flex-direction: row;
     justify-content: space-between;
     border: 1px solid #0d0d0d;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 0.2rem;
     outline: none;
     background: #fff;
@@ -80,13 +80,11 @@
     overflow-y: scroll;
     transition: all 0.5s ease-in-out;
     border-radius: 0.2rem;
-    box-shadow: 0 0 0 1px rgb(0 0 0 / 5%), 0 10px 34px -16px rgb(0 0 0 / 8%),
-      0 6px 4px hsl(0deg 0% 64% / 6%);
     margin-bottom: 0.8rem;
 
     button {
       padding: 0.8rem;
-      background: white;
+      text-align: left;
       transition: all 0.5s ease-in-out;
       &:hover {
         transition: all 0.2s ease-in-out;

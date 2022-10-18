@@ -33,7 +33,7 @@ const Select = ({
         <span className='select-display-default -mt-1'>
           {selected ? selected : placeholder}
         </span>
-        <SVG className='mr-1 -mt-1' src='/svg/caret-down-dark.svg' />
+        <SVG className='mr-1 -mt-1' src='/svgs/caret-down-dark.svg' />
       </div>
       {error && (
         <span className='text-red-500 text-sm bg-red-200 p-4 rounded my-1'>
@@ -41,12 +41,12 @@ const Select = ({
         </span>
       )}
       {toggle && (
-        <div className='select-options'>
+        <div className='select-options shadow-lg'>
           {options?.map((option, i) => (
             <button
               key={i + 1}
               className={`${
-                selected == option.name ? 'bg-black text-white' : ''
+                selected == option.name ? 'bg-green-neutral-200 text-black' : ''
               }`}
               onClick={() => handleSelected(option.name)}
             >
