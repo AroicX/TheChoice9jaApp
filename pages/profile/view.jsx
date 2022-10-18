@@ -1,15 +1,20 @@
 import { useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { useRouter } from 'next/router';
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import { classNames } from '@/helpers/index';
+import { ICONS } from '@/reusable/Icons';
+import { numberFormatter } from '@/helpers/index';
 
 import BackButton from "@/components/BackButton";
 import AvatarName from "@/components/NameAvatar";
 import Button from "@/reusable/Button";
-
-import { classNames } from '@/helpers/index';
+import Verified from '@/components/Verified';
+import Avatar from '@/components/Avatar';
 
 export default function ViewProfile() {
   let [categories] = useState(['Polls', 'Discussions']);
+  const [modal, setModal] = useState(false);
   const Router = useRouter();
 
   return (
@@ -62,7 +67,45 @@ export default function ViewProfile() {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              Poll
+              <h4 className='text-coolblack-500 py-2'>60 Discussions & Polls</h4>
+              <section className="flex space-x-4 mt-2">
+                <div className="">
+                  <Avatar 
+                    alt="" 
+                    style="border border-green-500 w-9 h-9"
+                    imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
+                </div>
+                <div className="flex-1">
+                  <header className="flex justify-between">
+                    <div className="flex space-x-2">
+                      <h3 className="text-coolblack-primary text-heading-3-semibold">Shehu Sani</h3>
+                      <Verified />
+                    </div>
+                    <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
+                  </header>
+                  <div className="mt-2 space-y-2">
+                    <header>
+                      <h3 className="uppercase text-overline-regular flex items-center space-x-2 text-green-neutral-500">
+                        <span >discourse</span>
+                        <span className="text-2xl -mt-2">.</span>
+                        <span>state policing</span>
+                      </h3>
+                      <p className="text-coolblack-900 text-lg my-2">
+                        State policing is one of the most important features of the nigerian state in terms
+                      </p>
+                    </header>
+                    <footer className="flex items-center space-x-4">
+                      {
+                      ICONS.map((item) => (
+                        <div key={item.name} className="flex items-center space-x-3 text-coolblack-200 font-bold">
+                          <item.icon className="w-6 h-6" aria-hidden="true" />
+                          <span className="text-md">{item.count !== 0 && numberFormatter(item.count)}</span>
+                        </div>
+                      ))}
+                    </footer>
+                  </div>
+                </div>
+              </section>
             </Tab.Panel>
             <Tab.Panel>
               Discussion
