@@ -1,6 +1,6 @@
-import * as TYPES from '../actions';
+import * as TYPES from 'actions/types';
 
-export const userDetailsReducer = (state = {}, action) => {
+export const userDetailsReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case TYPES.USER_DETAILS_REQUEST:
       return { ...state, loading: true };

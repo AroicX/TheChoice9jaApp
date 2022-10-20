@@ -39,8 +39,8 @@ export default function Login() {
       }
     };
 
-    const onError = (errors) => {
-      console.log(errors);
+    const onError = (error) => {
+      ResponseHandler(error)
       setLoading(false);
     };
 

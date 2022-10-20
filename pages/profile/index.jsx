@@ -1,6 +1,7 @@
 import Avatar from "@/components/Avatar";
 import Link from "next/link";
 import Layout from "@/components/layout";
+import Skeleton from "@/reusable/Skeleton";
 import { 
   ChevronRightIcon, 
   ExclamationTriangleIcon,
@@ -12,6 +13,7 @@ import {
 import { getUserDetails } from "actions/users";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 const LISTS = [
   {id: 0, title: "Security", icon: ShieldExclamationIcon},
@@ -21,13 +23,18 @@ const LISTS = [
 ]
 
 export default function Profile() {
+  const Router = useRouter();
   const dispatch = useDispatch();
-  const user = useSelector(state => state.userDetails);
+  const {loading, user} = useSelector(state => state.userDetails);
 
   useEffect(() => {
     dispatch(getUserDetails());
-    console.log(user);
-  }, [dispatch, user]);
+  }, [dispatch]);
+
+  const logOut = () => {
+    localStorage.removeItem('user-data');
+    Router.push('/login');
+  };
 
   return (
     <>
@@ -43,10 +50,22 @@ export default function Profile() {
 
         <div className="py-6 px-2 flex space-x-10">
           <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-blue-500 ring-2 ring-offset-2 ring-blue-500">
-            <span className="text-lg font-medium leading-none text-white">AB</span>
+            <span className="text-lg font-medium leading-none text-white">
+              {Object.keys(user).length === 0 ? (
+                <>
+                  <p>LD</p>
+                </>
+              ) : `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`}
+            </span>
           </span>
           <span>
-            <span className="block text text-body-semibold text-coolblack-primary">Ahmed Bbash</span>
+            <span className="block text text-body-semibold text-coolblack-primary">
+              {Object.keys(user).length === 0 ? (
+                <>
+                  <span>Loading</span>
+                </>
+              ) : `${user.firstName} ${user.lastName}`}
+              </span>
             <Link className="text-green-neutral-700" href="/profile/view" passHref>
               View your profile
             </Link>
@@ -67,7 +86,7 @@ export default function Profile() {
             ))}
         </ul>
 
-        <button className="flex items-center space-x-6 mt-10 text-green-neutral-500">
+        <button type="button" onClick={logOut} className="flex items-center space-x-6 mt-10 text-green-neutral-500">
           <ArrowRightOnRectangleIcon className="w-6 h-6"/>
           <span className="text-body-2-regular">Log Out</span>
         </button>

@@ -6,6 +6,8 @@ import { useRouter } from 'next/router';
 import { useGlobalStore } from '@/hooks/useGlobalStore';
 import { QUICK_REGISTER } from '@/services/authentication';
 import { setCookie } from '@/services/cookies';
+import { ResponseHandler } from '@/helpers/index';
+import Link from 'next/link';
 
 export default function CreateAccount({ back, user, setUser }) {
   const { setToken } = useGlobalStore();
@@ -20,6 +22,7 @@ export default function CreateAccount({ back, user, setUser }) {
       setCookie(response.token);
       window.localStorage.setItem('user-data', JSON.stringify(response));
       setIsLoading(false);
+      ResponseHandler(response)
       setToken(response.token);
       let _redirect = window.localStorage.getItem('be-authorized');
       _redirect ? Router.push(_redirect) : Router.push('/home');
@@ -27,7 +30,7 @@ export default function CreateAccount({ back, user, setUser }) {
 
     const onError = (err) => {
       setIsLoading(false);
-      console.log(err);
+      ResponseHandler(err)
     };
 
     QUICK_REGISTER(user, callback, onError);
@@ -73,8 +76,11 @@ export default function CreateAccount({ back, user, setUser }) {
           required
         />
       </form>
-      <div className='flex justify-end mt-2'>
-        <p className='text-green-600 text-caption-3-medium'>Use Phone Number Instead</p>
+      <div className='flex justify-between mt-2'>
+        <span className='text-green-600 text-caption-3-medium'>
+          <Link href="/login">Login</Link>
+        </span>
+        <span className='text-green-600 text-caption-3-medium'>Use Phone Number Instead</span>
       </div>
       <div className='flex md:mt-12 mt-10'>
         <Button

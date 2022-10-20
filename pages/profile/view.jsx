@@ -11,11 +11,14 @@ import AvatarName from "@/components/NameAvatar";
 import Button from "@/reusable/Button";
 import Verified from '@/components/Verified';
 import Avatar from '@/components/Avatar';
+import { useSelector } from 'react-redux';
 
 export default function ViewProfile() {
   let [categories] = useState(['Polls', 'Discussions']);
   const [modal, setModal] = useState(false);
   const Router = useRouter();
+
+  const {user} = useSelector((state) => state.userDetails);
 
   return (
     <>
@@ -23,9 +26,11 @@ export default function ViewProfile() {
         <BackButton title="Ahmed's Profile" />
       </header>
       <section className="flex items-center space-x-4 p-2">
-        <AvatarName name="AB" style="w-14 h-14" />
+        <AvatarName name={`${user.firstName.charAt(0).toUpperCase()}${user.lastName.charAt(0).toUpperCase()}`} style="w-14 h-14" />
         <span>
-          <span className="block text text-body-semibold text-coolblack-primary">Ahmed Bbash</span>
+          <span className="block text text-body-semibold text-coolblack-primary">
+            {`${user.firstName} ${user.lastName}`}
+          </span>
           <span className="inline-block text-caption-2-regular px-2 py-1 rounded-full bg-green-neutral-200 text-green-neutral-700">Star Citizen</span>
         </span>
       </section>
@@ -34,6 +39,7 @@ export default function ViewProfile() {
         <h3 className="text-coolblack-500">A Student of Life</h3>
         <div className="space-y-2">
           <Button
+            click={() => Router.push("/profile/edit")}
             text="Edit Profile"
             styles="border border-green-500 rounded-full text-body-semibold text-green-500"
           />

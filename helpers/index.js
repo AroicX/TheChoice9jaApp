@@ -137,6 +137,16 @@ export const ResponseHandler = (response) => {
         showConfirmButton: false,
       });
       break;
+    case 403:
+      return Swal.fire({
+        title: 'Error!',
+        text: response.data.message,
+        icon: 'error',
+        timerProgressBar: true,
+        timer: 2000,
+        showConfirmButton: false,
+      });
+      break;
     case 'info':
       return Swal.fire({
         // title: 'Error!',

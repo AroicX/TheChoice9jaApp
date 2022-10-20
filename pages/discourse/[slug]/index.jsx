@@ -63,15 +63,13 @@ export default function Slug() {
         response.room.map((room) => {
           if (room.discussionsId === +slug) {
             setJoined(true);
-          } else {
-            setJoined(false);
           }
         })
       }
     };
 
     const onError = (err) => {
-      console.log(err);
+      ResponseHandler(err);
     };
 
     GET_ROOMS_BY_USER(callback, onError);
@@ -91,7 +89,7 @@ export default function Slug() {
               click={onSubmitHandler} 
               loading={isLoading} 
               type="button"
-              disabled={isLoading} 
+              disabled={isLoading || joined} 
               text={`${joined ? 'Joined' : 'Join +'}`}
               styles={`${joined && 'bg-coolblack-100 cursor-not-allowed text-black border-0'} border-2 text-white font-bold border-white w-fit px-12 rounded-full`}
             />
