@@ -9,6 +9,9 @@ import {
   NewspaperIcon,
   ArrowRightOnRectangleIcon
 } from "@heroicons/react/24/outline";
+import { getUserDetails } from "actions/users";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const LISTS = [
   {id: 0, title: "Security", icon: ShieldExclamationIcon},
@@ -18,6 +21,14 @@ const LISTS = [
 ]
 
 export default function Profile() {
+  const dispatch = useDispatch();
+  const user = useSelector(state => state.userDetails);
+
+  useEffect(() => {
+    dispatch(getUserDetails());
+    console.log(user);
+  }, [dispatch, user]);
+
   return (
     <>
       <header className="border-b-2">
@@ -36,8 +47,8 @@ export default function Profile() {
           </span>
           <span>
             <span className="block text text-body-semibold text-coolblack-primary">Ahmed Bbash</span>
-            <Link href="/profile/view" passHref>
-              <a href="/profile/view" className="text-green-neutral-700">View your profile</a>
+            <Link className="text-green-neutral-700" href="/profile/view" passHref>
+              View your profile
             </Link>
           </span>
         </div>

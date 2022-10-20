@@ -1,22 +1,81 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { getDiscussion } from "actions";
+import { JOIN_ROOM, GET_ROOMS_BY_USER } from "@/services/room";
 import BackButton from "@/components/BackButton";
 import Avatar from "@/components/Avatar";
 import Button from "@/reusable/Button";
 import Tabs from "@/components/Tabs";
 import Layout from "@/components/layout";
 import CreatePost from "@/components/CreatePost";
+import { ResponseHandler } from "@/helpers/index";
 
 export default function Slug() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState();
+  const [joined, setJoined] = useState(false);
   const dispatch = useDispatch();
+
   const { discussion } = useSelector(state => state.discussion);
   const {query: {slug}} = useRouter();
 
   useEffect(() => {
+    const {user} = JSON.parse(localStorage.getItem("user-data"));
+    setUser(user);
+  }, []);
+
+  useEffect(() => {
     dispatch(getDiscussion(slug));
   }, [dispatch]);
+
+  useEffect(() => {
+    getRoomsByUser();
+  }, []);
+
+  const onSubmitHandler = () => {
+    setIsLoading(true);
+
+    const data = {
+      userId: user.id,
+      discussionsId: slug 
+    }
+
+    const callback = (response) => {
+      if (response) {
+        setIsLoading(false);
+        setJoined(true);
+        ResponseHandler(response);
+      }
+    };
+
+    const onError = (err) => {
+      setIsLoading(false);
+      ResponseHandler(err);
+    };
+
+    JOIN_ROOM(data, callback, onError);
+  }
+
+  const getRoomsByUser = () => {
+    const callback = (response) => {
+      if (response) {
+        response.room.map((room) => {
+          if (room.discussionsId === +slug) {
+            setJoined(true);
+          } else {
+            setJoined(false);
+          }
+        })
+      }
+    };
+
+    const onError = (err) => {
+      console.log(err);
+    };
+
+    GET_ROOMS_BY_USER(callback, onError);
+  }
 
   return (
     <>
@@ -28,7 +87,14 @@ export default function Slug() {
         <div className="px-2">
           <div className="flex justify-between items-center">
             <Avatar style="bg-white" />
-            <Button type="button" text="Join +" styles="border-2 text-white font-bold border-white w-fit px-12 rounded-full"/>
+            <Button 
+              click={onSubmitHandler} 
+              loading={isLoading} 
+              type="button"
+              disabled={isLoading} 
+              text={`${joined ? 'Joined' : 'Join +'}`}
+              styles={`${joined && 'bg-coolblack-100 cursor-not-allowed text-black border-0'} border-2 text-white font-bold border-white w-fit px-12 rounded-full`}
+            />
           </div>
           <div className="text-white space-y-2 my-2">
             <h3 className="text-2xl font-bold">Insecurity in Nigeria</h3>

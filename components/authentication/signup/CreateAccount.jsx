@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { useGlobalStore } from '@/hooks/useGlobalStore';
 import { QUICK_REGISTER } from '@/services/authentication';
+import { setCookie } from '@/services/cookies';
 
 export default function CreateAccount({ back, user, setUser }) {
   const { setToken } = useGlobalStore();

@@ -116,6 +116,16 @@ export const exceptionToErrors = (error) => {
 };
 
 export const ResponseHandler = (response) => {
+  if (response.message) {
+    return Swal.fire({
+      text: response.message,
+      icon: 'success',
+      timerProgressBar: true,
+      timer: 1000,
+      allowOutsideClick: true,
+      showConfirmButton: false,
+    });
+  }
   switch (response.status) {
     case 'error':
       return Swal.fire({
