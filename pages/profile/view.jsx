@@ -23,13 +23,31 @@ export default function ViewProfile() {
   return (
     <>
       <header className="border-b p-2">
-        <BackButton title="Ahmed's Profile" />
+        <BackButton title={`${user.firstName}'s Profile`} />
       </header>
       <section className="flex items-center space-x-4 p-2">
-        <AvatarName name={`${user.firstName.charAt(0).toUpperCase()}${user.lastName.charAt(0).toUpperCase()}`} style="w-14 h-14" />
+        {Object.keys(user).length === 0 ? (
+          <>
+            <AvatarName 
+              name="LD" 
+              style="w-14 h-14" 
+            />
+          </>
+        ) : (
+          <>
+            <AvatarName 
+              name={`${user.firstName.charAt(0).toUpperCase()}${user.lastName.charAt(0).toUpperCase()}`} 
+              style="w-14 h-14" 
+            />
+          </>
+        )}
         <span>
           <span className="block text text-body-semibold text-coolblack-primary">
-            {`${user.firstName} ${user.lastName}`}
+            {Object.keys(user).length === 0 ? (
+              <>
+                Loading
+              </>
+            ) : `${user.firstName} ${user.lastName}`}
           </span>
           <span className="inline-block text-caption-2-regular px-2 py-1 rounded-full bg-green-neutral-200 text-green-neutral-700">Star Citizen</span>
         </span>
