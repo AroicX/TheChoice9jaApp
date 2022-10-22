@@ -40,7 +40,7 @@ export default function Navigation() {
         const isActive = pathname === item.link;
         return (
           <Link href={item.link} className='cursor-pointer ' key={item.title}>
-            <div className={`${isActive ? 'text-green-600' : 'text-green-neutral-500'} flex flex-col justify-center items-center`}>
+            <div className={`${isActive ? 'text-green-600' : 'text-neutral-primary'} flex flex-col justify-center items-center`}>
               <SVG className="w-9" src={`/svgs/${item.icon}.svg`} height='20px' />
               <p className='text-sm'>{item.title}</p>
             </div>

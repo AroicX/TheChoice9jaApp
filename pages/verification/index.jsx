@@ -22,7 +22,7 @@ export default function Verification() {
       <section className="space-y-6 px-2 pt-12">
         <div className="space-y-2">
           <h3 className="text-black font-inter--sm font-22">Verify that you are a Nigerian</h3>
-          <p className="text-coolblack-500 font-14 font-inter--md">To verify that you are a nigerian, we will need any of this approved government ID document number</p>
+          <p className="text-coolblack-primary font-14 font-inter--md">To verify that you are a nigerian, we will need any of this approved government ID document number</p>
         </div>
 
         <div>
@@ -37,7 +37,7 @@ export default function Verification() {
 
           <Button 
             text="Next"
-            styles="bg-green-neutral-400 mt-4 text-white rounded-md"
+            styles="bg-green-primary font-inter--sm mt-4 text-white rounded-md"
           />
         </div>
       </section>

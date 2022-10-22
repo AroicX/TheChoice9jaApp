@@ -15,7 +15,9 @@ module.exports = {
         'neutral-secondary': '#BEBEBE',
         'neutral-light': '#364F4F',
         'neutral-dark': '#4D6666',
+        'coolblack-primary': '#626A6E',
         light: '#B2B6B8',
+        lighter: '#E7EBEB',
       },
       dropShadow: {
         xs: '0px 12px 24px -10px rgba(179, 182, 186, 0.05)',
