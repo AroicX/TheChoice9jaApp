@@ -27,7 +27,7 @@ export default function Discussion() {
         style="w-9 h-9"
         imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
       <div className="flex-1 text-center">
-        <h3 className="text-green-primary font-14 font-inter--sm">Choice9ja</h3>
+        <h3 className="text-green-primary font-14 font-inter--bold">Choice9ja</h3>
       </div>
     </header>
     <Layout>
@@ -39,10 +39,10 @@ export default function Discussion() {
               {discussions.discussions.map(({id, topic}) => (
                 <li onClick={() => router.push(`discourse/${id}`)} key={id} className="flex items-center pt-3 justify-between">
                   <div className="flex items-center space-x-3">
-                    <div className={`rounded-md bg-green-neutral-500 h-8 w-8`} />
-                    <span className="text-black-primary font-14 font-inter--sm">{topic}</span>
+                    <div className={`rounded-md bg-neutral-primary h-8 w-8`} />
+                    <span className="text-dark text-ellipsis overflow-hidden font-14 font-inter--sm">{topic}</span>
                   </div>
-                  <ChevronRightIcon className="w-6 h-6 text-green-neutral-500" />
+                  <ChevronRightIcon className="w-6 h-6 text-light" />
                 </li>
               ))}
             </>

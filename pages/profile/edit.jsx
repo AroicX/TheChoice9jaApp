@@ -130,7 +130,7 @@ export default function EditProfile() {
               text="Save Changes"
               click={onSubmitHandler}
               loading={isLoading}
-              styles="bg-green-neutral-400 mt-4 text-white rounded-md"
+              styles="bg-green-primary font-inter--sm mt-4 text-white rounded-md"
             />
           </div>
         </form>

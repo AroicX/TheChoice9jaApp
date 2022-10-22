@@ -51,7 +51,7 @@ const Candidates = ({person}) => {
             <div className="flex w-full items-center justify-between space-x-6">
               <img className="w-full rounded-t-md" src={person.imageUrl} alt="" />
             </div>
-            <div className="-mt-px p-4 font-bold flex items-center space-x-4 bg-coolblack-50">
+            <div className="p-4 font-bold flex items-center space-x-4 bg-coolblack-50">
               <input readOnly checked={checked} type="radio" name="candidate" className="h-5 w-5 checked:bg-green-500 border border-3 border-green-neutral-300 focus:ring-green-neutral-500"/>
               <p className="text-black-primary font-12 font-inter--md">{person.name}</p>
               </div>
@@ -105,7 +105,7 @@ export default function Discourse({poll}) {
               </RadioGroup>
               {selectedCandidate && <Button type="button" text="Vote now" styles="my-4 bg-green-500 rounded-full text-white text-lg py-1"/>}
             </div>
-            <div className="text-green-neutral-600 font-12 font-inter--md flex space-x-3 items-center">
+            <div className="text-neutral-primary font-12 font-inter--md flex space-x-3 items-center">
               <span>42,000 Votes</span>
               <span className="font-bold text-lg">.</span>
               <span>8 days left</span>
@@ -113,7 +113,7 @@ export default function Discourse({poll}) {
             <footer className="flex items-center space-x-4">
               {
               ICONS.map((item) => (
-                <div key={item.name} className="flex items-center space-x-3 text-coolblack-200">
+                <div key={item.name} className="flex items-center space-x-3 text-coolblack-primary">
                   <item.icon className="w-6" aria-hidden="true" />
                   <span className="text-lg">{item.count !== 0 && numberFormatter(item.count)}</span>
                 </div>

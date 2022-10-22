@@ -91,7 +91,7 @@ export default function Slug() {
               type="button"
               disabled={isLoading || joined} 
               text={`${joined ? 'Joined' : 'Join +'}`}
-              styles={`${joined && 'bg-coolblack-100 cursor-not-allowed text-black border-0'} border-2 text-white font-bold border-white w-fit px-12 rounded-full`}
+              styles={`${joined && 'bg-light cursor-not-allowed text-black border-0'} border-2 text-white font-bold border-white w-fit px-12 rounded-full`}
             />
           </div>
           <div className="text-white space-y-2 my-2">
