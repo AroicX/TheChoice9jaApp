@@ -11,8 +11,8 @@ export default function About() {
   return (
     <div>
       <div className="forum__info">
-        <h2 className="text-coolblack-900 text-2xl font-bold">Forum Info</h2>
-        <p className="my-6">
+        <h2 className="text-black-primary font-inter--sm font-16">Forum Info</h2>
+        <p className="my-6 font-12 font-inter--regular">
           This forum is used to discourse insecurity in nigeria, way forward, safety tips and major challenges concerning
           security in nigeria. 
         </p>
@@ -20,7 +20,7 @@ export default function About() {
           {FORUM_INFO.map((info) => (
             <li key={info.id} className="flex space-x-3">
               <info.icon className="w-6 h-6 text-green-neutral-300" />
-              <span className="text-[#282828] flex space-x-3">{
+              <span className="text-black-primary font-12 font-inter--regular flex space-x-3">{
                 info.content.includes("Created") ? (
                   <>
                     <span>{info.content}</span>
@@ -38,8 +38,8 @@ export default function About() {
         </ul>
       </div>
       <div className="rules__conducts">
-        <h2 className="text-coolblack-900 text-2xl font-bold">Rules & Conducts</h2>
-        <p className="my-6">
+        <h2 className="text-black-primary font-16 font-inter--sm">Rules & Conducts</h2>
+        <p className="my-6 font-12">
           These are rules set of by Choice9ja enforce by Choice9ja are in addition to Choice Rules.
         </p>
         <p></p>

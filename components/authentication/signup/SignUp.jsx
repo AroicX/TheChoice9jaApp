@@ -1,12 +1,16 @@
 import Input from '@/reusable/Input';
 import AuthProvider from '@/components/AuthProvider';
 import Button from '@/reusable/Button';
+import { useRouter } from 'next/router';
+import { XMarkIcon } from '@heroicons/react/24/outline';
 
 export default function SignUp({ next, setUser, user }) {
+  const router = useRouter();
   return (
     <AuthProvider>
       <form className='space-y-8'>
-        <h3 className='mt-8 text-heading-2-semibold'>Create Account</h3>
+        <XMarkIcon onClick={() => router.push("/")} className='w-6 h-6 cursor-pointer'/>
+        <h3 className='mt-8 text-black font-inter--sm font-22'>Create your account</h3>
         <Input
           id='name'
           label='First Name'
@@ -18,7 +22,7 @@ export default function SignUp({ next, setUser, user }) {
 
         <Input
           id='name'
-          label='Last Name'
+          label='Surname'
           value={user.lastName}
           dispatch={(value) => setUser({...user, lastName: value})}
           placeholder='Enter Surname'
@@ -36,13 +40,13 @@ export default function SignUp({ next, setUser, user }) {
         />
       </form>
       <div className='flex justify-end mt-2'>
-        <p className='text-green-600 text-caption-3-medium'>Use Phone Number Instead</p>
+        <p className='text-green-600 font-11 font-inter--md'>Use Phone Number Instead</p>
       </div>
       <div className='flex md:mt-12 mt-10'>
         <Button 
           click={() => next()}
           text="continue" 
-          styles='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 text-base font-medium text-white shadow-sm' 
+          styles='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 font-inter--bold font-14 text-white shadow-sm' 
         />
       </div>
     </AuthProvider>

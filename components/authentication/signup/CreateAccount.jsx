@@ -59,7 +59,7 @@ export default function CreateAccount({ back, user, setUser }) {
 
         <Input
           id='email'
-          label='email'
+          label='Email'
           placeholder='Enter Email Addres'
           value={user.email}
           dispatch={(value) => setUser({ ...user, email: value })}
@@ -68,7 +68,7 @@ export default function CreateAccount({ back, user, setUser }) {
 
         <Input
           id='password'
-          label='password'
+          label='Password'
           type='password'
           placeholder='Enter Password'
           value={user.password}
@@ -76,10 +76,7 @@ export default function CreateAccount({ back, user, setUser }) {
           required
         />
       </form>
-      <div className='flex justify-between mt-2'>
-        <span className='text-green-600 text-caption-3-medium'>
-          <Link href="/login">Login</Link>
-        </span>
+      <div className='flex justify-end mt-2'>
         <span className='text-green-600 text-caption-3-medium'>Use Phone Number Instead</span>
       </div>
       <div className='flex md:mt-12 mt-10'>

@@ -42,29 +42,29 @@ export default function ViewProfile() {
           </>
         )}
         <span>
-          <span className="block text text-body-semibold text-coolblack-primary">
+          <span className="block font-18 font-inter--sm text-black-primary">
             {Object.keys(user).length === 0 ? (
               <>
                 Loading
               </>
             ) : `${user.firstName} ${user.lastName}`}
           </span>
-          <span className="inline-block text-caption-2-regular px-2 py-1 rounded-full bg-green-neutral-200 text-green-neutral-700">Star Citizen</span>
+          <span className="inline-block font-11 px-2 py-1 rounded-full bg-green-neutral-200 text-green-neutral-700">Star Citizen</span>
         </span>
       </section>
 
       <section className="p-2 space-y-4">
-        <h3 className="text-coolblack-500">A Student of Life</h3>
+        <h3 className="text-black-medium font-14">A Student of Life</h3>
         <div className="space-y-2">
           <Button
             click={() => Router.push("/profile/edit")}
             text="Edit Profile"
-            styles="border border-green-500 rounded-full text-body-semibold text-green-500"
+            styles="border border-green-500 rounded-full font-14 font-inter--sm text-green-primary"
           />
           <Button 
             click={() => Router.push("/verification")}
             text="Get Verified"
-            styles="border border-green-500 rounded-full text-body-semibold bg-green-500 text-white"
+            styles="border border-green-500 rounded-full font-14 font-inter--sm bg-green-500 text-white"
           />
         </div>
       </section>
@@ -91,7 +91,7 @@ export default function ViewProfile() {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel>
-              <h4 className='text-coolblack-500 py-2'>60 Discussions & Polls</h4>
+              <h4 className='text-black-medium font-12 py-2'>60 Discussions & Polls</h4>
               <section className="flex space-x-4 mt-2">
                 <div className="">
                   <Avatar 
@@ -100,21 +100,21 @@ export default function ViewProfile() {
                     imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
                 </div>
                 <div className="flex-1">
-                  <header className="flex justify-between">
+                  <header className="flex items-center justify-between">
                     <div className="flex space-x-2">
-                      <h3 className="text-coolblack-primary text-heading-3-semibold">Shehu Sani</h3>
+                      <h3 className="text-black-primary font-12 font-inter--sm">Shehu Sani</h3>
                       <Verified />
                     </div>
                     <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
                   </header>
                   <div className="mt-2 space-y-2">
                     <header>
-                      <h3 className="uppercase text-overline-regular flex items-center space-x-2 text-green-neutral-500">
+                      <h3 className="uppercase font-10 font-inter--md flex items-center space-x-2 text-green-neutral-secondary">
                         <span >discourse</span>
                         <span className="text-2xl -mt-2">.</span>
                         <span>state policing</span>
                       </h3>
-                      <p className="text-coolblack-900 text-lg my-2">
+                      <p className="text-black-primary font-14 my-2">
                         State policing is one of the most important features of the nigerian state in terms
                       </p>
                     </header>

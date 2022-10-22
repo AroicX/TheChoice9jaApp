@@ -23,25 +23,25 @@ export default function Input({
     }
   };
   return (
-    <div className={`relative border border-coolblack-500 px-3 py-2 focus-within:border-green-600 focus-within:ring-1 focus-within:ring-green-600 ${inputStyle}`}>
-      <label className='absolute -top-2 left-2 -mt-px inline-block bg-white px-1 text-xs font-medium text-gray-900' htmlFor={id}>{label}</label>
-
-      <input
-        className={`block w-full border-0 py-4 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm ${styles} ${
-          type === 'password' ? 'password' : ''
-        }`}
-        id={id}
+    <div class="relative">
+      <input 
+        type="text" 
+        id={id} 
         value={value}
-        type={type === 'password' ? passwordState : type}
-        placeholder={placeholder}
+        placeholder=" "
         onChange={(event) => dispatch(event.target.value)}
-        // required
         {...rest}
-      />
-      {type === 'password' && (
+        className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-md border-1 border-green-neutral-primary appearance-none focus:outline-none focus:ring-0 focus:border-green-primary peer" />
+      <label 
+        htmlFor={label} 
+        className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">
+          {label}
+        </label>
+
+      {/* {type === 'password' && (
         <SVG
-          src='/svg/show-password.svg'
-          // className={`mt-6 mr-3 absolute right-1 cursor-pointer`}
+          src='/svgs/show-password.svg'
+          className={`mr-3 absolute right-1 cursor-pointer`}
           onClick={() => passwordStateOnChangeHandler()}
           style={{
             marginRight: '0.75rem',
@@ -51,7 +51,7 @@ export default function Input({
             marginTop: '1.5rem',
           }}
         />
-      )}
+      )} */}
 
       {error && (
         <span className='text-red-500 text-sm bg-red-200 p-4 rounded my-1'>

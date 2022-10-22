@@ -55,7 +55,7 @@ const Button = ({
       ) : (
         <button
           type={type}
-          className={`w-full p-2 flex my-1 ${styles} ${
+          className={`w-full p-3 flex my-1 ${styles} ${
             loading && !loadingText
               ? 'center text-center align-middle justify-center items-center'
               : 'justify-between'

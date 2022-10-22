@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800&display=swap');
+
+.font-inter {
+  font-family: 'inter', sans-serif;
+  font-weight: 600;
+
+  &--light {
+    font-weight: 300;
+  }
+
+  &--regular {
+    font-weight: 400;
+  }
+
+  &--md {
+    font-weight: 500;
+  }
+
+  &--sm {
+    font-weight: 600;
+  }
+
+  &--bold {
+    font-weight: 700;
+  }
+}
+
+.font-32 {
+  font-size: 2rem;
+}
+
+.font-28 {
+  font-size: 1.75rem;
+}
+
+.font-24 {
+  font-size: 1.5rem;
+}
+
+.font-22 {
+  font-size: 1.375rem;
+}
+
+.font-20 {
+  font-size: 1.25rem;
+}
+
+.font-18 {
+  font-size: 1.125rem;
+}
+
+.font-17 {
+  font-size: 1.0625rem;
+}
+
+.font-16 {
+  font-size: 1rem;
+}
+
+.font-15 {
+  font-size: 0.9375rem;
+}
+
+.font-14 {
+  font-size: 0.875rem;
+  line-height: 24px;
+}
+
+.font-13 {
+  font-size: 0.8125rem;
+}
+
+.font-12 {
+  font-size: 0.75rem;
+}
+
+.font-11 {
+  font-size: 0.6875rem;
+}
+
+.font-10 {
+  font-size: 0.625rem;
+}

@@ -13,12 +13,12 @@ const renderComments = (comment, i) => {
       <div className="flex-1">
         <header className="flex justify-between">
           <div className="flex space-x-2">
-            <h3 className="font-bold text-coolblack-900">{comment.username}</h3>
+            <h3 className="font-12 font-inter--regular text-green-neutral-800">{comment.username}</h3>
             <Verified />
           </div>
         </header>
         <div className="mt-2 space-y-2">
-          <p className="text-coolblack-600 font-bold text-lg">
+          <p className="text-coolblack-900 font-14 font-inter--regular">
             {comment.text}
           </p>
         </div>

@@ -19,10 +19,10 @@ export default function Home() {
     <>
     <HomeHeader />
       <div className='lg:px-0 px-10 space-y-3 my-5'>
-        <h3 className='text-coolblack-primary text-heading-1-bold'>
+        <h3 className='text-black-primary font-inter--sm font-24'>
           Know, share &amp; vote your choice.
         </h3>
-        <p className='text-green-neutral-800 text-headline-regular'>
+        <p className='text-green-neutral-light font-14 font-inter--regular'>
           Learn about your nigerian politician and discuss politics, raise
           issues and vote your choice.
         </p>
@@ -30,8 +30,8 @@ export default function Home() {
       <ul className='lg:px-0 px-4 border-b space-y-4 py-3 overflow-y-scroll'>
         <ElectionCandidates people={people} />
       </ul>
-      <div className='px-3 pt-6 border-b pb-4'>
-        <h3 className='text-headline-semibold'>See what is happening</h3>
+      <div className='px-3 pt-6 border-b pb-4 text-black font-16 font-inter--sm'>
+        <h3>See what is happening</h3>
       </div>
     <Layout active='home'>
       <Poll />

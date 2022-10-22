@@ -50,7 +50,7 @@ const Candidates = ({person}) => {
             </div>
             <div className="-mt-px p-4 font-bold flex items-center space-x-4 bg-coolblack-50">
               <input readOnly checked={checked} type="radio" name="candidate" className="h-5 w-5 checked:bg-green-500 border border-3 border-green-neutral-300 focus:ring-green-neutral-500"/>
-              <p className="text-coolblack-primary">{person.name}</p>
+              <p className="text-coolblack-primary font-12 font-inter--md">{person.name}</p>
               </div>
           </>
         )}
@@ -74,21 +74,21 @@ export default function Poll({poll}) {
             imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
         </div>
         <div className="flex-1">
-          <header className="flex justify-between">
+          <header className="flex justify-between items-center">
             <div className="flex space-x-2">
-              <h3 className="text-coolblack-primary text-heading-3-semibold">Choice9ja</h3>
+              <h3 className="text-coolblack-primary font-12 font-inter--sm">Choice9ja</h3>
               <Verified />
             </div>
             <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
           </header>
           <div className="mt-2 space-y-2">
             <header onClick={() => router.push("/poll")}>
-              <h3 className="uppercase text-body-regular flex items-center space-x-2 text-green-neutral-500">
+              <h3 className="uppercase font-10 font-inter-md flex items-center space-x-2 text-green-neutral-500">
                 <span>poll</span>
                 <span className="text-2xl -mt-2">.</span>
                 <span className="text-coolblack-primary text-body-2-regular">{poll}</span>
               </h3>
-              <p className="text-coolblack-900 font-bold text-lg">From this options, who do you think is the 
+              <p className="text-coolblack-900 font-14 font-inter--regular">From this options, who do you think is the 
                 the best fit for Minister of Petroleum?
               </p>
             </header>
@@ -102,7 +102,7 @@ export default function Poll({poll}) {
               </RadioGroup>
               {selectedCandidate && <Button type="button" text="Vote now" styles="my-4 bg-green-500 rounded-full text-white text-lg py-1"/>}
             </div>
-            <div className="text-green-neutral-600 flex space-x-3 items-center">
+            <div className="text-green-neutral-600 font-12 font-inter--md flex space-x-3 items-center">
               <span>42,000 Votes</span>
               <span className="font-bold text-lg">.</span>
               <span>8 days left</span>
@@ -111,7 +111,7 @@ export default function Poll({poll}) {
               {
               ICONS.map((item) => (
                 <div key={item.name} className="flex items-center space-x-3 text-coolblack-200">
-                  <item.icon className="w-8" aria-hidden="true" />
+                  <item.icon className="w-6" aria-hidden="true" />
                   <span className="text-lg">{item.count !== 0 && numberFormatter(item.count)}</span>
                 </div>
               ))}

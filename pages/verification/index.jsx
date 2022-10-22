@@ -21,8 +21,8 @@ export default function Verification() {
 
       <section className="space-y-6 px-2 pt-12">
         <div className="space-y-2">
-          <h3 className="text-coolblack-primary text-body-bold">Verify that you are a Nigerian</h3>
-          <p className="text-coolblack-500">To verify that you are a nigerian, we will need any of this approved government ID document number</p>
+          <h3 className="text-black font-inter--sm font-22">Verify that you are a Nigerian</h3>
+          <p className="text-coolblack-500 font-14 font-inter--md">To verify that you are a nigerian, we will need any of this approved government ID document number</p>
         </div>
 
         <div>

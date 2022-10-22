@@ -95,8 +95,8 @@ export default function Slug() {
             />
           </div>
           <div className="text-white space-y-2 my-2">
-            <h3 className="text-2xl font-bold">Insecurity in Nigeria</h3>
-            <p>This forum is used to discourse {discussion ? discussion.discussion.description : ""}</p>
+            <h3 className="font-20 font-inter--sm">Insecurity in Nigeria</h3>
+            <p className="font-12 font-inter--regular">This forum is used to discourse {discussion ? discussion.discussion.description : ""}</p>
           </div>
         </div>
         <div className="bg-red-500 text-white p-2">

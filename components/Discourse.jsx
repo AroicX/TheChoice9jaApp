@@ -53,7 +53,7 @@ const Candidates = ({person}) => {
             </div>
             <div className="-mt-px p-4 font-bold flex items-center space-x-4 bg-coolblack-50">
               <input readOnly checked={checked} type="radio" name="candidate" className="h-5 w-5 checked:bg-green-500 border border-3 border-green-neutral-300 focus:ring-green-neutral-500"/>
-              <p className="text-green-neutral-900">{person.name}</p>
+              <p className="text-black-primary font-12 font-inter--md">{person.name}</p>
               </div>
           </>
         )}
@@ -78,20 +78,20 @@ export default function Discourse({poll}) {
         </div>
         <div className="flex-1">
           <header className="flex justify-between">
-            <div className="flex space-x-2">
-              <h3>Choice9ja</h3>
+            <div className="flex space-x-2 items-center">
+              <h3 className="font-12 text-black-primary font-inter--sm">Choice9ja</h3>
               <Verified />
             </div>
             <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
           </header>
           <div className="mt-2 space-y-2">
             <header onClick={() => router.push("/poll")}>
-              <h3 className="uppercase flex items-center space-x-2 text-green-neutral-500">
+              <h3 className="font-10 font-inter--md uppercase flex items-center space-x-2 text-green-neutral-secondary">
                 <span>poll</span>
                 <span className="text-2xl -mt-2">.</span>
                 <span>{poll}</span>
               </h3>
-              <p className="text-coolblack-900 font-bold text-lg">From this options, who do you think is the 
+              <p className="text-coolblack-900 font-14 font-inter--regular">From this options, who do you think is the 
                 the best fit for Minister of Petroleum?
               </p>
             </header>
@@ -105,7 +105,7 @@ export default function Discourse({poll}) {
               </RadioGroup>
               {selectedCandidate && <Button type="button" text="Vote now" styles="my-4 bg-green-500 rounded-full text-white text-lg py-1"/>}
             </div>
-            <div className="text-green-neutral-600 flex space-x-3 items-center">
+            <div className="text-green-neutral-600 font-12 font-inter--md flex space-x-3 items-center">
               <span>42,000 Votes</span>
               <span className="font-bold text-lg">.</span>
               <span>8 days left</span>
@@ -114,7 +114,7 @@ export default function Discourse({poll}) {
               {
               ICONS.map((item) => (
                 <div key={item.name} className="flex items-center space-x-3 text-coolblack-200">
-                  <item.icon className="w-8" aria-hidden="true" />
+                  <item.icon className="w-6" aria-hidden="true" />
                   <span className="text-lg">{item.count !== 0 && numberFormatter(item.count)}</span>
                 </div>
               ))}
