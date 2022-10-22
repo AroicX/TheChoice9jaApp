@@ -10,7 +10,7 @@ const Button = ({
   iconLeft,
   iconRight,
   loading,
-  type = "button",
+  type = 'button',
   loadingText = null,
   rest,
   color,

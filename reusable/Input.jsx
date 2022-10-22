@@ -23,20 +23,22 @@ export default function Input({
     }
   };
   return (
-    <div class="relative">
-      <input 
-        type="text" 
-        id={id} 
+    <div className='relative'>
+      <input
+        type='text'
+        id={id}
         value={value}
-        placeholder=" "
+        placeholder=' '
         onChange={(event) => dispatch(event.target.value)}
         {...rest}
-        className="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-md border-1 border-green-neutral-primary appearance-none focus:outline-none focus:ring-0 focus:border-green-primary peer" />
-      <label 
-        htmlFor={label} 
-        className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">
-          {label}
-        </label>
+        className='block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-md border-1 border-green-neutral-primary appearance-none focus:outline-none focus:ring-0 focus:border-green-primary peer'
+      />
+      <label
+        htmlFor={label}
+        className='absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-green-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1'
+      >
+        {label}
+      </label>
 
       {/* {type === 'password' && (
         <SVG
