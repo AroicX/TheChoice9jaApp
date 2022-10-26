@@ -9,7 +9,7 @@ const candidates = [
     title: "Presidential Election",
     description: "Candidates and their running mates",
     status: "Ongoing Election",
-    statusColor: 'bg-red-400 text-white font-normal',
+    statusColor: 'bg-redColor-400 text-white font-normal',
     slug: 'presidential'
   },
   {
@@ -25,7 +25,7 @@ const candidates = [
     title: "Senatorial Election",
     description: "",
     status: "Completed Election",
-    statusColor: "bg-green-neutral-200 text-coolbalck-500 font-normal",
+    statusColor: "bg-primaryColor-200 text-darkColor-500 font-normal",
     slug: 'senatorial'
   }
 ];
@@ -40,20 +40,20 @@ export default function Voting() {
           imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
         />
         <div className="w-full text-center">
-          <h2 className="text-green-primary font-14 font-inter--sm">Choice9ja</h2>
+          <h2 className="text-greenPrimary font-14 font-inter--sm">Choice9ja</h2>
         </div>
       </header>
       <Layout>
         <header className="space-y-2 mb-10">
-          <h3 className="font-16 font-inter--sm text-black-primary">Choice9ja Mock Election</h3>
-          <div className="p-2 bg-green-primary text-white rounded-md">
+          <h3 className="font-16 font-inter--sm text-dark">Choice9ja Mock Election</h3>
+          <div className="p-2 bg-greenPrimary text-white rounded-md">
             <h3 className="font-16 font-inter--sm">Voting Ends in 6hr 30mins</h3>
             <p className="font-14">Voting Ends at 23 Aug, 2030 - 12:00am</p>
           </div>
         </header>
 
         <main>
-          <h2 className="uppercase text-coolblack-800 font-10 font-inter--sm">select selection</h2>
+          <h2 className="uppercase text-darkColor-800 font-10 font-inter--sm">select selection</h2>
 
           <ul className="mt-6 space-y-4">
             {candidates.map(({id, title, description, status, statusColor, slug}) => (
@@ -61,13 +61,13 @@ export default function Voting() {
                 <div className="mb-10 flex w-full items-center justify-between space-x-6 px-6 py-6 pb-2">
                   <div className="flex-1 truncate">
                     <div className="flex items-center space-x-3">
-                      <h3 className="truncate text-lg text-coolblack-800 font-16 font-inter--md">{title}</h3>
+                      <h3 className="truncate text-lg text-secondaryColor-800 font-16 font-inter--md">{title}</h3>
                     </div>
-                    <p className="space-x-2 text-coolblack-400 font-11 font-inter-light truncate">
+                    <p className="space-x-2 text-darkColor-400 font-11 font-inter-light truncate">
                       <span>{description}</span>
                     </p>
                   </div>
-                  <div className="bg-coolblack-100 rounded-full px-3 py-2">
+                  <div className="bg-secondaryColor-100 rounded-full px-3 py-2">
                     <SVG src="/caret.svg"/>
                   </div>
                 </div>

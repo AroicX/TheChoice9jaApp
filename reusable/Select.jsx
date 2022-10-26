@@ -46,7 +46,7 @@ const Select = ({
             <button
               key={i + 1}
               className={`${
-                selected == option.name ? 'bg-green-neutral-200 text-black' : ''
+                selected == option.name ? 'bg-primaryColor-200 text-black' : ''
               }`}
               onClick={() => handleSelected(option.name)}
             >

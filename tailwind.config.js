@@ -16,6 +16,7 @@ module.exports = {
 
         'darkColor-800': '#263237',
         'darkColor-500': '#626A6E',
+        'darkColor-600': '#454F54',
         'darkColor-300': '#B2B6B8',
         dark: '#282828',
 
@@ -36,7 +37,7 @@ module.exports = {
         'secondaryColor-300': '#B2B6B8',
 
         bluePrimary: '#2196F3',
-        blueSecondary: '',
+        blueSecondary: '#0C81E0',
 
         redColor: '#FF3E33',
         'redColor-500': '#E11900',

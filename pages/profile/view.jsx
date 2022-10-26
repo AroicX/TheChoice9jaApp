@@ -25,7 +25,7 @@ export default function ViewProfile() {
       <header className="border-b p-2">
         <BackButton title={`${user.firstName}'s Profile`} />
       </header>
-      <section className="flex items-center space-x-4 p-2">
+      <section className="flex items-center space-x-4 py-2 px-4">
         {Object.keys(user).length === 0 ? (
           <>
             <AvatarName 
@@ -53,13 +53,13 @@ export default function ViewProfile() {
         </span>
       </section>
 
-      <section className="p-2 space-y-4">
+      <section className="py-2 px-4 space-y-4">
         <h3 className="text-black-medium font-14">A Student of Life</h3>
         <div className="space-y-2">
           <Button
             click={() => Router.push("/profile/edit")}
             text="Edit Profile"
-            styles="border border-green-500 rounded-full font-14 font-inter--sm text-green-primary"
+            styles="border border-greenPrimary rounded-full font-14 font-inter--sm text-greenPrimary"
           />
           <Button 
             click={() => Router.push("/verification")}
@@ -71,16 +71,16 @@ export default function ViewProfile() {
 
       <section className="w-full max-w-md px-2 sm:px-0 mt-8">
         <Tab.Group>
-          <Tab.List className="flex space-x-1 border-b border-green-neutral-500">
+          <Tab.List className="flex border-b border-green-neutral-500">
             {categories.map((category) => (
               <Tab
                 key={category}
                 className={({ selected }) =>
                   classNames(
-                    'w-full py-2.5 text-md font-medium leading-5 text-green-neutral-600',
+                    'w-full py-2.5 text-md font-medium leading-5 text-primaryColor-600',
                     'ring-white focus:outline-none focus:ring-0',
                     selected
-                      ? 'border-b border-green-neutral-700'
+                      ? 'border-b text-darkColor-800 border-primaryColor-500'
                       : 'text-green-nuetral-800 hover:text-green-neutral-500'
                   )
                 }
@@ -90,7 +90,7 @@ export default function ViewProfile() {
             ))}
           </Tab.List>
           <Tab.Panels>
-            <Tab.Panel>
+            <Tab.Panel className="px-4">
               <h4 className='text-coolblack-primary font-12 py-2'>60 Discussions & Polls</h4>
               <section className="flex space-x-4 mt-2">
                 <div className="">
@@ -102,14 +102,14 @@ export default function ViewProfile() {
                 <div className="flex-1">
                   <header className="flex items-center justify-between">
                     <div className="flex space-x-2">
-                      <h3 className="text-black-primary font-12 font-inter--sm">Shehu Sani</h3>
+                      <h3 className="text-dark font-12 font-inter--sm">Shehu Sani</h3>
                       <Verified />
                     </div>
                     <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
                   </header>
                   <div className="mt-2 space-y-2">
                     <header>
-                      <h3 className="uppercase font-10 font-inter--md flex items-center space-x-2 text-neutral-secondary">
+                      <h3 className="uppercase font-10 font-inter--md flex items-center space-x-2 text-primaryColor-700">
                         <span >discourse</span>
                         <span className="text-2xl -mt-2">.</span>
                         <span>state policing</span>
@@ -121,7 +121,7 @@ export default function ViewProfile() {
                     <footer className="flex items-center space-x-4">
                       {
                       ICONS.map((item) => (
-                        <div key={item.name} className="flex items-center space-x-3 text-coolblack-primary font-bold">
+                        <div key={item.name} className="flex items-center space-x-3 text-primaryColor-500">
                           <item.icon className="w-6 h-6" aria-hidden="true" />
                           <span className="text-md">{item.count !== 0 && numberFormatter(item.count)}</span>
                         </div>

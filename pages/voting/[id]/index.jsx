@@ -21,8 +21,8 @@ export default function Vote() {
           <img className='w-full' src='/map.png' alt='Map' />
         </div>
 
-        <div className='mb-10 flex items-center justify-between'>
-          <h3 className='text-black-light font-12 font-inter--md'>
+        <div className='mb-10 text-darkColor-300 flex items-center justify-between'>
+          <h3 className='font-12 font-inter--md'>
             Candidates
           </h3>
           <div className='relative inline-block'>
@@ -37,7 +37,7 @@ export default function Vote() {
                 Showing by:
               </button>
               <select className='py-1 border-0 bg-transparent focus:border-0 outline-none'>
-                <option className='text-gray-500 px-4 py-2 text-sm'>
+                <option className='px-4 py-2 text-sm'>
                   Most Votes
                 </option>
               </select>
@@ -62,11 +62,11 @@ export default function Vote() {
                 <div className='flex justify-between items-center truncate'>
                   <div>
                     <div className='flex items-center space-x-3'>
-                      <h3 className='truncate text-black-light font-12 font-inter--md'>
+                      <h3 className='truncate text-darkColor-300 font-12 font-inter--md'>
                         LP
                       </h3>
                     </div>
-                    <p className='space-x-2 text-black-primary truncate font-14 font-inter--sm'>
+                    <p className='space-x-2 text-dark truncate font-14 font-inter--sm'>
                       Peter Obi
                     </p>
                   </div>
@@ -76,15 +76,15 @@ export default function Vote() {
                 <div className='flex justify-between items-center truncate'>
                   <div>
                     <div className='flex items-center space-x-3'>
-                      <h3 className='truncate uppercase text-black-light font-12 font-inter--md'>
+                      <h3 className='truncate uppercase text-darkColor-300 font-12 font-inter--md'>
                         Votes
                       </h3>
                     </div>
                     <p className='space-x-2 text-black text-lg truncate text-md'>
-                      <span className='text-green-primary font-14 font-inter--md'>
+                      <span className='text-greenPrimary font-14 font-inter--md'>
                         2500
                       </span>
-                      <span className='text-black-light font-14 font-inter--md'>
+                      <span className='text-darkColor-300 font-14 font-inter--md'>
                         (47.01%)
                       </span>
                     </p>
@@ -92,7 +92,7 @@ export default function Vote() {
                   <button
                     onClick={() => setOpen(true)}
                     type='button'
-                    className='inline-flex space-x-2 items-center rounded-md border border-transparent bg-green-600 px-4 py-2 font-12 font-inter--sm text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
+                    className='inline-flex space-x-2 items-center rounded-md border border-transparent bg-greenPrimary px-4 py-2 font-12 font-inter--sm text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
                   >
                     <SVG className='w-6 h-6' src='/svgs/user.svg' />
                     <span>Vote Now</span>

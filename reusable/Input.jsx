@@ -5,14 +5,10 @@ export default function Input({
   id,
   label,
   type = 'text',
-  placeholder,
-  styles,
-  inputStyle = '',
   dispatch = () => {},
   value,
   rest,
   error,
-  price,
 }) {
   const [passwordState, setPasswordState] = useState('password');
   const passwordStateOnChangeHandler = () => {
@@ -31,7 +27,7 @@ export default function Input({
         placeholder=' '
         onChange={(event) => dispatch(event.target.value)}
         {...rest}
-        className='block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-md border-1 border-greenPrimary appearance-none focus:outline-none focus:ring-0 focus:border-greenPrimary peer'
+        className='block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-md border-1 border-primaryColor-600 appearance-none focus:outline-none focus:ring-0 focus:border-greenPrimary peer'
       />
       <label
         htmlFor={label}
