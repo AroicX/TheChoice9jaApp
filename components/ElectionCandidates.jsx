@@ -11,7 +11,7 @@ export default function ElectionCandidates({people}) {
         <SVG src="/users.svg" />
         <div className="space-y-2 mt-8">
           <h3 className="text-2xl text-white font-semibold">2023 Election Candidates</h3>
-          <p className="text-green-100 font-14">
+          <p className="text-greenPrimary-100 font-14">
             Background, Criminality, Assets and
             Other Information about Nigerian 
             Politicians.

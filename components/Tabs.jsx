@@ -11,7 +11,7 @@ export default function Tabs() {
   return (
     <div className="w-full max-w-md px-2 sm:px-0">
       <Tab.Group>
-        <Tab.List className="flex space-x-1 border-b border-green-neutral-500">
+        <Tab.List className="flex space-x-1 border-b border-green-primaryColor-500">
           {categories.map((category) => (
             <Tab
               key={category}

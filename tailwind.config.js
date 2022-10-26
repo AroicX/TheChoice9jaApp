@@ -9,15 +9,39 @@ module.exports = {
     },
     extend: {
       colors: {
+        greenPrimary: '#2EAE4E',
+        'greenPrimary-700': '#217C38',
+        'greenPrimary-100': '#CCF2D5',
+        'greenPrimary-50': '#F2FCF5',
+
+        'darkColor-800': '#263237',
+        'darkColor-500': '#626A6E',
+        'darkColor-300': '#B2B6B8',
         dark: '#282828',
-        'green-primary': '#2EAE4E',
-        'neutral-primary': '#94ABAB',
-        'neutral-secondary': '#BEBEBE',
-        'neutral-light': '#364F4F',
-        'neutral-dark': '#4D6666',
-        'coolblack-primary': '#626A6E',
-        light: '#B2B6B8',
-        lighter: '#E7EBEB',
+
+        'primaryColor-900': '#232F34',
+        'primaryColor-800': '#F9FAFA',
+        'primaryColor-700': '#4D6666',
+        'primaryColor-600': '#809191',
+        'primaryColor-500': '#94ABAB',
+        'primaryColor-400': '#B8CACA',
+        'primaryColor-300': '#D6DBDB',
+        'primaryColor-200': '#F7F7F7',
+        'primaryColor-100': '#BEBEBE',
+        'primaryColor-50': '#F9FAFA',
+
+        'secondaryColor-800': '#263237',
+        'secondaryColor-500': '#626A6E',
+        'secondaryColor-400': '#898F92',
+        'secondaryColor-300': '#B2B6B8',
+
+        bluePrimary: '#2196F3',
+        blueSecondary: '',
+
+        redColor: '#FF3E33',
+        'redColor-500': '#E11900',
+        'redColor-400': '#FF544A',
+        'redColor-200': '#F1998E',
       },
       dropShadow: {
         xs: '0px 12px 24px -10px rgba(179, 182, 186, 0.05)',

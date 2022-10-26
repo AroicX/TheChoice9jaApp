@@ -18,7 +18,7 @@ export default function Login() {
     email: '',
     password: '',
   });
-  const [passwordVisibility, setPasswordVisibility] = useState(false);
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
@@ -69,7 +69,7 @@ export default function Login() {
 
         <div className='relative my-8 shadow-sm focus-within:border-green-600 focus-within:ring-1 focus-within:ring-green'>
           <Input
-            type={`${passwordVisibility ? 'text' : 'password'}`}
+            type={`${passwordVisibility ? 'password' : 'text'}`}
             label='Password'
             id='password'
             value={data.password}
@@ -105,7 +105,7 @@ export default function Login() {
 
         <div className='flex'>
           <Link href='/forget_password' passHref>
-            <a className='text-green-neutral-primary font-14 font-inter--regular'>Forget password</a>
+            <a className='text-primaryColor-500 font-14 font-inter--regular'>Forget password</a>
           </Link>
         </div>
 
@@ -113,13 +113,13 @@ export default function Login() {
           <Button
             type='submit'
             text="Continue" 
-            styles='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-primary font-13 font-inter--bold text-white shadow-sm' 
+            styles='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-greenPrimary font-13 font-inter--bold text-white shadow-sm' 
             loading={loading}
           />
           <p className='text-center font-14 font-inter--regular'>
-            <span className='text-green-neutral-500'>Don&apos;t have an account?{' '}</span>
+            <span className='text-primaryColor-500'>Don&apos;t have an account?{' '}</span>
             <Link passHref href='/signup'>
-              <a className='text-green-primary'>Sign Up</a>
+              <a className='text-greenPrimary'>Sign Up</a>
             </Link>
           </p>
         </div>

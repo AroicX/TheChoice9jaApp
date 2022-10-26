@@ -81,7 +81,7 @@ export default function Slug() {
       <header className="py-2 px-3 mb-1">
         <BackButton title="In Nigeria"/>
       </header>
-      <section className="bg-red-400 py-2">
+      <section className="bg-red-400 pt-2">
         <div className="px-2">
           <div className="flex justify-between items-center">
             <Avatar style="bg-white" />
@@ -91,7 +91,7 @@ export default function Slug() {
               type="button"
               disabled={isLoading || joined} 
               text={`${joined ? 'Joined' : 'Join +'}`}
-              styles={`${joined && 'bg-light cursor-not-allowed text-black border-0'} border-2 text-white font-bold border-white w-fit px-12 rounded-full`}
+              styles={`${joined && 'bg-darkColor-300 cursor-not-allowed text-black border-0'} border-2 text-white font-bold border-white w-fit px-12 rounded-full`}
             />
           </div>
           <div className="text-white space-y-2 my-2">

@@ -40,13 +40,13 @@ export default function SignUp({ next, setUser, user }) {
         />
       </form>
       <div className='flex justify-end mt-2'>
-        <p className='text-green-600 font-11 font-inter--md'>Use Phone Number Instead</p>
+        <p className='text-greenPrimary font-11 font-inter--md'>Use Phone Number Instead</p>
       </div>
       <div className='flex md:mt-12 mt-10'>
         <Button 
           click={() => next()}
           text="continue" 
-          styles='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 font-inter--bold font-14 text-white shadow-sm' 
+          styles='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-greenPrimary font-inter--bold font-14 text-white shadow-sm' 
         />
       </div>
     </AuthProvider>

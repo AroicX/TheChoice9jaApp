@@ -18,16 +18,16 @@ export default function Home() {
   return (
     <>
     <HomeHeader />
-      <div className='lg:px-0 px-10 space-y-3 my-5'>
+      <div className='px-5 space-y-3 my-5'>
         <h3 className='text-black-primary font-inter--sm font-24'>
           Know, share &amp; vote your choice.
         </h3>
-        <p className='text-green-neutral-light font-14 font-inter--regular'>
+        <p className='text-secondaryColor-800 font-14 font-inter--regular'>
           Learn about your nigerian politician and discuss politics, raise
           issues and vote your choice.
         </p>
       </div>
-      <ul className='lg:px-0 px-4 border-b space-y-4 py-3 overflow-y-scroll'>
+      <ul className='px-4 border-b space-y-4 py-3 overflow-y-scroll'>
         <ElectionCandidates people={people} />
       </ul>
       <div className='px-3 pt-6 border-b pb-4 text-black font-16 font-inter--sm'>

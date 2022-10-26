@@ -1,51 +1,53 @@
 import Button from '@/reusable/Button';
 import { useRouter } from 'next/router';
 import AuthProvider from '@/components/AuthProvider';
+import Image from 'next/image';
 
 export default function Home() {
   const router = useRouter();
   return (
     <AuthProvider>
       <div className='px-4'>
-        <div className='my-10 space-y-4'>
-          <h1 className='text-green-primary font-inter--sm font-32'>
+        <Image width={45} height={50} src='/icon.png' alt='' />
+        <div className='mb-10 mt-6 space-y-4'>
+          <h1 className='text-greenPrimary font-inter--sm font-32'>
             Choice9ja
           </h1>
-          <p className='text-green-neutral-700 font-14 font-inter-regular'>
+          <p className='text-primaryColor-700 font-14 font-inter-regular'>
             A place for nigerians to learn about politicians & parties, raise
             issues and pseudo-vote candidates.
           </p>
         </div>
         <form className='space-y-3'>
-          <h2 className='text-green-neutral-900 font-inter--sm font-17'>
+          <h2 className='text-primaryColor-900 font-inter--sm font-17'>
             Join Choice9ja today.
           </h2>
           <div className='space-y-4'>
             <Button
               type='button'
-              styles='bg-green-primary font-14 font-inter--sm text-white rounded-full'
+              styles='bg-greenPrimary font-14 font-inter--sm text-white rounded-full'
               text='Sign up with Phone Number'
             />
             <Button
               type='button'
               click={() => router.push('/signup')}
-              styles='bg-green-primary font-14 font-inter--sm text-white rounded-full'
+              styles='bg-greenPrimary font-14 font-inter--sm text-white rounded-full'
               text='Sign up with Email'
             />
           </div>
           <div className='space-y-1 font-inter--light font-11'>
-            <p className='text-green-neutral-500 '>
+            <p className='text-primaryColor-500 '>
               By signing up, you agree to our
             </p>
             <p>
-              <span className='text-green-primary'>Terms of Service</span>{' '}
+              <span className='text-greenPrimary'>Terms of Service</span>{' '}
               <span className='text-green-neutral-500'>and</span>{' '}
-              <span className='text-green-primary'>Privacy Policy</span>
+              <span className='text-greenPrimary'>Privacy Policy</span>
             </p>
           </div>
         </form>
-        <div className='mt-12 space-y-3'>
-          <h3 className='text-green-neutral-900 font-inter--sm font-17'>
+        <div className='mt-8 space-y-3'>
+          <h3 className='text-primaryColor-900 font-inter--sm font-17'>
             Already have an account?
           </h3>
           <Button

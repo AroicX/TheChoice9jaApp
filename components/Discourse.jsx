@@ -73,7 +73,7 @@ export default function Discourse({poll}) {
         <div className="">
           <Avatar 
             alt="" 
-            style="border border-green-500 w-9 h-9"
+            style="border border-greenPrimary w-9 h-9"
             imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
         </div>
         <div className="flex-1">
@@ -86,7 +86,7 @@ export default function Discourse({poll}) {
           </header>
           <div className="mt-2 space-y-2">
             <header onClick={() => router.push("/poll")}>
-              <h3 className="font-10 font-inter--md uppercase flex items-center space-x-2 text-green-neutral-secondary">
+              <h3 className="font-10 font-inter--md uppercase flex items-center space-x-2 text-primaryColor-100">
                 <span>poll</span>
                 <span className="text-2xl -mt-2">.</span>
                 <span>{poll}</span>
@@ -105,7 +105,7 @@ export default function Discourse({poll}) {
               </RadioGroup>
               {selectedCandidate && <Button type="button" text="Vote now" styles="my-4 bg-green-500 rounded-full text-white text-lg py-1"/>}
             </div>
-            <div className="text-neutral-primary font-12 font-inter--md flex space-x-3 items-center">
+            <div className="text-primaryColor-600 font-12 font-inter--md flex space-x-3 items-center">
               <span>42,000 Votes</span>
               <span className="font-bold text-lg">.</span>
               <span>8 days left</span>
@@ -113,7 +113,7 @@ export default function Discourse({poll}) {
             <footer className="flex items-center space-x-4">
               {
               ICONS.map((item) => (
-                <div key={item.name} className="flex items-center space-x-3 text-coolblack-primary">
+                <div key={item.name} className="flex items-center space-x-3 text-darkColor-500">
                   <item.icon className="w-6" aria-hidden="true" />
                   <span className="text-lg">{item.count !== 0 && numberFormatter(item.count)}</span>
                 </div>
