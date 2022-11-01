@@ -58,67 +58,64 @@ const Candidates = ({person}) => {
   )
 }
 
-export default function Poll({poll}) {
+export default function Poll({poll, posts}) {
   const [selectedCandidate, setSelectedCandidate] = useState(null);
   const [modal, setModal] = useState(false);
   const router = useRouter();
   const [comment, setComment] = useState("");
 
+  console.log(posts);
+
   return (
     <>
-      <section className="flex space-x-4 mt-6 px-4">
-        <div className="">
-          <Avatar 
-            alt="" 
-            style="border border-green-500 w-9 h-9"
-            imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
-        </div>
-        <div className="flex-1">
-          <header className="flex justify-between items-center">
-            <div className="flex space-x-2">
-              <h3 className="text-coolblack-primary font-12 font-inter--sm">Choice9ja</h3>
-              <Verified />
-            </div>
-            <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
-          </header>
-          <div className="mt-2 space-y-2">
-            <header onClick={() => router.push("/poll")}>
-              <h3 className="uppercase font-10 font-inter-md flex items-center space-x-2 text-green-neutral-500">
-                <span>poll</span>
-                <span className="text-2xl -mt-2">.</span>
-                <span className="text-coolblack-primary text-body-2-regular">{poll}</span>
-              </h3>
-              <p className="text-coolblack-900 font-14 font-inter--regular">From this options, who do you think is the 
-                the best fit for Minister of Petroleum?
-              </p>
-            </header>
-            <div className="candidates">    
-              <RadioGroup value={selectedCandidate} onChange={setSelectedCandidate}>
-                <ul className="grid grid-cols-2 gap-6">
-                  {people.map((person) => (
-                    <Candidates key={person.id} person={person}/>
-                  ))}
-                </ul>
-              </RadioGroup>
-              {selectedCandidate && <Button type="button" text="Vote now" styles="my-4 bg-green-500 rounded-full text-white text-lg py-1"/>}
-            </div>
-            <div className="text-primaryColor-600 font-12 font-inter--md flex space-x-3 items-center">
-              <span>42,000 Votes</span>
-              <span className="font-bold text-lg">.</span>
-              <span>8 days left</span>
-            </div>
-            <footer className="flex items-center space-x-4">
-              {
-              ICONS.map((item) => (
-                <div key={item.name} className="flex items-center space-x-3 text-darkColor-500">
-                  <item.icon className="w-6" aria-hidden="true" />
-                  <span className="text-lg">{item.count !== 0 && numberFormatter(item.count)}</span>
-                </div>
-              ))}
-            </footer>
+      {posts?.map(({message, likes, dislikes, user, comments}) => (
+        <section key={message} className="flex space-x-4 mt-6 px-4">
+          <div className="">
+            <Avatar 
+              alt={user.username} 
+              style="border border-green-500 w-9 h-9"
+              imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
           </div>
-        </div>
-      </section>
+          <div className="flex-1">
+            <header className="flex justify-between items-center">
+              <div className="flex space-x-2">
+                <h3 className="text-coolblack-primary font-12 font-inter--sm">{user.username}</h3>
+                <Verified />
+              </div>
+              <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
+            </header>
+            <div className="mt-2 space-y-2">
+              <header onClick={() => router.push("/poll/1")}>
+                <h3 className="uppercase font-10 font-inter-md flex items-center space-x-2 text-green-neutral-500">
+                  <span>poll</span>
+                  <span className="text-2xl -mt-2">.</span>
+                  <span className="text-coolblack-primary text-body-2-regular">{poll}</span>
+                </h3>
+                <p className="text-coolblack-900 font-14 font-inter--regular"> 
+                  {message}
+                </p>
+              </header>
+              {/* <div className="text-primaryColor-600 font-12 font-inter--md flex space-x-3 items-center">
+                <span>42,000 Votes</span>
+                <span className="font-bold text-lg">.</span>
+                <span>8 days left</span>
+              </div> */}
+              <footer className="flex items-center space-x-4">
+                {
+                ICONS.map((item) => (
+                  <div key={item.name} className="flex items-center space-x-3 text-darkColor-500">
+                    <item.icon className="w-6" aria-hidden="true" />
+                    <span className="text-lg">
+                      {item.count !== 0 && numberFormatter(item.count)}
+                      {likes !== 0 && numberFormatter(likes)}
+                    </span>
+                  </div>
+                ))}
+              </footer>
+            </div>
+          </div>
+        </section>
+      ))}
       <Comments comments={comments}/>
       <div className="flex items-center px-3 mt-3 h-fit space-x-4">
         <Avatar 
@@ -163,3 +160,51 @@ export default function Poll({poll}) {
     </>
   )
 }
+
+/*
+  <div className="flex-1">
+    <header className="flex justify-between items-center">
+      <div className="flex space-x-2">
+        <h3 className="text-coolblack-primary font-12 font-inter--sm">Choice9ja</h3>
+        <Verified />
+      </div>
+      <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
+    </header>
+    <div className="mt-2 space-y-2">
+      <header onClick={() => router.push("/poll")}>
+        <h3 className="uppercase font-10 font-inter-md flex items-center space-x-2 text-green-neutral-500">
+          <span>poll</span>
+          <span className="text-2xl -mt-2">.</span>
+          <span className="text-coolblack-primary text-body-2-regular">{poll}</span>
+        </h3>
+        <p className="text-coolblack-900 font-14 font-inter--regular">From this options, who do you think is the 
+          the best fit for Minister of Petroleum?
+        </p>
+      </header>
+      <div className="candidates">    
+        <RadioGroup value={selectedCandidate} onChange={setSelectedCandidate}>
+          <ul className="grid grid-cols-2 gap-6">
+            {people.map((person) => (
+              <Candidates key={person.id} person={person}/>
+            ))}
+          </ul>
+        </RadioGroup>
+        {selectedCandidate && <Button type="button" text="Vote now" styles="my-4 bg-green-500 rounded-full text-white text-lg py-1"/>}
+      </div>
+      <div className="text-primaryColor-600 font-12 font-inter--md flex space-x-3 items-center">
+        <span>42,000 Votes</span>
+        <span className="font-bold text-lg">.</span>
+        <span>8 days left</span>
+      </div>
+      <footer className="flex items-center space-x-4">
+        {
+        ICONS.map((item) => (
+          <div key={item.name} className="flex items-center space-x-3 text-darkColor-500">
+            <item.icon className="w-6" aria-hidden="true" />
+            <span className="text-lg">{item.count !== 0 && numberFormatter(item.count)}</span>
+          </div>
+        ))}
+      </footer>
+    </div>
+  </div>
+*/

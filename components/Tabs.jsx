@@ -1,12 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import { Tab } from '@headlessui/react'
 import Poll from './Poll'
 import About from './About'
 
-import { classNames } from '../helpers'
+import { useSelector, useDispatch } from 'react-redux'
+
+import { classNames } from '../helpers';
+import { getPostsByDiscussion } from 'actions'
+import Post from './Post';
 
 export default function Tabs() {
-  let [categories] = useState(['Discussions', 'About'])
+  const dispatch = useDispatch();
+  const { loading, posts } = useSelector((state) => state.postByDiscussion);
+  let [categories] = useState(['Discussions', 'About']);
+  const {query} = useRouter();
+
+  useEffect(() => {
+    dispatch(getPostsByDiscussion(+query.slug));
+  }, [dispatch]);
 
   return (
     <div className="w-full max-w-md px-2 sm:px-0">
@@ -31,7 +43,14 @@ export default function Tabs() {
         </Tab.List>
         <Tab.Panels className="mt-2">
           <Tab.Panel>
-            <Poll />
+            {loading && <p className='text-center'>Loading..</p>}
+            {posts && posts.posts.length > 0 ? (
+              <>
+                {posts.posts.map((post) => <Post key={post.id} post={post}/>)}
+              </>
+            ) : (
+              <p>No posts</p>
+            )}
           </Tab.Panel>
           <Tab.Panel>
             <About />

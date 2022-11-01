@@ -3,6 +3,12 @@ import ElectionCandidates from '@/components/ElectionCandidates';
 import Poll from '@/components/Poll';
 import Layout from '@/components/layout';
 
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getPosts } from 'actions';
+import Skeleton from '@/reusable/Skeleton';
+import Post from '@/components/Post';
+
 const people = [
   {
     name: 'Leonard Krasner',
@@ -15,6 +21,13 @@ const people = [
 ];
 
 export default function Home() {
+  const dispatch = useDispatch();
+  const { loading, posts } = useSelector((state) => state.posts);
+
+  useEffect(() => {
+    dispatch(getPosts());
+  }, [dispatch]);
+
   return (
     <>
     <HomeHeader />
@@ -34,7 +47,9 @@ export default function Home() {
         <h3>See what is happening</h3>
       </div>
     <Layout active='home'>
-      <Poll />
+      {loading ? <Skeleton /> : (
+        <Poll posts={posts?.posts}/>
+      )}
     </Layout>
     </>
   );

@@ -1,7 +1,7 @@
 export const ICONS = [
   {
     name: 'thumbs-up',
-    count: 10000,
+    title: 'Like',
     icon: (props) => (
       <svg
         fill='none'
@@ -21,7 +21,7 @@ export const ICONS = [
   },
   {
     name: 'thumbs-down',
-    count: 0,
+    title: 'Dislike',
     icon: (props) => (
       <svg
         {...props}
@@ -43,7 +43,7 @@ export const ICONS = [
   },
   {
     name: 'comments',
-    count: 0,
+    title: 'Comment',
     icon: (props) => (
       <svg
         {...props}
@@ -61,7 +61,7 @@ export const ICONS = [
   },
   {
     name: 'reply',
-    count: 42,
+    title: 'Reply',
     icon: (props) => (
       <svg
         {...props}

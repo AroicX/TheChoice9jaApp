@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { getDiscussion } from "actions";
+import { getDiscussion, getPostsByDiscussion } from "actions";
 import { JOIN_ROOM, GET_ROOMS_BY_USER } from "@/services/room";
 import BackButton from "@/components/BackButton";
 import Avatar from "@/components/Avatar";
@@ -18,6 +18,7 @@ export default function Slug() {
   const dispatch = useDispatch();
 
   const { discussion } = useSelector(state => state.discussion);
+
   const {query: {slug}} = useRouter();
 
   useEffect(() => {
@@ -29,9 +30,11 @@ export default function Slug() {
     dispatch(getDiscussion(slug));
   }, [dispatch]);
 
+
   useEffect(() => {
     getRoomsByUser();
   }, []);
+
 
   const onSubmitHandler = () => {
     setIsLoading(true);
