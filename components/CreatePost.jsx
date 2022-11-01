@@ -6,9 +6,9 @@ export default function CreatePost() {
 
   return (
       <button
+      className="m_create--post"
         type="button"
         onClick={() => push("/create")}
-        className="fixed left-[19rem] bottom-20 z-[999] inline-flex items-center rounded-full border border-transparent bg-green-800 p-2 text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
       >
         <PlusIcon className="h-8 w-8" aria-hidden="true" />
       </button>

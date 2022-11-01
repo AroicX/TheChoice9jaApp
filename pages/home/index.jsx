@@ -2,6 +2,9 @@ import HomeHeader from '@/components/HomeHeader';
 import ElectionCandidates from '@/components/ElectionCandidates';
 import Poll from '@/components/Poll';
 import Layout from '@/components/layout';
+import { useState, useEffect } from 'react';
+import { LOAD_DISCOURSSIONS_FROM_TIMELINE } from '@/services/discourse';
+import SinglePost from '@/components/discourse/singlePost';
 
 const people = [
   {
@@ -15,9 +18,45 @@ const people = [
 ];
 
 export default function Home() {
+  const [discourse, setDiscourse] = useState([]);
+
+  useEffect(() => {
+    getDiscourse();
+  }, []);
+
+  const getDiscourse = async () => {
+    const callback = (response) => {
+      const { data } = response;
+
+      setDiscourse(data);
+    };
+
+    const onError = (error) => {
+      console.log(error.data);
+    };
+
+    await LOAD_DISCOURSSIONS_FROM_TIMELINE(callback, onError);
+  };
+
+  const _updateState = async (data) => {
+    const { id } = data;
+    const oldState = discourse;
+
+    const filter = oldState.filter((x) => x.id === id)[0];
+    const removeItem = oldState.filter((x) => x.id !== id);
+    filter.likes = data.likes;
+    filter.dislikes = data.dislikes;
+
+    // removeItem.sort((a, b) => a - b);
+
+    // removeItem = [...removeItem, filter];
+
+    // setDiscourse(removeItem);
+  };
+
   return (
     <>
-    <HomeHeader />
+      <HomeHeader />
       <div className='px-5 space-y-3 my-5'>
         <h3 className='text-black-primary font-inter--sm font-24'>
           Know, share &amp; vote your choice.
@@ -33,9 +72,34 @@ export default function Home() {
       <div className='px-3 pt-6 border-b pb-4 text-black font-16 font-inter--sm'>
         <h3>See what is happening</h3>
       </div>
-    <Layout active='home'>
-      <Poll />
-    </Layout>
+      <Layout active='home'>
+        {/* <Poll /> */}
+
+        <main>
+          {discourse.map(
+            (
+              {
+                id,
+                user,
+                discussions,
+                message,
+                comment,
+                likes,
+                dislikes,
+              } = post,
+              key
+            ) => (
+              <SinglePost
+                key={key + 1}
+                user={user}
+                discussion={discussions}
+                post={{ comment, likes, dislikes, message, id }}
+                dispatch={(val) => _updateState(val)}
+              />
+            )
+          )}
+        </main>
+      </Layout>
     </>
   );
 }
