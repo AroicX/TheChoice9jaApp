@@ -4,6 +4,8 @@ import { getToken } from './cookies';
 
 const environment = process.env.NODE_ENV;
 
+console.log('environment', environment);
+
 const requests = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
@@ -17,6 +19,7 @@ requests.interceptors.response.use(
       window.localStorage.removeItem('user-data');
       return window.location.replace('/login');
     } else if (400 === error.response.status) {
+      console.log('error', error.response.data.message);
       Swal.fire({
         title: 'Bad Request',
         text: error.response.data.message,

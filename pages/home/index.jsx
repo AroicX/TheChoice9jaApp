@@ -1,13 +1,9 @@
 import HomeHeader from '@/components/HomeHeader';
 import ElectionCandidates from '@/components/ElectionCandidates';
-import Poll from '@/components/Poll';
 import Layout from '@/components/layout';
-
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getPosts } from 'actions';
-import Skeleton from '@/reusable/Skeleton';
-import Post from '@/components/Post';
+import { useState, useEffect } from 'react';
+import { LOAD_DISCOURSSIONS_FROM_TIMELINE } from '@/services/discourse';
+import SinglePost from '@/components/discourse/singlePost';
 
 const people = [
   {
@@ -21,16 +17,45 @@ const people = [
 ];
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const { loading, posts } = useSelector((state) => state.posts);
+  const [discourse, setDiscourse] = useState([]);
 
   useEffect(() => {
-    dispatch(getPosts());
-  }, [dispatch]);
+    getDiscourse();
+  }, []);
+
+  const getDiscourse = async () => {
+    const callback = (response) => {
+      const { data } = response;
+
+      setDiscourse(data);
+    };
+
+    const onError = (error) => {
+      console.log(error.data);
+    };
+
+    await LOAD_DISCOURSSIONS_FROM_TIMELINE(callback, onError);
+  };
+
+  const _updateState = async (data) => {
+    const { id } = data;
+    const oldState = discourse;
+
+    const filter = oldState.filter((x) => x.id === id)[0];
+    const removeItem = oldState.filter((x) => x.id !== id);
+    filter.likes = data.likes;
+    filter.dislikes = data.dislikes;
+
+    // removeItem.sort((a, b) => a - b);
+
+    // removeItem = [...removeItem, filter];
+
+    // setDiscourse(removeItem);
+  };
 
   return (
     <>
-    <HomeHeader />
+      <HomeHeader />
       <div className='px-5 space-y-3 my-5'>
         <h3 className='text-black-primary font-inter--sm font-24'>
           Know, share &amp; vote your choice.
@@ -46,11 +71,39 @@ export default function Home() {
       <div className='px-3 pt-6 border-b pb-4 text-black font-16 font-inter--sm'>
         <h3>See what is happening</h3>
       </div>
-    <Layout active='home'>
-      {loading ? <Skeleton /> : (
-        <Poll posts={posts?.posts}/>
-      )}
-    </Layout>
+      <Layout active='home'>
+        {/* <Poll /> */}
+
+        <main>
+          {discourse.map(
+            (
+              {
+                id,
+                user,
+                discussions,
+                message,
+                comment,
+                likes,
+                dislikes,
+              } = post,
+              key
+            ) => (
+              <div key={key + 1} className="relative">
+                <SinglePost
+                  key={key + 1}
+                  user={user}
+                  discussion={discussions}
+                  post={{ comment, likes, dislikes, message, id }}
+                  dispatch={(val) => _updateState(val)}
+                />
+                {key !== discourse.length - 1 ? (
+                  <span className="absolute top-6 left-8 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
+                ) : null}
+              </div>
+            )
+          )}
+        </main>
+      </Layout>
     </>
   );
 }

@@ -8,9 +8,7 @@ export default function Layout({ children }) {
     <div className='pb-20 overflow-scroll'>
       <Head />
 
-      <div className='p-2 '>
-        {children}
-      </div>
+      <div className='p-2 '>{children}</div>
       <Navigation dispatch={(value) => setMenu(value)} />
     </div>
   );
