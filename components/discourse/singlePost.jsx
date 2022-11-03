@@ -1,20 +1,21 @@
-import { numberFormatter } from '@/helpers/index';
-import { ICONS } from '@/reusable/Icons';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import Avatar from '../Avatar';
 import Verified from '../Verified';
-import { Dialog, Transition } from '@headlessui/react'
 import SVG from 'react-inlinesvg';
-import { useState, Fragment } from 'react';
+import { useState } from 'react';
 import { DISLIKE_DISCOURSE, LIKE_DISCOURSE } from '@/services/discourse';
 import { CREATE_COMMENT, GET_COMMENTS_BY_POST } from '@/services/comments';
 import Button from '@/reusable/Button';
 import Comments from '../Comments';
 import { useEffect } from 'react';
+import Modal from '../Modal';
 
 export default function SinglePost({ post, user, discussion, dispatch }) {
   const [open, setOpen] = useState(false);
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState([].reverse());
+  const [comment, setComment] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+
   
   const _like = async (post_id) => {
     const callback = (response) => {
@@ -43,12 +44,34 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
     await DISLIKE_DISCOURSE(post_id, callback, onError);
   };
 
-  const getComment = (comm) => {
-    comments.find((comment) => {
-      if (comment.postId === comm.postId) {
-        setComments((prev) => [...prev, comm]);
-      }
-    });
+  const _comment = async (event) => {
+    event.preventDefault();
+
+    const data = {
+      message: comment
+    }
+    
+    setIsLoading(true);
+    
+    const callback = (response) => {
+      setIsLoading(false);
+      const { comment } = response;
+
+      setOpen(false);
+      
+      comments.find((com) => {
+        if (com.postId === comment.postId) {
+          setComments((prev) => [...prev, comment]);
+        }
+      });
+    }
+
+    const onError = (err) => {
+      setIsLoading(false);
+      console.log(err);
+    }
+
+    await CREATE_COMMENT(data, post.id, callback, onError);
   }
 
   const _getCommentsByPost = async () => {
@@ -146,93 +169,28 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
             </footer>
           </div>
         </div>
-        <CommentModal getComment={getComment} postId={post.id} open={open} setOpen={setOpen}/>
+        <Modal open={open} setOpen={setOpen}>
+          <form onSubmit={_comment}>
+            <div>
+              <label htmlFor="comment" className="block text-sm font-medium text-gray-700">
+                Add your comment
+              </label>
+              <div className="mt-1">
+                <textarea
+                  rows={4}
+                  value={comment}
+                  onChange={e => setComment(e.target.value)}
+                  name="comment"
+                  id="comment"
+                  className="block w-full rounded-md border-gray-300 shadow-sm focus:border-greenPrimary-700 focus:ring-greenPrimary-700 sm:text-sm"
+                />
+              </div>
+            </div>
+            <Button loading={isLoading} type='submit' text={`${isLoading ? 'Creating...' : 'Create'}`} styles="mt-4 rounded-lg text-white font-bold text-sm w-36 bg-greenPrimary"/>
+          </form>
+        </Modal>
       </section>
       {comments && comments.map((comment, key) => <Comments key={key + 1} comment={comment}/>)}
     </div>
   );
-}
-
-function CommentModal({open, getComment, setOpen, postId}) {
-  const [comment, setComment] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const _comment = async (event) => {
-    event.preventDefault();
-
-    const data = {
-      message: comment
-    }
-    
-    setIsLoading(true);
-    
-    const callback = (response) => {
-      setIsLoading(false);
-      const { comment } = response;
-
-      setOpen(false);
-      
-      getComment(comment);
-    }
-
-    const onError = (err) => {
-      setIsLoading(false);
-      console.log(err);
-    }
-
-    await CREATE_COMMENT(data, postId, callback, onError);
-  }
-
-  return (
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 z-10 overflow-y-auto">
-          <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-            <Transition.Child
-              as={Fragment}
-              enter="ease-out duration-300"
-              enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-              enterTo="opacity-100 translate-y-0 sm:scale-100"
-              leave="ease-in duration-200"
-              leaveFrom="opacity-100 translate-y-0 sm:scale-100"
-              leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            >
-              <Dialog.Panel className="z-[999] relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6">
-                <form onSubmit={_comment}>
-                  <div>
-                    <label htmlFor="comment" className="block text-sm font-medium text-gray-700">
-                      Add your comment
-                    </label>
-                    <div className="mt-1">
-                      <textarea
-                        rows={4}
-                        value={comment}
-                        onChange={e => setComment(e.target.value)}
-                        name="comment"
-                        id="comment"
-                        className="block w-full rounded-md border-gray-300 shadow-sm focus:border-greenPrimary-700 focus:ring-greenPrimary-700 sm:text-sm"
-                      />
-                    </div>
-                  </div>
-                  <Button loading={isLoading} type='submit' text={`${isLoading ? 'Creating...' : 'Create'}`} styles="mt-4 rounded-lg text-white font-bold text-sm w-36 bg-greenPrimary"/>
-                </form>
-              </Dialog.Panel>
-            </Transition.Child>
-          </div>
-        </div>
-      </Dialog>
-    </Transition.Root>
-  )
 }

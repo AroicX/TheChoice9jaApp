@@ -46,13 +46,18 @@ export default function DiscourssionTabs({ discussions }) {
                   } = post,
                   key
                 ) => (
-                  <SinglePost
-                    key={key + 1}
-                    user={user}
-                    discussion={discussions}
-                    post={{ comment, likes, dislikes, message, id }}
-                    // dispatch={(val) => _updateState(val)}
-                  />
+                  <div key={key + 1} className='relative'>
+                    {key !== discussions.length - 1 ? (
+                        <span className="absolute top-6 left-8 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
+                      ) : null}
+                    <SinglePost
+                      key={key + 1}
+                      user={user}
+                      discussion={discussions}
+                      post={{ comment, likes, dislikes, message, id }}
+                      // dispatch={(val) => _updateState(val)}
+                    />
+                  </div>
                 )
               )}
           </Tab.Panel>

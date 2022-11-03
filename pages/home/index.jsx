@@ -1,6 +1,5 @@
 import HomeHeader from '@/components/HomeHeader';
 import ElectionCandidates from '@/components/ElectionCandidates';
-import Poll from '@/components/Poll';
 import Layout from '@/components/layout';
 import { useState, useEffect } from 'react';
 import { LOAD_DISCOURSSIONS_FROM_TIMELINE } from '@/services/discourse';

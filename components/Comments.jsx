@@ -2,7 +2,6 @@ import Verified from "./Verified"
 import Avatar from "./Avatar"
 
 export default function Comments({comment}) {
-  console.log(comment)
   return (
     <section className='flex space-x-4 mt-2 cursor-pointer'>
       <div className=''>

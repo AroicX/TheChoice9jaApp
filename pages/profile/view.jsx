@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { useRouter } from 'next/router';
 import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
@@ -11,14 +11,23 @@ import AvatarName from "@/components/NameAvatar";
 import Button from "@/reusable/Button";
 import Verified from '@/components/Verified';
 import Avatar from '@/components/Avatar';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPostsByUser } from 'actions';
 
 export default function ViewProfile() {
   let [categories] = useState(['Polls', 'Discussions']);
   const [modal, setModal] = useState(false);
   const Router = useRouter();
+  const dispatch = useDispatch();
 
   const {user} = useSelector((state) => state.userDetails);
+  const {loading, posts} = useSelector((state) => state.postByUser);
+
+  useEffect(() => {
+    dispatch(getPostsByUser(user.id));
+
+    console.log(posts);
+  }, [dispatch]);
 
   return (
     <>
@@ -91,45 +100,52 @@ export default function ViewProfile() {
           </Tab.List>
           <Tab.Panels>
             <Tab.Panel className="px-4">
-              <h4 className='text-coolblack-primary font-12 py-2'>60 Discussions & Polls</h4>
-              <section className="flex space-x-4 mt-2">
-                <div className="">
-                  <Avatar 
-                    alt="" 
-                    style="border border-green-500 w-9 h-9"
-                    imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
-                </div>
-                <div className="flex-1">
-                  <header className="flex items-center justify-between">
-                    <div className="flex space-x-2">
-                      <h3 className="text-dark font-12 font-inter--sm">Shehu Sani</h3>
-                      <Verified />
+              {/* {loading && <p className='text-center my-2'>Loading...</p>}
+              {posts.posts.length === 0 ? (
+                <p className='text-center'>{posts.message}</p>
+              ) : (
+                <>
+                  <h4 className='text-coolblack-primary font-12 py-2'>60 Discussions & Polls</h4>
+                  <section className="flex space-x-4 mt-2">
+                    <div className="">
+                      <Avatar 
+                        alt="" 
+                        style="border border-green-500 w-9 h-9"
+                        imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
                     </div>
-                    <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
-                  </header>
-                  <div className="mt-2 space-y-2">
-                    <header>
-                      <h3 className="uppercase font-10 font-inter--md flex items-center space-x-2 text-primaryColor-700">
-                        <span >discourse</span>
-                        <span className="text-2xl -mt-2">.</span>
-                        <span>state policing</span>
-                      </h3>
-                      <p className="text-black-primary font-14 my-2">
-                        State policing is one of the most important features of the nigerian state in terms
-                      </p>
-                    </header>
-                    <footer className="flex items-center space-x-4">
-                      {
-                      ICONS.map((item) => (
-                        <div key={item.name} className="flex items-center space-x-3 text-primaryColor-500">
-                          <item.icon className="w-6 h-6" aria-hidden="true" />
-                          <span className="text-md">{item.count !== 0 && numberFormatter(item.count)}</span>
+                    <div className="flex-1">
+                      <header className="flex items-center justify-between">
+                        <div className="flex space-x-2">
+                          <h3 className="text-dark font-12 font-inter--sm">Shehu Sani</h3>
+                          <Verified />
                         </div>
-                      ))}
-                    </footer>
-                  </div>
-                </div>
-              </section>
+                        <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
+                      </header>
+                      <div className="mt-2 space-y-2">
+                        <header>
+                          <h3 className="uppercase font-10 font-inter--md flex items-center space-x-2 text-primaryColor-700">
+                            <span >discourse</span>
+                            <span className="text-2xl -mt-2">.</span>
+                            <span>state policing</span>
+                          </h3>
+                          <p className="text-black-primary font-14 my-2">
+                            State policing is one of the most important features of the nigerian state in terms
+                          </p>
+                        </header>
+                        <footer className="flex items-center space-x-4">
+                          {
+                          ICONS.map((item) => (
+                            <div key={item.name} className="flex items-center space-x-3 text-primaryColor-500">
+                              <item.icon className="w-6 h-6" aria-hidden="true" />
+                              <span className="text-md">{item.count !== 0 && numberFormatter(item.count)}</span>
+                            </div>
+                          ))}
+                        </footer>
+                      </div>
+                    </div>
+                  </section>
+                </>
+              )} */}
             </Tab.Panel>
             <Tab.Panel>
               Discussion

@@ -71,6 +71,8 @@ export default function Poll({ poll }) {
   const router = useRouter();
   const [comment, setComment] = useState('');
 
+  console.log(posts);
+
   return (
     <>
       <section className='flex space-x-4 mt-6 px-4'>

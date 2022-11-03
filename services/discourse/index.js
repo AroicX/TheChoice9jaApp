@@ -48,3 +48,16 @@ export async function DISLIKE_DISCOURSE(post_id, callback, onError) {
     onError(error);
   }
 }
+
+export async function CREATE_POST(data, callback, onError) {
+  try {
+    let post = await requests.post(`posts/create`, data);
+    if (post.data) {
+      callback && callback(post.data);
+    } else {
+      throw post;
+    }
+  } catch (error) {
+    onError(error);
+  }
+}
