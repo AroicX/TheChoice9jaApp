@@ -30,7 +30,8 @@ export default function Poll() {
       </header>
       <main className="border-b pb-4 mb-28">
         {loading ? <p className="text-center mt-2">Loading...</p> : (
-          <Post post={post}/>
+          // <Post post={post}/>
+          <p>Poll</p>
         )}
       </main>
     </>
