@@ -15,6 +15,9 @@ export default function CreateAccount({ back, next, user, setUser }) {
   const [isLoading, setIsLoading] = useState(false);
   const Router = useRouter();
 
+  const { phoneNo, email, password } = user;
+  const disabled = phoneNo === '' || email === '' || password === '';
+
   const onSubmitHandler = () => {
     setIsLoading(true);
 
@@ -88,7 +91,9 @@ export default function CreateAccount({ back, next, user, setUser }) {
           text='Create Account'
           click={onSubmitHandler}
           loading={isLoading}
-          styles='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 text-base font-medium text-white shadow-sm'
+          styles={`${
+            disabled ? 'bg-darkColor-300' : 'bg-greenPrimary'
+          } inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 font-inter--bold font-14 text-white shadow-sm`}
         />
       </div>
     </AuthProvider>
