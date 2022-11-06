@@ -5,14 +5,14 @@
 @tailwind components;
 @tailwind utilities;
 
-@import './pages/home.scss';
+@import "./pages/home.scss";
 
-@import './mixins/breakpoints';
-@import './mixins/helpers';
+@import "./mixins/breakpoints";
+@import "./mixins/helpers";
 //
-@import './core/global';
-@import './core/variables';
-@import './core/titles';
-@import './elements/inputs';
-@import './elements/modal';
-
+@import "./core/global";
+@import "./core/variables";
+@import "./core/titles";
+@import "./elements/inputs";
+@import "./elements/modal";
+@import "./elements/comments";
