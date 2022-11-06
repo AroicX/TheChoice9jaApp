@@ -26,6 +26,7 @@ export default function Home() {
   const getDiscourse = async () => {
     const callback = (response) => {
       const { data } = response;
+      console.log(data);
 
       setDiscourse(data);
     };
@@ -88,7 +89,7 @@ export default function Home() {
               } = post,
               key
             ) => (
-              <div key={key + 1} className="relative">
+              <div key={key + 1} className='relative'>
                 <SinglePost
                   key={key + 1}
                   user={user}
@@ -97,7 +98,10 @@ export default function Home() {
                   dispatch={(val) => _updateState(val)}
                 />
                 {key !== discourse.length - 1 ? (
-                  <span className="absolute top-6 left-8 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
+                  <span
+                    className='absolute top-6 left-8 -ml-px h-full w-0.5 bg-gray-200'
+                    aria-hidden='true'
+                  />
                 ) : null}
               </div>
             )
