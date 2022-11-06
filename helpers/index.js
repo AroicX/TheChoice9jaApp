@@ -424,3 +424,12 @@ export const randomColor = () => {
       .toUpperCase()
   );
 };
+
+export const contrastColor = (c) =>
+  ['black', 'white'][
+    ~~(
+      [1, 3, 5]
+        .map((p) => parseInt(c.substr(p, 2), 16))
+        .reduce((r, v, i) => [0.299, 0.587, 0.114][i] * v + r, 0) < 128
+    )
+  ];
