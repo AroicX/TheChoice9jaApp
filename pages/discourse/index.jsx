@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 
 import { GET_POLLS } from '@/services/polls';
 import Poll from '@/components/Poll';
+import { randomColor } from '@/helpers/index';
 
 export default function Discussion({ discussions }) {
   const router = useRouter();
@@ -58,7 +59,12 @@ export default function Discussion({ discussions }) {
                   onClick={() => router.push(`discourse/${id}`)}
                 >
                   <div className='flex items-center space-x-3 '>
-                    <div className='rounded-md bg-blue-500 h-8 w-8' />
+                    <div
+                      className='rounded-md h-8 w-8'
+                      style={{
+                        background: randomColor(),
+                      }}
+                    />
                     <span className='font-inter--sm  text-ellipsis  font-14 '>
                       {topic}
                     </span>

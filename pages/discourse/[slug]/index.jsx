@@ -14,6 +14,7 @@ import { GET_DISCOUSSION_BY_ID } from '@/services/discussions';
 import { GET_POLL_BY_DISCUSSION } from '@/services/polls';
 import { CREATE_POST, GET_POST_BY_DISCOUSSION } from '@/services/discourse';
 import Poll from '@/components/Poll';
+import { contrastColor, randomColor } from '@/helpers/index';
 
 export default function Slug() {
   const [room, setRoom] = useState([]);
@@ -24,6 +25,8 @@ export default function Slug() {
   const [joined, setJoined] = useState(false);
   const [open, setOpen] = useState(false);
   const [post, setPost] = useState('');
+
+  const color = randomColor();
 
   const { discussion } = useSelector((state) => state.discussion);
   const {
@@ -112,9 +115,14 @@ export default function Slug() {
         <PlusIcon className='h-8 w-8' aria-hidden='true' />
       </button>
       <header className='py-2 px-3 mb-1'>
-        <BackButton title='In Nigeria' />
+        <BackButton title={room.topic} />
       </header>
-      <section className={`bg-red-400 pt-2`}>
+      <section
+        className={`pt-2`}
+        style={{
+          background: color,
+        }}
+      >
         <div className='px-2'>
           <div className='flex justify-between items-center'>
             <Avatar style='bg-white' />
@@ -130,7 +138,12 @@ export default function Slug() {
               } border-2 text-white font-bold border-white w-fit px-12 rounded-full`}
             />
           </div>
-          <div className='text-white space-y-2 my-2'>
+          <div
+            className=' space-y-2 my-2'
+            style={{
+              color: contrastColor(color),
+            }}
+          >
             <h3 className='font-20 font-inter--sm'>{room.topic}</h3>
             <p className='font-12 font-inter--regular'>
               {room.question}
@@ -138,8 +151,8 @@ export default function Slug() {
             </p>
           </div>
         </div>
-        <div className='bg-red-500 text-white p-2'>
-          <p>{Math.floor(Math.random(1, 1000))} People Joined</p>
+        <div className='text-white p-2 border border-t'>
+          <p>{Math.floor(Math.random() * (1000 - 100) + 100)} People Joined</p>
         </div>
       </section>
 

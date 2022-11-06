@@ -8,9 +8,9 @@ console.log('environment', environment);
 
 const requests = axios.create({
   baseURL:
-    // environment === 'development'
-    // ? process.env.NEXT_PUBLIC_DEV_URL
-    process.env.NEXT_PUBLIC_BASE_URL,
+    environment === 'development'
+      ? process.env.NEXT_PUBLIC_DEV_URL
+      : process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 requests.interceptors.response.use(
