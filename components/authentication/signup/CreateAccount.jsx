@@ -7,37 +7,39 @@ import { useGlobalStore } from '@/hooks/useGlobalStore';
 import { QUICK_REGISTER } from '@/services/authentication';
 import { setCookie } from '@/services/cookies';
 import { ResponseHandler } from '@/helpers/index';
+import toast, { Toaster } from 'react-hot-toast';
 import Link from 'next/link';
 
-export default function CreateAccount({ back, user, setUser }) {
+export default function CreateAccount({ back, next, user, setUser }) {
   const { setToken } = useGlobalStore();
-  const [isLoading, setIsLoading] =useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const Router = useRouter();
 
   const onSubmitHandler = () => {
     setIsLoading(true);
 
     const callback = (response) => {
-      console.log(response);
       setCookie(response.token);
       window.localStorage.setItem('user-data', JSON.stringify(response));
       setIsLoading(false);
-      ResponseHandler(response)
+      ResponseHandler(response);
       setToken(response.token);
       let _redirect = window.localStorage.getItem('be-authorized');
-      _redirect ? Router.push(_redirect) : Router.push('/home');
+      _redirect ? Router.push(_redirect) : next();
     };
 
-    const onError = (err) => {
+    const onError = (error) => {
+      const { data } = error;
       setIsLoading(false);
-      ResponseHandler(err)
+      toast.error(data.message);
     };
 
     QUICK_REGISTER(user, callback, onError);
-  }
+  };
 
   return (
     <AuthProvider>
+      <Toaster position='top-center' reverseOrder={false} />
       <div className='flex items-center space-x-4 xl:mt-0 mt-4'>
         <img
           onClick={() => back()}
@@ -77,14 +79,17 @@ export default function CreateAccount({ back, user, setUser }) {
         />
       </form>
       <div className='flex justify-end mt-2'>
-        <span className='text-green-600 text-caption-3-medium'>Use Phone Number Instead</span>
+        <span className='text-green-600 text-caption-3-medium'>
+          Use Phone Number Instead
+        </span>
       </div>
       <div className='flex md:mt-12 mt-10'>
         <Button
-          text="Create Account"
-          click={onSubmitHandler} 
+          text='Create Account'
+          click={onSubmitHandler}
           loading={isLoading}
-          styles='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 text-base font-medium text-white shadow-sm' />
+          styles='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-green-600 text-base font-medium text-white shadow-sm'
+        />
       </div>
     </AuthProvider>
   );
