@@ -14,6 +14,7 @@ import { getUserDetails } from 'actions/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import AvatarName from '@/components/NameAvatar';
 
 const LISTS = [
   { id: 0, title: 'Security', icon: ShieldExclamationIcon },
@@ -53,17 +54,10 @@ export default function Profile() {
         </div>
 
         <div className='py-6 px-2 flex space-x-10'>
-          <span className='inline-flex h-12 w-12 items-center justify-center rounded-full bg-bluePrimary ring-2 ring-offset-2 ring-blueSecondary'>
-            <span className='text-lg font-medium leading-none text-white'>
-              {Object.keys(user).length === 0 || user === null ? (
-                <>
-                  <p>LD</p>
-                </>
-              ) : (
-                `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`
-              )}
-            </span>
-          </span>
+          <AvatarName
+            user={user}
+            style='h-10 w-10 ring ring-blue-200 ring-offset-2'
+          />
           <span>
             <span className='block text-dark font-18 font-inter--sm'>
               {Object.keys(user).length === 0 || user === null ? (
