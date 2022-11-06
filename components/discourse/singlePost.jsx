@@ -82,17 +82,16 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
   return (
     <div className='border-b p-4 relative z-[10]'>
       <Toaster position='top-center' reverseOrder={false} />
-      <section className='relative flex space-x-4 mt-2 cursor-pointer'>
-        <div className=''>
-          <AvatarName style='h-9 w-9' user={user} />
-        </div>
+      <section className='relative flex space-x-4 mt-2 cursor-pointer '>
+        <AvatarName style='h-9 w-9' user={user} />
+
         <div className='flex-1'>
           <header className='flex items-center justify-between'>
             <div className='flex space-x-2'>
               <h3 className='text-dark font-12 font-inter--sm'>
                 {user?.username}
               </h3>
-              {user?.verifiedPhoneNo && <Verified />}
+              {user?.verifiedPhoneNo && <Verified className='my-auto' />}
             </div>
             <EllipsisHorizontalIcon
               // onClick={() => setModal(true)}

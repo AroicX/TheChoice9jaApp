@@ -90,7 +90,7 @@ export default function Profile() {
             {LISTS.map((list) => (
               <li
                 key={list.id}
-                className='flex items-center pt-3 justify-between'
+                className='flex items-center p-4 justify-between'
               >
                 <div className='flex items-center space-x-3 text-darkColor-500'>
                   <list.icon className='text-green-neutral-500 h-5 w-5' />
@@ -104,7 +104,7 @@ export default function Profile() {
           <button
             type='button'
             onClick={logOut}
-            className='flex items-center space-x-6 mt-10 text-secondaryColor-500 font-14'
+            className='flex items-center space-x-6 mt-10 text-secondaryColor-500 font-14 p-4'
           >
             <ArrowRightOnRectangleIcon className='w-6 h-6' />
             <span className='text-body-2-regular'>Log Out</span>

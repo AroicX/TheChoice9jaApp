@@ -5,6 +5,10 @@
 /.pnp
 .pnp.js
 
+#service-workers
+
+/public/*.js
+
 # testing
 /coverage
 

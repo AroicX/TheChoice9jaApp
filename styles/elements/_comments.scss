@@ -1,0 +1,16 @@
+.c_comments {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+
+  @include media("<=phone") {
+    padding: 1rem 3rem;
+  }
+
+  &--avatar {
+    margin: auto 0;
+    span {
+      font-size: 0.6rem !important;
+      font-weight: bold;
+    }
+  }
+}
