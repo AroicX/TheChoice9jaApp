@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { getDiscussion } from 'actions';
 import { JOIN_ROOM, GET_ROOMS_BY_USER } from '@/services/room';
 import BackButton from '@/components/BackButton';
 import Avatar from '@/components/Avatar';
@@ -9,14 +8,17 @@ import Button from '@/reusable/Button';
 import Layout from '@/components/layout';
 import Modal from '@/components/Modal';
 import { PlusIcon } from '@heroicons/react/24/outline';
-import { randomColor, ResponseHandler } from '@/helpers/index';
-import { CREATE_POST, GET_POST_BY_DISCOUSSION } from '@/services/discourse';
 import DiscourssionTabs from '@/components/discourse/Tabs';
+
 import { GET_DISCOUSSION_BY_ID } from '@/services/discussions';
+import { GET_POLL_BY_DISCUSSION } from '@/services/polls';
+import { CREATE_POST, GET_POST_BY_DISCOUSSION } from '@/services/discourse';
+import Poll from '@/components/Poll';
 
 export default function Slug() {
   const [room, setRoom] = useState([]);
   const [discussions, setDiscussions] = useState([]);
+  const [poll, setPoll] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState();
   const [joined, setJoined] = useState(false);
@@ -31,6 +33,7 @@ export default function Slug() {
   useEffect(() => {
     if (slug) {
       getDiscussionById(slug);
+      getPollByDiscussion(slug);
     }
   }, [slug]);
 
@@ -61,6 +64,20 @@ export default function Slug() {
     await GET_POST_BY_DISCOUSSION(discussion_id, callback, onError);
   };
 
+  const getPollByDiscussion = async (discussion_id) => {
+    const callback = (response) => {
+      const { poll } = response;
+
+      setPoll(poll);
+    };
+
+    const onError = (err) => {
+      console.log(err);
+    };
+
+    await GET_POLL_BY_DISCUSSION(discussion_id, callback, onError);
+  };
+
   const createPost = async (event) => {
     event.preventDefault();
 
@@ -74,9 +91,6 @@ export default function Slug() {
     const callback = (response) => {
       const { data } = response;
 
-      // Push into discussion
-      //setDiscussions((prev) => [...prev, data].reverse())
-
       setIsLoading(false);
     };
 
@@ -88,7 +102,6 @@ export default function Slug() {
     await CREATE_POST(data, callback, onError);
   };
 
-  // console.log(randomColor);
   return (
     <Layout>
       <button
@@ -131,6 +144,8 @@ export default function Slug() {
       </section>
 
       <DiscourssionTabs discussions={discussions} />
+
+      {poll && <Poll poll={poll} />}
 
       <Modal open={open} setOpen={setOpen}>
         <form onSubmit={createPost}>

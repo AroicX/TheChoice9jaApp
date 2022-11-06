@@ -83,7 +83,7 @@ export default function Home() {
                 user,
                 discussions,
                 message,
-                comment,
+                comments,
                 likes,
                 dislikes,
               } = post,
@@ -94,7 +94,7 @@ export default function Home() {
                   key={key + 1}
                   user={user}
                   discussion={discussions}
-                  post={{ comment, likes, dislikes, message, id }}
+                  post={{ comments, likes, dislikes, message, id }}
                   dispatch={(val) => _updateState(val)}
                 />
                 {key !== discourse.length - 1 ? (

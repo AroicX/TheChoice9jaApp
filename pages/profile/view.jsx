@@ -1,86 +1,113 @@
 import { useEffect, useState } from 'react';
 import { Tab } from '@headlessui/react';
 import { useRouter } from 'next/router';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
 import { classNames } from '@/helpers/index';
-import { ICONS } from '@/reusable/Icons';
-import { numberFormatter } from '@/helpers/index';
 
-import BackButton from "@/components/BackButton";
-import AvatarName from "@/components/NameAvatar";
-import Button from "@/reusable/Button";
-import Verified from '@/components/Verified';
-import Avatar from '@/components/Avatar';
-import { useSelector, useDispatch } from 'react-redux';
-import { getPostsByUser } from 'actions';
+import BackButton from '@/components/BackButton';
+import AvatarName from '@/components/NameAvatar';
+import Button from '@/reusable/Button';
+import { useSelector } from 'react-redux';
+
+import { GET_POST_BY_USER } from '@/services/posts';
+import { GET_ROOMS_BY_USER } from '@/services/room';
+
+import SinglePost from '@/components/discourse/singlePost';
 
 export default function ViewProfile() {
-  let [categories] = useState(['Polls', 'Discussions']);
+  let [categories] = useState(['Posts', 'Discussions']);
   const [modal, setModal] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const [discussions, setDiscussions] = useState([]);
   const Router = useRouter();
-  const dispatch = useDispatch();
 
-  const {user} = useSelector((state) => state.userDetails);
-  const {loading, posts} = useSelector((state) => state.postByUser);
+  const { user } = useSelector((state) => state.userDetails);
+
+  const getPostByUser = async () => {
+    const callback = (response) => {
+      const { data } = response;
+
+      setPosts(data);
+    };
+
+    const onError = (error) => {
+      console.log(error);
+    };
+
+    await GET_POST_BY_USER(user.id, callback, onError);
+  };
+
+  const getDiscussionsByUser = async () => {
+    const callback = (response) => {
+      const { room } = response;
+
+      setDiscussions(response);
+    };
+
+    const onError = (error) => {
+      console.log(error);
+    };
+
+    await GET_ROOMS_BY_USER(callback, onError);
+  };
 
   useEffect(() => {
-    dispatch(getPostsByUser(user.id));
-
-    console.log(posts);
-  }, [dispatch]);
+    getPostByUser();
+    getDiscussionsByUser();
+  }, []);
 
   return (
     <>
-      <header className="border-b p-2">
+      <header className='border-b p-2'>
         <BackButton title={`${user.firstName}'s Profile`} />
       </header>
-      <section className="flex items-center space-x-4 py-2 px-4">
+      <section className='flex items-center space-x-4 py-2 px-4'>
         {Object.keys(user).length === 0 ? (
           <>
-            <AvatarName 
-              name="LD" 
-              style="w-14 h-14" 
-            />
+            <AvatarName name='LD' style='w-14 h-14' />
           </>
         ) : (
           <>
-            <AvatarName 
-              name={`${user.firstName.charAt(0).toUpperCase()}${user.lastName.charAt(0).toUpperCase()}`} 
-              style="w-14 h-14" 
+            <AvatarName
+              name={`${user.firstName.charAt(0).toUpperCase()}${user.lastName
+                .charAt(0)
+                .toUpperCase()}`}
+              style='w-14 h-14'
             />
           </>
         )}
         <span>
-          <span className="block font-18 font-inter--sm text-black-primary">
+          <span className='block font-18 font-inter--sm text-black-primary'>
             {Object.keys(user).length === 0 ? (
-              <>
-                Loading
-              </>
-            ) : `${user.firstName} ${user.lastName}`}
+              <>Loading</>
+            ) : (
+              `${user.firstName} ${user.lastName}`
+            )}
           </span>
-          <span className="inline-block font-11 px-2 py-1 rounded-full bg-green-neutral-200 text-green-neutral-700">Star Citizen</span>
+          <span className='inline-block font-11 px-2 py-1 rounded-full bg-green-neutral-200 text-green-neutral-700'>
+            Star Citizen
+          </span>
         </span>
       </section>
 
-      <section className="py-2 px-4 space-y-4">
-        <h3 className="text-black-medium font-14">A Student of Life</h3>
-        <div className="space-y-2">
+      <section className='py-2 px-4 space-y-4'>
+        <h3 className='text-black-medium font-14'>A Student of Life</h3>
+        <div className='space-y-2'>
           <Button
-            click={() => Router.push("/profile/edit")}
-            text="Edit Profile"
-            styles="border border-greenPrimary rounded-full font-14 font-inter--sm text-greenPrimary"
+            click={() => Router.push('/profile/edit')}
+            text='Edit Profile'
+            styles='border border-greenPrimary rounded-full font-14 font-inter--sm text-greenPrimary'
           />
-          <Button 
-            click={() => Router.push("/verification")}
-            text="Get Verified"
-            styles="border border-green-500 rounded-full font-14 font-inter--sm bg-green-500 text-white"
+          <Button
+            click={() => Router.push('/verification')}
+            text='Get Verified'
+            styles='border border-green-500 rounded-full font-14 font-inter--sm bg-green-500 text-white'
           />
         </div>
       </section>
 
-      <section className="w-full max-w-md px-2 sm:px-0 mt-8">
+      <section className='w-full max-w-md px-2 sm:px-0 mt-8'>
         <Tab.Group>
-          <Tab.List className="flex border-b border-green-neutral-500">
+          <Tab.List className='flex border-b border-green-neutral-500'>
             {categories.map((category) => (
               <Tab
                 key={category}
@@ -99,60 +126,22 @@ export default function ViewProfile() {
             ))}
           </Tab.List>
           <Tab.Panels>
-            <Tab.Panel className="px-4">
-              {/* {loading && <p className='text-center my-2'>Loading...</p>}
-              {posts.posts.length === 0 ? (
-                <p className='text-center'>{posts.message}</p>
-              ) : (
-                <>
-                  <h4 className='text-coolblack-primary font-12 py-2'>60 Discussions & Polls</h4>
-                  <section className="flex space-x-4 mt-2">
-                    <div className="">
-                      <Avatar 
-                        alt="" 
-                        style="border border-green-500 w-9 h-9"
-                        imgSrc="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"/>
-                    </div>
-                    <div className="flex-1">
-                      <header className="flex items-center justify-between">
-                        <div className="flex space-x-2">
-                          <h3 className="text-dark font-12 font-inter--sm">Shehu Sani</h3>
-                          <Verified />
-                        </div>
-                        <EllipsisHorizontalIcon onClick={() => setModal(true)} className="h-7 w-7"/>
-                      </header>
-                      <div className="mt-2 space-y-2">
-                        <header>
-                          <h3 className="uppercase font-10 font-inter--md flex items-center space-x-2 text-primaryColor-700">
-                            <span >discourse</span>
-                            <span className="text-2xl -mt-2">.</span>
-                            <span>state policing</span>
-                          </h3>
-                          <p className="text-black-primary font-14 my-2">
-                            State policing is one of the most important features of the nigerian state in terms
-                          </p>
-                        </header>
-                        <footer className="flex items-center space-x-4">
-                          {
-                          ICONS.map((item) => (
-                            <div key={item.name} className="flex items-center space-x-3 text-primaryColor-500">
-                              <item.icon className="w-6 h-6" aria-hidden="true" />
-                              <span className="text-md">{item.count !== 0 && numberFormatter(item.count)}</span>
-                            </div>
-                          ))}
-                        </footer>
-                      </div>
-                    </div>
-                  </section>
-                </>
-              )} */}
+            <Tab.Panel className='px-4 border-b'>
+              {posts &&
+                posts.map((post, idx) => (
+                  <SinglePost key={idx + 1} post={post} />
+                ))}
             </Tab.Panel>
             <Tab.Panel>
-              Discussion
+              {discussions && discussions.length > 0 ? (
+                discussions.map((idx) => <p key={idx + 1}>Discussions</p>)
+              ) : (
+                <p>No Discussions</p>
+              )}
             </Tab.Panel>
           </Tab.Panels>
         </Tab.Group>
       </section>
     </>
-  )
+  );
 }

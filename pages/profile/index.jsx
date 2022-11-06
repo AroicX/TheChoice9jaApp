@@ -29,7 +29,6 @@ export default function Profile() {
 
   useEffect(() => {
     dispatch(getUserDetails());
-    console.log(user);
   }, [dispatch]);
 
   const logOut = () => {
@@ -91,7 +90,7 @@ export default function Profile() {
             {LISTS.map((list) => (
               <li
                 key={list.id}
-                className='flex items-center pt-3 justify-between cursor-pointer'
+                className='flex items-center pt-3 justify-between'
               >
                 <div className='flex items-center space-x-3 text-darkColor-500'>
                   <list.icon className='text-green-neutral-500 h-5 w-5' />

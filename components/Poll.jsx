@@ -6,76 +6,91 @@ import { useRouter } from 'next/router';
 import { classNames } from '../helpers';
 import { numberFormatter } from '../helpers';
 import Button from '@/reusable/Button';
-import { ICONS } from '@/reusable/Icons';
 import Comments from './Comments';
-import Modal from '@/reusable/Modal';
+import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
+import { VOTE_ON_POLL } from '@/services/polls';
+import { useEffect } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
-import {
-  EllipsisHorizontalIcon,
-  ChartBarSquareIcon,
-  FlagIcon,
-} from '@heroicons/react/24/outline';
-
-import { comments } from 'data/comments';
-
-const people = [
-  {
-    id: 0,
-    name: 'Nuhu Ribado',
-    imageUrl: '/rotimi.png',
-  },
-  {
-    id: 1,
-    name: 'Rotimi Ameachi',
-    imageUrl: '/rotimi.png',
-  },
-];
-
-const Candidates = ({ person }) => {
+const Candidates = ({ person, option, click }) => {
   return (
-    <RadioGroup.Option
-      value={person}
-      className={({ active }) =>
-        classNames(
-          active ? 'ring-2 ring-green-500' : '',
-          'group relative h-auto border h-fit rounded-md focus:outline-none '
-        )
-      }
-    >
-      {({ active, checked }) => (
-        <>
-          <div className='flex w-full items-center justify-between space-x-6'>
-            <img className='w-full rounded-t-md' src={person.imageUrl} alt='' />
-          </div>
-          <div className='p-2 h-12 font-bold flex items-center space-x-4 bg-primaryColor-200'>
-            <input
-              readOnly
-              checked={checked}
-              type='radio'
-              name='candidate'
-              className='h-5 w-5 checked:bg-green-500 border border-3 border-green-neutral-300 focus:ring-green-neutral-500'
-            />
-            <p className='text-coolblack-primary font-12 font-inter--md'>
-              {person.name}
-            </p>
-          </div>
-        </>
-      )}
-    </RadioGroup.Option>
+    <div onClick={() => click(option)}>
+      <RadioGroup.Option
+        value={person}
+        className={({ active }) =>
+          classNames(
+            active ? 'ring-2 ring-green-500' : '',
+            'group relative h-auto border h-fit rounded-md focus:outline-none '
+          )
+        }
+      >
+        {({ active, checked }) => (
+          <section>
+            <div className='flex w-full items-center justify-between space-x-6'>
+              <img className='w-full rounded-t-md' src={person.image} alt='' />
+            </div>
+            <div className='p-2 h-12 font-bold flex items-center space-x-4 bg-primaryColor-200'>
+              <input
+                readOnly
+                checked={checked}
+                type='radio'
+                name='candidate'
+                className='h-5 w-5 checked:bg-green-500 border border-3 border-green-neutral-300 focus:ring-green-neutral-500'
+              />
+              <p className='text-coolblack-primary font-12 font-inter--md'>
+                {person.text}
+              </p>
+            </div>
+            {/* <div className='bg-gray-200 rounded-md h-6 mb-1 dark:bg-gray-700'>
+              <div
+                className='bg-green-600 h-full rounded-md dark:bg-green-500'
+                style={{ width: '45%' }}
+              ></div>
+            </div> */}
+          </section>
+        )}
+      </RadioGroup.Option>
+    </div>
   );
 };
 
 export default function Poll({ poll }) {
   const [selectedCandidate, setSelectedCandidate] = useState(null);
+  const [voting, setVoting] = useState(false);
   const [modal, setModal] = useState(false);
   const router = useRouter();
   const [comment, setComment] = useState('');
 
-  console.log(posts);
+  const voteOnPoll = async () => {
+    const data = {
+      value: selectedCandidate,
+    };
+
+    setVoting(true);
+
+    const callback = (response) => {
+      toast.success('Your vote has been casted');
+
+      setVoting(false);
+    };
+
+    const onError = (error) => {
+      const { data } = error;
+      toast.error(data.message);
+      setVoting(false);
+    };
+
+    await VOTE_ON_POLL(poll.id, data, callback, onError);
+  };
+
+  const getSelectedCandidate = (candidate) => {
+    setSelectedCandidate(candidate);
+  };
 
   return (
     <>
-      <section className='flex space-x-4 mt-6 px-4'>
+      <Toaster position='top-center' reverseOrder={false} />
+      <section className='flex space-x-4 cursor-pointer mt-6 px-4'>
         <div className=''>
           <Avatar
             alt=''
@@ -97,34 +112,37 @@ export default function Poll({ poll }) {
             />
           </header>
           <div className='mt-2 space-y-2'>
-            <header onClick={() => router.push('/poll')}>
+            <header onClick={() => router.push(`/poll/${poll.id}`)}>
               <h3 className='uppercase font-10 font-inter-md flex items-center space-x-2 text-green-neutral-500'>
                 <span>poll</span>
                 <span className='text-2xl -mt-2'>.</span>
                 <span className='text-coolblack-primary text-body-2-regular'>
-                  {poll}
+                  poll
                 </span>
               </h3>
               <p className='text-coolblack-900 font-14 font-inter--regular'>
-                From this options, who do you think is the the best fit for
-                Minister of Petroleum?
+                {poll.question}
               </p>
             </header>
             <div className='candidates'>
-              <RadioGroup
-                value={selectedCandidate}
-                onChange={setSelectedCandidate}
-              >
+              <RadioGroup value={selectedCandidate}>
                 <ul className='grid grid-cols-2 gap-6'>
-                  {people.map((person) => (
-                    <Candidates key={person.id} person={person} />
+                  {Object.values(poll.options).map((person, idx) => (
+                    <Candidates
+                      key={person.id}
+                      person={person}
+                      click={getSelectedCandidate}
+                      option={Object.keys(poll.options)[idx]}
+                    />
                   ))}
                 </ul>
               </RadioGroup>
               {selectedCandidate && (
                 <Button
+                  click={voteOnPoll}
                   type='button'
-                  text='Vote now'
+                  loading={voting}
+                  text={`${voting ? 'Voting' : 'Vote'}`}
                   styles='my-4 bg-green-500 rounded-full text-white text-lg py-1'
                 />
               )}
@@ -134,28 +152,11 @@ export default function Poll({ poll }) {
               <span className='font-bold text-lg'>.</span>
               <span>8 days left</span>
             </div>
-            <footer className='flex items-center space-x-4'>
-              {ICONS.map((item) => (
-                <button
-                  key={item.name}
-                  className='flex items-center space-x-3 text-darkColor-500'
-                >
-                  <item.icon
-                    className='w-6'
-                    height='1.4rem'
-                    aria-hidden='true'
-                  />
-                  <span className='text-lg'>
-                    {item.count !== 0 && numberFormatter(item.count)}
-                  </span>
-                </button>
-              ))}
-            </footer>
           </div>
         </div>
       </section>
-      <Comments comments={comments} />
-      <div className='flex items-center px-3 mt-3 h-fit space-x-4'>
+      {/* <Comments comments={comments} /> */}
+      {/* <div className='flex items-center px-3 mt-3 h-fit space-x-4'>
         <Avatar
           alt=''
           style='border border-green-500 h-12 w-12'
@@ -179,27 +180,7 @@ export default function Poll({ poll }) {
             </div>
           </form>
         </div>
-      </div>
-      <Modal title='Poll' toggle={modal} dispatch={() => setModal(false)}>
-        <div className='divide-y'>
-          <button
-            onClick={() => router.push('/analytics')}
-            className='flex items-center py-2 px-3 space-x-2'
-          >
-            <ChartBarSquareIcon className='w-5 h-5 text-green-neutral-500' />
-            <span className='text-coolblack-primary font-normal'>
-              Expand poll results
-            </span>
-          </button>
-          <button
-            onClick={() => router.push('/reports')}
-            className='flex items-center py-2 px-3 space-x-2'
-          >
-            <FlagIcon className='w-5 h-5 text-green-neutral-500' />
-            <span className='text-red-400 font-normal'>Result</span>
-          </button>
-        </div>
-      </Modal>
+      </div> */}
     </>
   );
 }
