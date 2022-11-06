@@ -73,7 +73,7 @@ export default function Home() {
         <h3>See what is happening</h3>
       </div>
       <Layout active='home'>
-        {/* <Poll /> */}
+     {/* <Poll /> */}
 
         <main>
           {discourse.map(
