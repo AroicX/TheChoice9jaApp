@@ -10,6 +10,7 @@ const Button = ({
   iconLeft,
   iconRight,
   loading,
+  disabled,
   type = 'button',
   loadingText = null,
   rest,
@@ -62,7 +63,7 @@ const Button = ({
           }`}
           onClick={click}
           {...rest}
-          disabled={loading}
+          disabled={loading || disabled}
         >
           {loading ? (
             <div className={`w-100 flex flex-row justify-between text-white `}>

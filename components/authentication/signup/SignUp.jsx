@@ -5,6 +5,11 @@ import { useRouter } from 'next/router';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 export default function SignUp({ next, setUser, user }) {
   const router = useRouter();
+
+  const { firstName, lastName, username } = user;
+
+  const disabled = firstName === '' || lastName === '' || username === '';
+
   return (
     <AuthProvider>
       <form className='space-y-8'>
@@ -52,7 +57,9 @@ export default function SignUp({ next, setUser, user }) {
         <Button
           click={() => next()}
           text='continue'
-          styles='inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 bg-greenPrimary font-inter--bold font-14 text-white shadow-sm'
+          styles={`${
+            disabled ? 'bg-darkColor-300' : 'bg-greenPrimary'
+          } inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 font-inter--bold font-14 text-white shadow-sm`}
         />
       </div>
     </AuthProvider>
