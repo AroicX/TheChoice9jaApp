@@ -3,11 +3,32 @@ import { useRouter } from 'next/router';
 import services from '@/services/index';
 import Avatar from '@/components/Avatar';
 import Layout from '@/components/layout';
-import Loader from '@/reusable/Loader';
-import Discourse from '@/components/Discourse';
+
+import { useState, useEffect } from 'react';
+
+import { GET_POLLS } from '@/services/polls';
+import Poll from '@/components/Poll';
 
 export default function Discussion({ discussions }) {
   const router = useRouter();
+  const [polls, setPolls] = useState([]);
+
+  const getPolls = async () => {
+    const callback = (response) => {
+      const { poll } = response;
+      setPolls(poll);
+    };
+
+    const onError = (error) => {
+      console.log(error);
+    };
+
+    await GET_POLLS(callback, onError);
+  };
+
+  useEffect(() => {
+    getPolls();
+  }, []);
 
   return (
     <>
@@ -48,7 +69,11 @@ export default function Discussion({ discussions }) {
           </ul>
         </main>
 
-        {/* <Discourse poll='restructuring nigeria' /> */}
+        {polls &&
+          polls.length > 0 &&
+          polls.map((poll) => {
+            return <Poll key={poll.id} poll={poll} />;
+          })}
       </Layout>
     </>
   );

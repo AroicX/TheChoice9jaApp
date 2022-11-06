@@ -1,9 +1,15 @@
-import Verified from "./Verified"
-import Avatar from "./Avatar"
+import Verified from './Verified';
+import Avatar from './Avatar';
 
-export default function Comments({comment}) {
+import { useRouter } from 'next/router';
+
+export default function Comments({ comment }) {
+  const Router = useRouter();
   return (
-    <section className='flex space-x-4 mt-2 cursor-pointer'>
+    <section
+      onClick={() => Router.push(`/comment/${comment.id}`)}
+      className='flex space-x-4 mt-2 cursor-pointer'
+    >
       <div className=''>
         <Avatar
           alt=''
@@ -14,9 +20,7 @@ export default function Comments({comment}) {
       <div className='flex-1'>
         <header className='flex items-center justify-between'>
           <div className='flex space-x-2'>
-            <h3 className='text-dark font-12 font-inter--sm'>
-              Username
-            </h3>
+            <h3 className='text-dark font-12 font-inter--sm'>Username</h3>
             {/* {user.verifiedPhoneNo && <Verified />} */}
           </div>
         </header>
@@ -27,5 +31,5 @@ export default function Comments({comment}) {
         </div>
       </div>
     </section>
-  )
+  );
 }
