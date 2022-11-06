@@ -1,8 +1,4 @@
 import BackButton from '@/components/BackButton';
-import Avatar from '@/components/Avatar';
-import Verified from '@/components/Verified';
-import { EllipsisHorizontalIcon } from '@heroicons/react/24/outline';
-import SVG from 'react-inlinesvg';
 
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -22,14 +18,11 @@ export default function Poll() {
 
       setPost(data);
 
-      console.log(data);
-
       setLoading(false);
     };
 
     const onError = (error) => {
       setLoading(false);
-      console.log(error.data);
     };
 
     await GET_POST_BY_ID(+query.id, callback, onError);
@@ -48,7 +41,9 @@ export default function Poll() {
         {loading ? (
           <p className='text-center mt-2'>Loading...</p>
         ) : (
-          <SinglePost user={post?.user} post={{ ...post }} />
+          <>
+            <SinglePost user={post.user} post={{ ...post }} />
+          </>
         )}
       </main>
     </>

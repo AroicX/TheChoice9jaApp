@@ -10,6 +10,7 @@ import Image from 'next/image';
 import Input from '@/reusable/Input';
 import AuthProvider from '@/components/AuthProvider';
 import Button from '@/reusable/Button';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Login() {
   const { setToken } = useGlobalStore();
@@ -35,14 +36,17 @@ export default function Login() {
         let _redirect = window.localStorage.getItem('be-authorized');
         _redirect ? router.push(_redirect) : router.push('/home');
       } else {
-        ResponseHandler(response);
+        if (response.statusCode === 400) {
+          router.push('/verifiy');
+        }
         setLoading(false);
       }
     };
 
     const onError = (error) => {
-      // ResponseHandler(error);
       setLoading(false);
+
+      //toast.error(error);
     };
 
     await LOGIN_ACCOUNT(data, callback, onError);
@@ -52,6 +56,7 @@ export default function Login() {
 
   return (
     <AuthProvider>
+      <Toaster position='top-center' reverseOrder={false} />
       <XMarkIcon
         onClick={() => router.push('/')}
         className='w-6 h-6 cursor-pointer'

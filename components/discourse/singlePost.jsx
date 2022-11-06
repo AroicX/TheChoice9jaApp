@@ -11,6 +11,7 @@ import Comments from '../Comments';
 import Modal from '../Modal';
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
+import AvatarName from '../NameAvatar';
 
 export default function SinglePost({ post, user, discussion, dispatch }) {
   const [open, setOpen] = useState(false);
@@ -83,11 +84,7 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
       <Toaster position='top-center' reverseOrder={false} />
       <section className='relative flex space-x-4 mt-2 cursor-pointer'>
         <div className=''>
-          <Avatar
-            alt=''
-            style='border border-green-500 w-9 h-9'
-            imgSrc='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-          />
+          <AvatarName style='h-9 w-9' user={user} />
         </div>
         <div className='flex-1'>
           <header className='flex items-center justify-between'>

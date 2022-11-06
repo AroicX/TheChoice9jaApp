@@ -415,6 +415,12 @@ export const classNames = (...classes) => {
   return classes.filter(Boolean).join(' ');
 };
 
-export const randomColor = `bg-[#${Math.floor(
-  Math.random() * 16777215
-).toString(16)}]`;
+export const randomColor = () => {
+  return (
+    '#' +
+    Math.floor(Math.random() * 16777215)
+      .toString(16)
+      .padStart(6, '0')
+      .toUpperCase()
+  );
+};

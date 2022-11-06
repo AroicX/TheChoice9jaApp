@@ -1,17 +1,18 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-import SignUp from "@/components/authentication/signup/SignUp";
-import CreateAccount from "@/components/authentication/signup/CreateAccount"
+import SignUp from '@/components/authentication/signup/SignUp';
+import CreateAccount from '@/components/authentication/signup/CreateAccount';
+import VerifyAccount from '@/components/authentication/signup/VerifyNumber';
 
 export default function Signup() {
   const [selected, setSelected] = useState(null);
   const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    username: "",
-    phoneNo: "",
-    email: "",
-    password: ""
+    firstName: '',
+    lastName: '',
+    username: '',
+    phoneNo: '',
+    email: '',
+    password: '',
   });
 
   const next = () => {
@@ -39,11 +40,19 @@ export default function Signup() {
       {selected === null ? (
         <SignUp next={next} setUser={setUser} user={user} />
       ) : (
-        ""
+        ''
       )}
       {selected === 1 ? (
-        <CreateAccount back={back} user={user} setUser={setUser} />
-      ) : ("")}
+        <CreateAccount back={back} next={next} user={user} setUser={setUser} />
+      ) : (
+        ''
+      )}
+
+      {selected === 2 ? (
+        <VerifyAccount back={back} phoneNo={user.phoneNo} />
+      ) : (
+        ''
+      )}
     </div>
-  )
+  );
 }
