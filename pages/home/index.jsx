@@ -4,6 +4,7 @@ import Layout from '@/components/layout';
 import { useState, useEffect } from 'react';
 import { LOAD_DISCOURSSIONS_FROM_TIMELINE } from '@/services/discourse';
 import SinglePost from '@/components/discourse/singlePost';
+import { getHash } from '@/helpers/index';
 
 const people = [
   {
@@ -73,7 +74,7 @@ export default function Home() {
         <h3>See what is happening</h3>
       </div>
       <Layout active='home'>
-     {/* <Poll /> */}
+        {/* <Poll /> */}
 
         <main>
           {discourse.map(

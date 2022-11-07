@@ -17,19 +17,25 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState({});
   const Router = useRouter();
 
   const _like = async (post_id) => {
     const callback = (response) => {
       const { data } = response;
 
-      dispatch(data);
+      //dispatch(data);
+
+      setLikes(data);
+
+      setLiked(true);
     };
 
     const onError = (error) => {
       const { data } = error;
 
-      toast.error(data.message);
+      setLiked(false);
     };
 
     await LIKE_DISCOURSE(post_id, callback, onError);
@@ -87,7 +93,10 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
 
         <div className='flex-1'>
           <header className='flex items-center justify-between'>
-            <div className='flex space-x-2'>
+            <div
+              onClick={() => Router.push(`/profile/${user?.id}`)}
+              className='flex space-x-2'
+            >
               <h3 className='text-dark font-12 font-inter--sm'>
                 {user?.username}
               </h3>
@@ -122,7 +131,7 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
                       src='/svgs/thumbs-up.svg'
                     />
                     <span className='text-base mx-0.5 my-auto'>
-                      {post.likes}
+                      {`${liked ? likes.likes : post.likes}`}
                     </span>
                   </button>
                   <button

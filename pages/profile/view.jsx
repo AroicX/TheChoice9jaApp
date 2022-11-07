@@ -19,7 +19,6 @@ export default function ViewProfile() {
   const [posts, setPosts] = useState([]);
   const [discussions, setDiscussions] = useState([]);
   const Router = useRouter();
-
   const { user } = useSelector((state) => state.userDetails);
 
   const getPostByUser = async () => {
@@ -67,12 +66,7 @@ export default function ViewProfile() {
           </>
         ) : (
           <>
-            <AvatarName
-              name={`${user.firstName.charAt(0).toUpperCase()}${user.lastName
-                .charAt(0)
-                .toUpperCase()}`}
-              style='w-14 h-14'
-            />
+            <AvatarName user={user} style='w-14 h-14' />
           </>
         )}
         <span>

@@ -59,7 +59,7 @@ export default function VerifyAccount({ back, phoneNo }) {
   };
 
   useEffect(() => {
-    //sendOneTimePassword();
+    sendOneTimePassword();
   }, []);
 
   return (
@@ -74,14 +74,23 @@ export default function VerifyAccount({ back, phoneNo }) {
       </div>
       <form onSubmit={validateOTP} className='space-y-8'>
         <h3 className='mt-8 text-heading-2-semibold'>Create a Password</h3>
-        <Input
-          id='ot'
-          label='Enter OTP'
-          placeholder='Enter OTP send to your phone Number'
-          value={otp}
-          dispatch={(value) => setOpt(value)}
-          required
-        />
+        <div>
+          <Input
+            id='ot'
+            label='Enter OTP'
+            placeholder='Enter OTP send to your phone Number'
+            value={otp}
+            dispatch={(value) => setOpt(value)}
+            required
+          />
+          <a
+            href='#'
+            onClick={sendOneTimePassword}
+            className='text-greenPrimary mt-2 block'
+          >
+            Resend otp
+          </a>
+        </div>
 
         <div className='flex md:mt-12 mt-10'>
           <Button

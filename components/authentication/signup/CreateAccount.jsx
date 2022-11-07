@@ -89,7 +89,7 @@ export default function CreateAccount({ back, next, user, setUser }) {
       <div className='flex md:mt-12 mt-10'>
         <Button
           text='Create Account'
-          click={onSubmitHandler}
+          click={() => next()}
           loading={isLoading}
           styles={`${
             disabled ? 'bg-darkColor-300' : 'bg-greenPrimary'

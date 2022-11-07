@@ -2,8 +2,9 @@ import Button from '@/reusable/Button';
 import { useRouter } from 'next/router';
 import AuthProvider from '@/components/AuthProvider';
 import Image from 'next/image';
+import useGuest from '@/hooks/useGuest';
 
-export default function Home() {
+function Home() {
   const router = useRouter();
   return (
     <AuthProvider>
@@ -61,3 +62,5 @@ export default function Home() {
     </AuthProvider>
   );
 }
+
+export default useGuest(Home);

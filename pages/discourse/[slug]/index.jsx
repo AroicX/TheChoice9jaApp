@@ -8,6 +8,7 @@ import Button from '@/reusable/Button';
 import Layout from '@/components/layout';
 import Modal from '@/components/Modal';
 import { PlusIcon } from '@heroicons/react/24/outline';
+import toast, { Toaster } from 'react-hot-toast';
 import DiscourssionTabs from '@/components/discourse/Tabs';
 
 import { GET_DISCOUSSION_BY_ID } from '@/services/discussions';
@@ -39,6 +40,58 @@ export default function Slug() {
       getPollByDiscussion(slug);
     }
   }, [slug]);
+
+  useEffect(() => {
+    const { user } = JSON.parse(localStorage.getItem('user-data'));
+    setUser(user);
+  }, []);
+
+  useEffect(() => {
+    getRoomsByUser();
+  }, []);
+
+  const joinRoom = () => {
+    setIsLoading(true);
+
+    const data = {
+      userId: user.id,
+      discussionsId: slug,
+    };
+
+    const callback = (response) => {
+      if (response) {
+        setIsLoading(false);
+        setJoined(true);
+
+        toast.success(response.message);
+      }
+    };
+
+    const onError = (err) => {
+      setIsLoading(false);
+      ResponseHandler(err);
+    };
+
+    JOIN_ROOM(data, callback, onError);
+  };
+
+  const getRoomsByUser = () => {
+    const callback = (response) => {
+      if (response) {
+        response.room.map((room) => {
+          if (room.discussionsId === +slug) {
+            setJoined(true);
+          }
+        });
+      }
+    };
+
+    const onError = (err) => {
+      ResponseHandler(err);
+    };
+
+    GET_ROOMS_BY_USER(callback, onError);
+  };
 
   const getDiscussionById = async (discussion_id) => {
     const callback = async (response) => {
@@ -107,6 +160,7 @@ export default function Slug() {
 
   return (
     <Layout>
+      <Toaster position='top-center' reverseOrder={false} />
       <button
         onClick={() => setOpen(true)}
         className='m_create--post'
@@ -127,7 +181,7 @@ export default function Slug() {
           <div className='flex justify-between items-center'>
             <Avatar style='bg-white' />
             <Button
-              // click={onSubmitHandler}
+              click={joinRoom}
               loading={isLoading}
               type='button'
               disabled={isLoading || joined}

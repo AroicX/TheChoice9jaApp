@@ -56,3 +56,31 @@ export async function VALIDATE_ONE_PASSWORD(data, callback, onError) {
     onError && onError(error);
   }
 }
+
+export async function FORGET_PASSWORD(data, callback, onError) {
+  try {
+    let forgetPassword = await requests.post(`auth/forgot-password`, data);
+    if (forgetPassword.data) {
+      callback && callback(forgetPassword.data);
+    } else {
+      throw forgetPassword;
+    }
+    return forgetPassword;
+  } catch (error) {
+    onError && onError(error);
+  }
+}
+
+export async function RESET_PASSWORD(data, callback, onError) {
+  try {
+    let resetPassword = await requests.post(`auth/reset-password`, data);
+    if (resetPassword.data) {
+      callback && callback(resetPassword.data);
+    } else {
+      throw resetPassword;
+    }
+    return resetPassword;
+  } catch (error) {
+    onError && onError(error);
+  }
+}

@@ -1,7 +1,5 @@
-import Avatar from '@/components/Avatar';
 import Link from 'next/link';
 import Layout from '@/components/layout';
-import Skeleton from '@/reusable/Skeleton';
 import {
   ChevronRightIcon,
   ExclamationTriangleIcon,
@@ -14,6 +12,7 @@ import { getUserDetails } from 'actions/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import BackButton from '@/components/BackButton';
 
 const LISTS = [
   { id: 0, title: 'Security', icon: ShieldExclamationIcon },
@@ -40,11 +39,7 @@ export default function Profile() {
     <>
       <header className='border-b-2'>
         <div className='w-full border-b text-green-neutral-primary p-2 flex items-center text-body-semibold'>
-          <Avatar
-            style='w-8 h-8'
-            imgSrc='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-            alt='Profile picture'
-          />
+          <BackButton />
           <div className='flex-1 text-center'>
             <h3 className='text-greenPrimary font-14 font-inter--sm'>
               Choice9ja

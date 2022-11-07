@@ -433,3 +433,18 @@ export const contrastColor = (c) =>
         .reduce((r, v, i) => [0.299, 0.587, 0.114][i] * v + r, 0) < 128
     )
   ];
+
+export const getHash = async (str, algo = 'SHA-256') => {
+  let strBuf = new TextEncoder().encode(str);
+  return crypto.subtle.digest(algo, strBuf).then((hash) => {
+    window.hash = hash;
+    // here hash is an arrayBuffer,
+    // so we'll connvert it to its hex version
+    let result = '';
+    const view = new DataView(hash);
+    for (let i = 0; i < hash.byteLength; i += 4) {
+      result += ('00000000' + view.getUint32(i).toString(16)).slice(-8);
+    }
+    return result;
+  });
+};
