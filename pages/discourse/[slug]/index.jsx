@@ -18,7 +18,7 @@ import Poll from '@/components/Poll';
 import { contrastColor, randomColor } from '@/helpers/index';
 
 export default function Slug() {
-  const [room, setRoom] = useState([]);
+  const [room, setRoom] = useState(null);
   const [discussions, setDiscussions] = useState([]);
   const [poll, setPoll] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -160,7 +160,6 @@ export default function Slug() {
 
   return (
     <Layout>
-      <Toaster position='top-center' reverseOrder={false} />
       <button
         onClick={() => setOpen(true)}
         className='m_create--post'
@@ -169,7 +168,7 @@ export default function Slug() {
         <PlusIcon className='h-8 w-8' aria-hidden='true' />
       </button>
       <header className='py-2 px-3 mb-1'>
-        <BackButton title={room.topic} />
+        <BackButton title={room?.topic} />
       </header>
       <section
         className={`pt-2`}
@@ -198,9 +197,9 @@ export default function Slug() {
               color: contrastColor(color),
             }}
           >
-            <h3 className='font-20 font-inter--sm'>{room.topic}</h3>
+            <h3 className='font-20 font-inter--sm'>{room?.topic}</h3>
             <p className='font-12 font-inter--regular'>
-              {room.question}
+              {room?.question}
               {discussion ? discussion.discussion.description : ''}
             </p>
           </div>
@@ -209,11 +208,9 @@ export default function Slug() {
           <p>{Math.floor(Math.random() * (1000 - 100) + 100)} People Joined</p>
         </div>
       </section>
-
       <DiscourssionTabs discussions={discussions} />
 
       {poll && <Poll poll={poll} />}
-
       <Modal open={open} setOpen={setOpen}>
         <form onSubmit={createPost}>
           <div>

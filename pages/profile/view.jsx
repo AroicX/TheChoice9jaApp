@@ -123,7 +123,7 @@ export default function ViewProfile() {
             <Tab.Panel className='px-4 border-b'>
               {posts &&
                 posts.map((post, idx) => (
-                  <SinglePost key={idx + 1} post={post} />
+                  <SinglePost key={idx + 1} user={user} post={post} />
                 ))}
             </Tab.Panel>
             <Tab.Panel>

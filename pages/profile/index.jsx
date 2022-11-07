@@ -12,7 +12,7 @@ import { getUserDetails } from 'actions/users';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import BackButton from '@/components/BackButton';
+import AvatarName from '@/components/NameAvatar';
 
 const LISTS = [
   { id: 0, title: 'Security', icon: ShieldExclamationIcon },
@@ -38,27 +38,11 @@ export default function Profile() {
   return (
     <>
       <header className='border-b-2'>
-        <div className='w-full border-b text-green-neutral-primary p-2 flex items-center text-body-semibold'>
-          <BackButton />
-          <div className='flex-1 text-center'>
-            <h3 className='text-greenPrimary font-14 font-inter--sm'>
-              Choice9ja
-            </h3>
-          </div>
-        </div>
-
         <div className='py-6 px-2 flex space-x-10'>
-          <span className='inline-flex h-12 w-12 items-center justify-center rounded-full bg-bluePrimary ring-2 ring-offset-2 ring-blueSecondary'>
-            <span className='text-lg font-medium leading-none text-white'>
-              {Object.keys(user).length === 0 || user === null ? (
-                <>
-                  <p>LD</p>
-                </>
-              ) : (
-                `${user.firstName.charAt(0)}${user.lastName.charAt(0)}`
-              )}
-            </span>
-          </span>
+          <AvatarName
+            user={user}
+            style='h-10 w-10 ring ring-blue-200 ring-offset-2'
+          />
           <span>
             <span className='block text-dark font-18 font-inter--sm'>
               {Object.keys(user).length === 0 || user === null ? (
@@ -85,7 +69,7 @@ export default function Profile() {
             {LISTS.map((list) => (
               <li
                 key={list.id}
-                className='flex items-center pt-3 justify-between'
+                className='flex items-center p-4 justify-between'
               >
                 <div className='flex items-center space-x-3 text-darkColor-500'>
                   <list.icon className='text-green-neutral-500 h-5 w-5' />
@@ -99,7 +83,7 @@ export default function Profile() {
           <button
             type='button'
             onClick={logOut}
-            className='flex items-center space-x-6 mt-10 text-secondaryColor-500 font-14'
+            className='flex items-center space-x-6 mt-10 text-secondaryColor-500 font-14 p-4'
           >
             <ArrowRightOnRectangleIcon className='w-6 h-6' />
             <span className='text-body-2-regular'>Log Out</span>
