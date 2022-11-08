@@ -63,4 +63,4 @@ function Home() {
   );
 }
 
-export default useGuest(Home);
+export default Home;

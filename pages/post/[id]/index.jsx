@@ -37,7 +37,7 @@ export default function Poll() {
       <header className='border-b py-3 px-4 border-b-coolblack-200'>
         <BackButton title='Post' />
       </header>
-      <main className='border-b pb-4 mb-28'>
+      <main className='pb-4 mb-28'>
         {loading ? (
           <p className='text-center mt-2'>Loading...</p>
         ) : (

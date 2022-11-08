@@ -18,14 +18,14 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
   const [comment, setComment] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [disliked, setDisliked] = useState(false);
   const [likes, setLikes] = useState({});
+  const [dislikes, setDislikes] = useState({});
   const Router = useRouter();
 
   const _like = async (post_id) => {
     const callback = (response) => {
       const { data } = response;
-
-      //dispatch(data);
 
       setLikes(data);
 
@@ -44,13 +44,18 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
   const _dislike = async (post_id) => {
     const callback = (response) => {
       const { data } = response;
-      dispatch(data);
+
+      setDislikes(data);
+
+      setDisliked(true);
     };
 
     const onError = (error) => {
       const { data } = error;
 
       toast.error(data.message);
+
+      setDisliked(false);
     };
 
     await DISLIKE_DISCOURSE(post_id, callback, onError);
@@ -108,15 +113,23 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
             />
           </header>
           <div className='mt-2 space-y-2'>
-            <header onClick={() => Router.push(`/post/${post.id}`)}>
+            <header>
               {discussion && (
-                <h3 className='uppercase font-10 font-inter--md flex items-center space-x-2 text-primaryColor-700'>
+                <h3
+                  onClick={() => Router.push(`/discourse/${discussion.id}`)}
+                  className='uppercase font-10 font-inter--md flex items-center space-x-2 text-primaryColor-700'
+                >
                   <span>discourse</span>
                   <span className='text-2xl -mt-2'>.</span>
                   <span>{discussion.topic}</span>
                 </h3>
               )}
-              <p className='text-black-primary font-14 my-2'>{post.message}</p>
+              <p
+                onClick={() => Router.push(`/post/${post.id}`)}
+                className='text-black-primary font-14 my-2'
+              >
+                {post.message}
+              </p>
             </header>
             <footer className='flex items-center space-x-4'>
               <div className='flex items-center space-x-3 text-primaryColor-500'>
@@ -144,7 +157,7 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
                       src='/svgs/thumbs-down.svg'
                     />
                     <span className='text-base mx-0.5 my-auto'>
-                      {post.dislikes}
+                      {`${disliked ? dislikes.dislikes : post.dislikes}`}
                     </span>
                   </button>
 

@@ -59,6 +59,7 @@ export default function ViewProfile() {
       <header className='border-b p-2'>
         <BackButton title={`${user.firstName}'s Profile`} />
       </header>
+
       <section className='flex items-center space-x-4 py-2 px-4'>
         {Object.keys(user).length === 0 ? (
           <>

@@ -110,6 +110,7 @@ export default function Slug() {
   const getPostByDiscussion = async (discussion_id) => {
     const callback = (response) => {
       const { data } = response;
+
       setDiscussions(data);
     };
 
@@ -147,6 +148,10 @@ export default function Slug() {
     const callback = (response) => {
       const { data } = response;
 
+      const newDiscussions = [...discussions, data];
+
+      setDiscussions(newDiscussions.reverse());
+
       setIsLoading(false);
     };
 
@@ -159,58 +164,64 @@ export default function Slug() {
   };
 
   return (
-    <Layout>
-      <button
-        onClick={() => setOpen(true)}
-        className='m_create--post'
-        type='button'
-      >
-        <PlusIcon className='h-8 w-8' aria-hidden='true' />
-      </button>
-      <header className='py-2 px-3 mb-1'>
-        <BackButton title={room?.topic} />
-      </header>
-      <section
-        className={`pt-2`}
-        style={{
-          background: color,
-        }}
-      >
-        <div className='px-2'>
-          <div className='flex justify-between items-center'>
-            <Avatar style='bg-white' />
-            <Button
-              click={joinRoom}
-              loading={isLoading}
-              type='button'
-              disabled={isLoading || joined}
-              text={`${joined ? 'Joined' : 'Join +'}`}
-              styles={`${
-                joined &&
-                'bg-darkColor-300 cursor-not-allowed text-black border-0'
-              } border-2 text-white font-bold border-white w-fit px-12 rounded-full`}
-            />
-          </div>
-          <div
-            className=' space-y-2 my-2'
-            style={{
-              color: contrastColor(color),
-            }}
+    <>
+      <Layout>
+        {joined && (
+          <button
+            onClick={() => setOpen(true)}
+            className='m_create--post'
+            type='button'
           >
-            <h3 className='font-20 font-inter--sm'>{room?.topic}</h3>
-            <p className='font-12 font-inter--regular'>
-              {room?.question}
-              {discussion ? discussion.discussion.description : ''}
+            <PlusIcon className='h-8 w-8' aria-hidden='true' />
+          </button>
+        )}
+        <header className='py-2 px-3 mb-1'>
+          <BackButton title={room?.topic} />
+        </header>
+        <section
+          className={`pt-2`}
+          style={{
+            background: color,
+          }}
+        >
+          <div className='px-2'>
+            <div className='flex justify-between items-center'>
+              <Avatar style='bg-white' />
+              <Button
+                click={joinRoom}
+                loading={isLoading}
+                type='button'
+                disabled={isLoading || joined}
+                text={`${joined ? 'Joined' : 'Join +'}`}
+                styles={`${
+                  joined &&
+                  'bg-darkColor-300 cursor-not-allowed text-black border-0'
+                } border-2 text-white font-bold border-white w-fit px-12 rounded-full`}
+              />
+            </div>
+            <div
+              className=' space-y-2 my-2'
+              style={{
+                color: contrastColor(color),
+              }}
+            >
+              <h3 className='font-20 font-inter--sm'>{room?.topic}</h3>
+              <p className='font-12 font-inter--regular'>
+                {room?.question}
+                {discussion ? discussion.discussion.description : ''}
+              </p>
+            </div>
+          </div>
+          <div className='text-white p-2 border border-t'>
+            <p>
+              {Math.floor(Math.random() * (1000 - 100) + 100)} People Joined
             </p>
           </div>
-        </div>
-        <div className='text-white p-2 border border-t'>
-          <p>{Math.floor(Math.random() * (1000 - 100) + 100)} People Joined</p>
-        </div>
-      </section>
-      <DiscourssionTabs discussions={discussions} />
+        </section>
+        <DiscourssionTabs discussions={discussions} />
 
-      {poll && <Poll poll={poll} />}
+        {poll && <Poll poll={poll} />}
+      </Layout>
       <Modal open={open} setOpen={setOpen}>
         <form onSubmit={createPost}>
           <div>
@@ -239,6 +250,6 @@ export default function Slug() {
           />
         </form>
       </Modal>
-    </Layout>
+    </>
   );
 }
