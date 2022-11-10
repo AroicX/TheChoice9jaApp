@@ -63,7 +63,7 @@ export default function Profile() {
           </span>
         </div>
       </header>
-      <Layout>
+      <Layout style='px-0'>
         <main className='py-10'>
           <ul className='divide-y space-y-3 font-14 font-inter--regular divide-green-neutral-200'>
             {LISTS.map((list) => (

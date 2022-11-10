@@ -34,7 +34,7 @@ export default function Navigation() {
   ];
 
   return (
-    <div className='fixed z-[999] bottom-0 bg-white w-full flex justify-between p-2 px-4 shadow-md border border-t-2'>
+    <div className='fixed z-[999] bottom-0 bg-white w-full flex justify-between p-2 px-4 shadow-md border border-t-2 mt-auto'>
       {items.map((item) => {
         const isActive = pathname === item.link;
         return (

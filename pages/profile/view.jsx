@@ -100,7 +100,7 @@ export default function ViewProfile() {
         </div>
       </section>
 
-      <section className='w-full max-w-md px-2 sm:px-0 mt-8'>
+      <section className='w-full max-w-md sm:px-0 mt-8'>
         <Tab.Group>
           <Tab.List className='flex border-b border-green-neutral-500'>
             {categories.map((category) => (
@@ -121,7 +121,7 @@ export default function ViewProfile() {
             ))}
           </Tab.List>
           <Tab.Panels>
-            <Tab.Panel className='px-4 border-b'>
+            <Tab.Panel className='border-b'>
               {posts &&
                 posts.map((post, idx) => (
                   <SinglePost key={idx + 1} user={user} post={post} />

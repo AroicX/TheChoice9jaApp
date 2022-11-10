@@ -18,7 +18,7 @@ export default function Modal({ title, toggle = false, dispatch, children }) {
     dispatch(false);
   };
   return (
-    <div className={`modal ${toggle ? 'modal-active' : ''}`}>
+    <div className={`modal ${toggle ? 'modal-active' : null}`}>
       <div className='modal-content'>
         <div className='modal-content-header border-b pb-2'>
           <div className='flex-1'>

@@ -45,16 +45,16 @@ export default function Discussion({ discussions }) {
           </h3>
         </div>
       </header>
-      <Layout>
+      <Layout style='px-0'>
         <main className='mt-6 border-b-4 pb-6'>
-          <h4 className='text-dark font-16 font-inter--sm mb-3'>
+          <h4 className='text-dark px-3 font-16 font-inter--sm mb-3'>
             Discourse Forums
           </h4>
-          <ul className='divide-y divide-primaryColor-300'>
+          <ul className='divide-y-2 divide-primaryColor-200'>
             {discussions &&
               discussions.map(({ id, topic }) => (
                 <li
-                  className='flex justify-between p-2 py-4 cursor-pointer transition-all 1s duration-75 ease-in-out text-dark hover:bg-gray-200  '
+                  className='flex justify-between p-3 cursor-pointer transition-all 1s duration-75 ease-in-out text-dark hover:bg-gray-200  '
                   key={id}
                   onClick={() => router.push(`discourse/${id}`)}
                 >

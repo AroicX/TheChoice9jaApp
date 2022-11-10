@@ -3,20 +3,30 @@ import { useRouter } from 'next/router';
 import AuthProvider from '@/components/AuthProvider';
 import Image from 'next/image';
 import useGuest from '@/hooks/useGuest';
+import SVG from 'react-inlinesvg';
 
 function Home() {
   const router = useRouter();
   return (
     <AuthProvider>
-      <div className='px-4'>
+      <div className='flex justify-end my-8 px-6'>
+        <SVG className='w-6 h-6' src='/close.svg' />
+      </div>
+      <div className='px-4 pb-4'>
         <Image width={45} height={50} src='/icon.png' alt='' />
         <div className='mb-10 mt-6 space-y-4'>
           <h1 className='text-greenPrimary font-inter--sm font-32'>
             Choice9ja
           </h1>
-          <p className='text-primaryColor-700 font-14 font-inter-regular'>
+          {/* <p className='text-primaryColor-700 font-14 font-inter-regular'>
             A place for nigerians to learn about politicians & parties, raise
             issues and pseudo-vote candidates.
+          </p> */}
+
+          <p className='text-primaryColor-700 font-14 font-inter-regular'>
+            Welcome to the Future of Democracy in Nigeria! Where your{' '}
+            <span className='font-bold'>Voice Counts</span> and Your{' '}
+            <span className='font-bold'>Opinion Matters</span>.
           </p>
         </div>
         <form className='space-y-3'>

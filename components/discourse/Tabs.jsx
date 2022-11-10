@@ -10,7 +10,7 @@ export default function DiscourssionTabs({ discussions }) {
   let [categories] = useState(['Discussions', 'About']);
 
   return (
-    <div className='w-full px-2 sm:px-0 '>
+    <div className='w-full sm:px-0 py-2'>
       <Tab.Group>
         <Tab.List className='flex space-x-1 border-b border-green-primaryColor-500'>
           {categories.map((category) => (

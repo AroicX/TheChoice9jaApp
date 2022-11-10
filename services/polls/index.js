@@ -39,6 +39,19 @@ export async function GET_POLL_BY_ID(poll_id, callback, onError) {
   }
 }
 
+export async function GET_POLL_RESULT_BY_ID(poll_id, callback, onError) {
+  try {
+    let poll = await requests.get(`polls/result/${poll_id}`);
+    if (poll.data) {
+      callback && callback(poll.data);
+    } else {
+      throw poll;
+    }
+  } catch (error) {
+    onError(error);
+  }
+}
+
 export async function VOTE_ON_POLL(poll_id, data, callback, onError) {
   try {
     let poll = await requests.patch(`polls/vote/${poll_id}`, data);

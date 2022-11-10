@@ -8,7 +8,6 @@ import { QUICK_REGISTER } from '@/services/authentication';
 import { setCookie } from '@/services/cookies';
 import { ResponseHandler } from '@/helpers/index';
 import toast, { Toaster } from 'react-hot-toast';
-import Link from 'next/link';
 
 export default function CreateAccount({ back, next, user, setUser }) {
   const { setToken } = useGlobalStore();
@@ -63,11 +62,11 @@ export default function CreateAccount({ back, next, user, setUser }) {
         />
 
         <Input
-          id='email'
-          label='Email'
-          placeholder='Enter Email Addres'
-          value={user.email}
-          dispatch={(value) => setUser({ ...user, email: value })}
+          id='username'
+          label='Username'
+          placeholder='Enter username'
+          value={user.username}
+          dispatch={(value) => setUser({ ...user, username: value })}
           required
         />
 
@@ -88,8 +87,8 @@ export default function CreateAccount({ back, next, user, setUser }) {
       </div>
       <div className='flex md:mt-12 mt-10'>
         <Button
-          text='Create Account'
-          click={() => next()}
+          text='continue'
+          click={onSubmitHandler}
           loading={isLoading}
           styles={`${
             disabled ? 'bg-darkColor-300' : 'bg-greenPrimary'

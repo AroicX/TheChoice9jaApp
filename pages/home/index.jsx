@@ -73,7 +73,7 @@ export default function Home() {
       <div className='px-3 pt-6 border-b pb-4 text-black font-16 font-inter--sm'>
         <h3>See what is happening</h3>
       </div>
-      <Layout active='home'>
+      <Layout style='px-0' active='home'>
         {/* <Poll /> */}
 
         <main>
@@ -98,12 +98,12 @@ export default function Home() {
                   post={{ comments, likes, dislikes, message, id }}
                   dispatch={(val) => _updateState(val)}
                 />
-                {key !== discourse.length - 1 ? (
+                {/* {key !== discourse.length - 1 ? (
                   <span
                     className='absolute top-6 left-8 -ml-px h-full w-0.5 bg-gray-200'
                     aria-hidden='true'
                   />
-                ) : null}
+                ) : null} */}
               </div>
             )
           )}

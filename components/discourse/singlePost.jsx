@@ -3,7 +3,7 @@ import Avatar from '../Avatar';
 import Verified from '../Verified';
 import { useRouter } from 'next/router';
 import SVG from 'react-inlinesvg';
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { DISLIKE_DISCOURSE, LIKE_DISCOURSE } from '@/services/discourse';
 import { CREATE_COMMENT } from '@/services/comments';
 import Button from '@/reusable/Button';
@@ -13,7 +13,7 @@ import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
 import AvatarName from '../NameAvatar';
 
-export default function SinglePost({ post, user, discussion, dispatch }) {
+function SinglePost({ post, user, discussion, dispatch }) {
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -22,6 +22,9 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
   const [likes, setLikes] = useState({});
   const [dislikes, setDislikes] = useState({});
   const Router = useRouter();
+
+  const thumbsUpSVGColor = liked && 'text-blueSecondary';
+  const thumbsDownSVGColor = disliked && 'text-redColor-500';
 
   const _like = async (post_id) => {
     const callback = (response) => {
@@ -68,11 +71,19 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
       message: comment,
     };
 
-    setIsLoading(true);
+    const postComments = post.comments;
+
+    console.log(postComments);
+
+    //setIsLoading(true);
 
     const callback = (response) => {
       setIsLoading(false);
       const { comment } = response;
+
+      console.log(comment);
+
+      console.log();
 
       toast.success('Your comment is added');
 
@@ -87,20 +98,20 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
       setIsLoading(false);
     };
 
-    await CREATE_COMMENT(data, post.id, callback, onError);
+    //await CREATE_COMMENT(data, post.id, callback, onError);
   };
 
   return (
     <div className='border-b p-4 relative z-[10]'>
       <Toaster position='top-center' reverseOrder={false} />
-      <section className='relative flex space-x-4 mt-2 cursor-pointer '>
-        <AvatarName style='h-9 w-9' user={user} />
+      <section className='relative flex space-x-3 mt-2 cursor-pointer '>
+        <AvatarName style='h-8 w-8' user={user} />
 
         <div className='flex-1'>
           <header className='flex items-center justify-between'>
             <div
               onClick={() => Router.push(`/profile/${user?.id}`)}
-              className='flex space-x-2'
+              className='flex items-center space-x-2'
             >
               <h3 className='text-dark font-12 font-inter--sm'>
                 {user?.username}
@@ -135,27 +146,19 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
               <div className='flex items-center space-x-3 text-primaryColor-500'>
                 <div className='flex gap-5'>
                   <button
-                    className='flex space-x-1 p-1'
+                    className={`flex items-center space-x-1 p-1 ${thumbsUpSVGColor}`}
                     onClick={() => _like(post.id)}
                   >
-                    <SVG
-                      className='m-auto'
-                      height='1.2rem'
-                      src='/svgs/thumbs-up.svg'
-                    />
+                    <SVG className='m-auto' src='/svgs/thumbs-up.svg' />
                     <span className='text-base mx-0.5 my-auto'>
                       {`${liked ? likes.likes : post.likes}`}
                     </span>
                   </button>
                   <button
-                    className='flex space-x-1 p-1'
+                    className={`flex items-center space-x-1 p-1 ${thumbsDownSVGColor}`}
                     onClick={() => _dislike(post.id)}
                   >
-                    <SVG
-                      className='m-auto'
-                      height='1.2rem'
-                      src='/svgs/thumbs-down.svg'
-                    />
+                    <SVG className='m-auto' src='/svgs/thumbs-down.svg' />
                     <span className='text-base mx-0.5 my-auto'>
                       {`${disliked ? dislikes.dislikes : post.dislikes}`}
                     </span>
@@ -246,3 +249,5 @@ export default function SinglePost({ post, user, discussion, dispatch }) {
     </div>
   );
 }
+
+export default memo(SinglePost);

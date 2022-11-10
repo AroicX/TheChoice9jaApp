@@ -72,7 +72,6 @@ const Button = ({
                 width='20px'
                 src={'/svgs/loading.svg'}
               />
-              <span className='text-app-color'>{'.'}</span>
               {''}
               {loadingText && <span className='ml-3'>{loadingText}</span>}
             </div>

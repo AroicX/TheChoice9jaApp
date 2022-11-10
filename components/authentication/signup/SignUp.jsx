@@ -23,6 +23,7 @@ export default function SignUp({ next, setUser, user }) {
         <Input
           id='name'
           label='First Name'
+          type='text'
           value={user.firstName}
           dispatch={(value) => setUser({ ...user, firstName: value })}
           placeholder='Enter Firstname'
@@ -31,6 +32,7 @@ export default function SignUp({ next, setUser, user }) {
 
         <Input
           id='name'
+          type='text'
           label='Surname'
           value={user.lastName}
           dispatch={(value) => setUser({ ...user, lastName: value })}
@@ -39,12 +41,12 @@ export default function SignUp({ next, setUser, user }) {
         />
 
         <Input
-          id='username'
-          label='User Name'
-          type='text'
-          value={user.username}
-          dispatch={(value) => setUser({ ...user, username: value })}
-          placeholder='Enter Username'
+          id='email'
+          label='Email Address'
+          type='email'
+          value={user.email}
+          dispatch={(value) => setUser({ ...user, email: value })}
+          placeholder='Enter Email Address'
           required
         />
       </form>
