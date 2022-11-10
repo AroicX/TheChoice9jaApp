@@ -18,15 +18,12 @@ function Home() {
           <h1 className='text-greenPrimary font-inter--sm font-32'>
             Choice9ja
           </h1>
-          {/* <p className='text-primaryColor-700 font-14 font-inter-regular'>
-            A place for nigerians to learn about politicians & parties, raise
-            issues and pseudo-vote candidates.
-          </p> */}
 
           <p className='text-primaryColor-700 font-14 font-inter-regular'>
-            Welcome to the Future of Democracy in Nigeria! Where your{' '}
-            <span className='font-bold'>Voice Counts</span> and Your{' '}
-            <span className='font-bold'>Opinion Matters</span>.
+            Welcome to the Future of Democracy!
+            <span className='block'>
+              Your Voice Counts. Your Opinion Matters.
+            </span>
           </p>
         </div>
         <form className='space-y-3'>

@@ -223,7 +223,7 @@ export default function Slug() {
 
   return (
     <>
-      <Layout>
+      <Layout style='px-0'>
         {joined && (
           <button
             onClick={() => setOpen(true)}

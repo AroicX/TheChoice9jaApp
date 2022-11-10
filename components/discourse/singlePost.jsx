@@ -16,6 +16,7 @@ import AvatarName from '../NameAvatar';
 function SinglePost({ post, user, discussion, dispatch }) {
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState('');
+  const [comm, setComm] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
@@ -75,7 +76,7 @@ function SinglePost({ post, user, discussion, dispatch }) {
 
     console.log(postComments);
 
-    //setIsLoading(true);
+    setIsLoading(true);
 
     const callback = (response) => {
       setIsLoading(false);
@@ -83,7 +84,7 @@ function SinglePost({ post, user, discussion, dispatch }) {
 
       console.log(comment);
 
-      console.log();
+      setComm(comment);
 
       toast.success('Your comment is added');
 
@@ -98,7 +99,7 @@ function SinglePost({ post, user, discussion, dispatch }) {
       setIsLoading(false);
     };
 
-    //await CREATE_COMMENT(data, post.id, callback, onError);
+    await CREATE_COMMENT(data, post.id, callback, onError);
   };
 
   return (

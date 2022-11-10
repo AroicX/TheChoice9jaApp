@@ -67,11 +67,7 @@ const Button = ({
         >
           {loading ? (
             <div className={`w-100 flex flex-row justify-between text-white `}>
-              <SVG
-                className='animate-spin'
-                width='20px'
-                src={'/svgs/loading.svg'}
-              />
+              <SVG width='20px' src={'/svgs/loading.svg'} />
               {''}
               {loadingText && <span className='ml-3'>{loadingText}</span>}
             </div>
