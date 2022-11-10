@@ -6,20 +6,25 @@ import BackButton from '@/components/BackButton';
 import Avatar from '@/components/Avatar';
 import Button from '@/reusable/Button';
 import Layout from '@/components/layout';
-import Modal from '@/components/Modal';
+import Modal from '@/reusable/Modal';
 import { PlusIcon } from '@heroicons/react/24/outline';
 import toast, { Toaster } from 'react-hot-toast';
 import DiscourssionTabs from '@/components/discourse/Tabs';
+import { PaperClipIcon } from '@heroicons/react/24/outline';
 
 import { GET_DISCOUSSION_BY_ID } from '@/services/discussions';
 import { GET_POLL_BY_DISCUSSION } from '@/services/polls';
 import { CREATE_POST, GET_POST_BY_DISCOUSSION } from '@/services/discourse';
 import Poll from '@/components/Poll';
 import { contrastColor, randomColor } from '@/helpers/index';
+import { useRef } from 'react';
 
 export default function Slug() {
   const [room, setRoom] = useState(null);
   const [discussions, setDiscussions] = useState([]);
+  const [image, setImage] = useState();
+  const [preview, setPreviw] = useState('');
+  const fileInputRef = useRef();
   const [poll, setPoll] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState();
@@ -138,11 +143,6 @@ export default function Slug() {
   const createPost = async (event) => {
     event.preventDefault();
 
-    const data = {
-      discussionsId: slug,
-      message: post,
-    };
-
     setIsLoading(true);
 
     const callback = (response) => {
@@ -152,6 +152,8 @@ export default function Slug() {
 
       setDiscussions(newDiscussions.reverse());
 
+      console.log(data);
+
       setIsLoading(false);
     };
 
@@ -160,8 +162,64 @@ export default function Slug() {
       setIsLoading(false);
     };
 
+    const response = await uploadImageToCloudinary();
+
+    const data = {
+      discussionsId: slug,
+      message: post,
+      attachments: {
+        image1: response.image,
+      },
+    };
+
     await CREATE_POST(data, callback, onError);
   };
+
+  const uploadImageToCloudinary = async () => {
+    const formData = new FormData();
+    formData.append('file', image);
+    formData.append('upload_preset', 'choice9ja_uploads');
+    formData.append('upload_preset', 'choice9ja_uploads');
+
+    try {
+      const data = await fetch(
+        'https://api.cloudinary.com/v1_1/hafshus/image/upload',
+        {
+          method: 'POST',
+          body: formData,
+        }
+      ).then((r) => r.json());
+      const body = { image: data.secure_url };
+
+      return body;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleFileChange = (event) => {
+    event.preventDefault();
+    const file = event.target.files[0];
+    if (file && file.type.substring(0, 5) === 'image') {
+      setImage(file);
+    } else {
+      setImage(null);
+    }
+  };
+
+  useEffect(() => {
+    if (image) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setPreviw(reader.result);
+      };
+
+      reader.readAsDataURL(image);
+    } else {
+      setPreviw(null);
+    }
+  }, [image]);
 
   return (
     <>
@@ -208,7 +266,7 @@ export default function Slug() {
               <h3 className='font-20 font-inter--sm'>{room?.topic}</h3>
               <p className='font-12 font-inter--regular'>
                 {room?.question}
-                {discussion ? discussion.discussion.description : ''}
+                {discussion ? discussion.discussion.post : ''}
               </p>
             </div>
           </div>
@@ -222,32 +280,83 @@ export default function Slug() {
 
         {poll && <Poll poll={poll} />}
       </Layout>
-      <Modal open={open} setOpen={setOpen}>
-        <form onSubmit={createPost}>
-          <div>
-            <label
-              htmlFor='post'
-              className='block text-sm font-medium text-gray-700'
-            >
-              Add your post
+      <Modal title='Post' toggle={open} dispatch={() => setOpen(false)}>
+        <form onSubmit={createPost} className='relative px-2 pt-2'>
+          <div className='overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-greenPrimary focus-within:ring-1 focus-within:ring-greenPrimary'>
+            <label htmlFor='post' className='sr-only'>
+              Post
             </label>
-            <div className='mt-1'>
-              <textarea
-                rows={4}
-                value={post}
-                onChange={(e) => setPost(e.target.value)}
-                name='post'
-                id='post'
-                className='block w-full rounded-md border-gray-300 shadow-sm focus:border-greenPrimary-700 focus:ring-greenPrimary-700 sm:text-sm'
-              />
+            <textarea
+              rows={2}
+              name='post'
+              value={post}
+              onChange={(e) => setPost(e.target.value)}
+              id='post'
+              className='block w-full resize-none border-0 py-0 placeholder-gray-500 focus:ring-0 sm:text-sm'
+              placeholder='Write a post...'
+              defaultValue={''}
+            />
+
+            {/* Spacer element to match the height of the toolbar */}
+            <div aria-hidden='true'>
+              <div className='py-2'>
+                <div className='h-9' />
+              </div>
+              <div className='h-px' />
+              <div className='py-2'>
+                <div className='py-px'>
+                  <div className='h-9' />
+                </div>
+              </div>
             </div>
           </div>
-          <Button
-            loading={isLoading}
-            type='submit'
-            text={`${isLoading ? 'Adding...' : 'Add'}`}
-            styles='mt-4 rounded-lg text-white font-bold text-sm w-36 bg-greenPrimary'
-          />
+
+          <div className='absolute inset-x-px bottom-0 px-2'>
+            <div className='flex items-center justify-between border-t border-gray-200 px-2 py-2 sm:px-3'>
+              <div className='flex items-center'>
+                <div className='group -my-2 -ml-2 inline-flex items-center rounded-full px-3 py-2 text-left text-gray-400'>
+                  <PaperClipIcon
+                    className='-ml-1 mr-2 h-5 w-5 group-hover:text-gray-500'
+                    aria-hidden='true'
+                  />
+                  <input
+                    type='file'
+                    ref={fileInputRef}
+                    accept='image/*'
+                    className='hidden absolute custom-file-input'
+                    onChange={handleFileChange}
+                  />
+                  <button
+                    type='button'
+                    onClick={() => {
+                      fileInputRef.current.click();
+                    }}
+                  >
+                    Attach a file
+                  </button>
+                </div>
+                <div className={`${preview ? 'block' : 'hidden'}`}>
+                  <img
+                    alt='This is a preview image'
+                    src={`${preview ? preview : null}`}
+                    className='h-10 w-24 object-scale-dowm'
+                  />
+                </div>
+              </div>
+              <div className='flex-shrink-0'>
+                <Button
+                  type='submit'
+                  text='Create'
+                  disabled={isLoading}
+                  styles={`inline-flex items-center ${
+                    isLoading
+                      ? 'bg-darkColor-300 cursor-not-allowed'
+                      : 'bg-greenPrimary'
+                  } rounded-md border border-transparent px-4 py-2 text-sm font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-greenPrimary focus:ring-offset-2`}
+                />
+              </div>
+            </div>
+          </div>
         </form>
       </Modal>
     </>

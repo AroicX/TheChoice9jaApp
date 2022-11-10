@@ -171,35 +171,6 @@ export default function Poll({ poll }) {
             </div>
           </div>
         </div>
-        <footer className='flex items-center space-x-4'>
-          <div className='flex items-center space-x-3 text-primaryColor-500'>
-            <div className='flex gap-5'>
-              <button className='flex items-center space-x-1 p-1'>
-                <SVG className='m-auto' src='/svgs/thumbs-up.svg' />
-                <span className='text-base mx-0.5 my-auto'>0</span>
-              </button>
-              <button className='flex items-center space-x-1 p-1'>
-                <SVG className='m-auto' src='/svgs/thumbs-down.svg' />
-                <span className='text-base mx-0.5 my-auto'>0</span>
-              </button>
-
-              <button className='flex space-x-1 p-1'>
-                <SVG
-                  className='m-auto'
-                  height='1.2rem'
-                  src='/svgs/comment.svg'
-                />
-                <span className='text-base mx-0.5 my-auto'>0</span>
-              </button>
-              <button className='flex p-1'>
-                <SVG className='m-auto' height='1.2rem' src='/svgs/reply.svg' />
-                <span className='text-base mx-0.5 my-auto'></span>
-              </button>
-            </div>
-
-            {/* {item.count !== 0 && numberFormatter(item.count)} */}
-          </div>
-        </footer>
       </section>
       {/* <Comments comments={comments} /> */}
       {/* <div className='flex items-center px-3 mt-3 h-fit space-x-4'>
