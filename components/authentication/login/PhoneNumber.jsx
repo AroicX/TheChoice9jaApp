@@ -28,7 +28,6 @@ export default function PhoneNumber({ back, next, user, setUser }) {
           <Button
             text='Continue'
             type='submit'
-            click={next}
             styles='bg-green-600 inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 text-base font-medium text-white shadow-sm'
           />
         </div>

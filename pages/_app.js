@@ -1,5 +1,4 @@
 import '../styles/app.scss';
-import 'sweetalert2/src/sweetalert2.scss';
 import { GlobalStoreProvider } from '@/hooks/useGlobalStore';
 import { useStore } from 'store';
 import { Provider } from 'react-redux';

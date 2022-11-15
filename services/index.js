@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Swal from 'sweetalert2';
 import { getToken } from './cookies';
 
 const environment = process.env.NODE_ENV;
@@ -16,19 +15,21 @@ requests.interceptors.response.use(
   },
   function (error) {
     if (401 === error.response.status) {
-      window.localStorage.removeItem('user-data');
-      return window.location.replace('/login');
+      if (typeof window !== 'undefined') {
+        window.localStorage.removeItem('user-data');
+        return window.location.replace('/login');
+      }
     } else if (400 === error.response.status) {
       console.log('error', error.response.data.message);
-      Swal.fire({
-        title: 'Bad Request',
-        text: error.response.data.message,
-        type: 'error',
-        timerProgressBar: true,
-        timer: 2000,
-        allowOutsideClick: true,
-        showConfirmButton: false,
-      });
+      // Swal.fire({
+      //   title: 'Bad Request',
+      //   text: error.response.data.message,
+      //   type: 'error',
+      //   timerProgressBar: true,
+      //   timer: 2000,
+      //   allowOutsideClick: true,
+      //   showConfirmButton: false,
+      // });
     } else {
       return Promise.reject(error.response);
     }

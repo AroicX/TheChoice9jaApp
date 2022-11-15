@@ -38,7 +38,12 @@ export default function Navigation() {
       {items.map((item) => {
         const isActive = pathname === item.link;
         return (
-          <Link href={item.link} className='cursor-pointer ' key={item.title}>
+          <Link
+            prefetch={false}
+            href={item.link}
+            className='cursor-pointer '
+            key={item.title}
+          >
             <div
               className={`${
                 isActive ? 'text-green-600' : 'text-primaryColor-500'

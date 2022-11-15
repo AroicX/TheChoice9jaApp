@@ -1,17 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Tab } from '@headlessui/react';
-import { useRouter } from 'next/router';
-import { classNames } from '@/helpers/index';
+import dynamic from 'next/dynamic';
 
-import BackButton from '@/components/BackButton';
-import AvatarName from '@/components/NameAvatar';
-import Button from '@/reusable/Button';
+const SinglePost = dynamic(() => import('@/components/discourse/singlePost'));
+const BackButton = dynamic(() => import('@/components/BackButton'));
+const AvatarName = dynamic(() => import('@/components/NameAvatar'));
+const Button = dynamic(() => import('@/reusable/Button'));
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { Tab } from '@headlessui/react';
+import { classNames } from '@/helpers/index';
 import { useSelector } from 'react-redux';
 
 import { GET_POST_BY_USER } from '@/services/posts';
 import { GET_ROOMS_BY_USER } from '@/services/room';
-
-import SinglePost from '@/components/discourse/singlePost';
 
 export default function ViewProfile() {
   let [categories] = useState(['Posts', 'Discussions']);

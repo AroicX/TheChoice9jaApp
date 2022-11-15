@@ -71,8 +71,7 @@ export default function PhoneNumber({ user, setUser, next }) {
         <div className='flex md:mt-12 mt-10'>
           <Button
             text='Continue'
-            type='button'
-            click={next}
+            type='submit'
             loading={loading}
             styles='inline-flex justify-center items-center bg-greenPrimary lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 text-base font-medium text-white shadow-sm'
           />

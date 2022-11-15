@@ -1,23 +1,26 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
-import { JOIN_ROOM, GET_ROOMS_BY_USER } from '@/services/room';
-import BackButton from '@/components/BackButton';
-import Avatar from '@/components/Avatar';
-import Button from '@/reusable/Button';
-import Layout from '@/components/layout';
-import Modal from '@/reusable/Modal';
-import { PlusIcon } from '@heroicons/react/24/outline';
-import toast, { Toaster } from 'react-hot-toast';
-import DiscourssionTabs from '@/components/discourse/Tabs';
-import { PaperClipIcon } from '@heroicons/react/24/outline';
+import dynamic from 'next/dynamic';
 
+/** COMPONENTS **/
+const BackButton = dynamic(() => import('@/components/BackButton'));
+const Avatar = dynamic(() => import('@/components/Avatar'));
+const Button = dynamic(() => import('@/reusable/Button'));
+const Layout = dynamic(() => import('@/components/layout'));
+const Modal = dynamic(() => import('@/reusable/Modal'));
+const Poll = dynamic(() => import('@/components/Poll'));
+const DiscourssionTabs = dynamic(() => import('@/components/discourse/Tabs'));
+
+import { useEffect, useState, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import toast, { Toaster } from 'react-hot-toast';
+import { PaperClipIcon, PlusIcon } from '@heroicons/react/24/outline';
+import { contrastColor, randomColor } from '@/helpers/index';
+
+/**  SERVICES **/
+import { JOIN_ROOM, GET_ROOMS_BY_USER } from '@/services/room';
 import { GET_DISCOUSSION_BY_ID } from '@/services/discussions';
 import { GET_POLL_BY_DISCUSSION } from '@/services/polls';
 import { CREATE_POST, GET_POST_BY_DISCOUSSION } from '@/services/discourse';
-import Poll from '@/components/Poll';
-import { contrastColor, randomColor } from '@/helpers/index';
-import { useRef } from 'react';
 
 export default function Slug() {
   const [room, setRoom] = useState(null);
@@ -72,9 +75,10 @@ export default function Slug() {
       }
     };
 
-    const onError = (err) => {
+    const onError = (error) => {
       setIsLoading(false);
-      ResponseHandler(err);
+      console.log(error);
+      //toast.error(error)
     };
 
     JOIN_ROOM(data, callback, onError);
@@ -92,7 +96,7 @@ export default function Slug() {
     };
 
     const onError = (err) => {
-      ResponseHandler(err);
+      console.log(err);
     };
 
     GET_ROOMS_BY_USER(callback, onError);
@@ -152,7 +156,9 @@ export default function Slug() {
 
       setDiscussions(newDiscussions.reverse());
 
-      console.log(data);
+      setOpen(false);
+
+      toast.success('you just posted something.');
 
       setIsLoading(false);
     };
@@ -242,7 +248,7 @@ export default function Slug() {
             background: color,
           }}
         >
-          <div className='px-2'>
+          <div className='px-4'>
             <div className='flex justify-between items-center'>
               <Avatar style='bg-white' />
               <Button
@@ -270,7 +276,7 @@ export default function Slug() {
               </p>
             </div>
           </div>
-          <div className='text-white p-2 border border-t'>
+          <div className='text-white py-2 px-4 border border-t'>
             <p>
               {Math.floor(Math.random() * (1000 - 100) + 100)} People Joined
             </p>
@@ -282,6 +288,13 @@ export default function Slug() {
       </Layout>
       <Modal title='Post' toggle={open} dispatch={() => setOpen(false)}>
         <form onSubmit={createPost} className='relative px-2 pt-2'>
+          <div className={`mb-2 ${preview ? 'block' : 'hidden'}`}>
+            <img
+              alt='This is a preview image'
+              src={`${preview ? preview : null}`}
+              className='h-auto w-auto object-fit'
+            />
+          </div>
           <div className='overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-greenPrimary focus-within:ring-1 focus-within:ring-greenPrimary'>
             <label htmlFor='post' className='sr-only'>
               Post
@@ -294,7 +307,6 @@ export default function Slug() {
               id='post'
               className='block w-full resize-none border-0 py-0 placeholder-gray-500 focus:ring-0 sm:text-sm'
               placeholder='Write a post...'
-              defaultValue={''}
             />
 
             {/* Spacer element to match the height of the toolbar */}
@@ -335,13 +347,6 @@ export default function Slug() {
                     Attach a file
                   </button>
                 </div>
-                <div className={`${preview ? 'block' : 'hidden'}`}>
-                  <img
-                    alt='This is a preview image'
-                    src={`${preview ? preview : null}`}
-                    className='h-10 w-24 object-scale-dowm'
-                  />
-                </div>
               </div>
               <div className='flex-shrink-0'>
                 <Button
@@ -359,6 +364,7 @@ export default function Slug() {
           </div>
         </form>
       </Modal>
+      <Toaster position='top-center' reverseOrder={false} />
     </>
   );
 }

@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import SVG from 'react-inlinesvg';
+import React, { useEffect, memo } from 'react';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
-export default function Modal({ title, toggle = false, dispatch, children }) {
+function Modal({ title, toggle = false, dispatch, children }) {
   useEffect(() => {
     if (toggle) {
       window.scrollTo({
@@ -34,3 +33,5 @@ export default function Modal({ title, toggle = false, dispatch, children }) {
     </div>
   );
 }
+
+export default memo(Modal);

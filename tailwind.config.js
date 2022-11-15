@@ -35,6 +35,7 @@ module.exports = {
         'secondaryColor-500': '#626A6E',
         'secondaryColor-400': '#898F92',
         'secondaryColor-300': '#B2B6B8',
+        'secondaryColor-200': '#E7EBEB',
 
         bluePrimary: '#2196F3',
         blueSecondary: '#0C81E0',

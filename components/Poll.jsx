@@ -85,6 +85,8 @@ export default function Poll({ poll }) {
 
       setResults(data.results);
 
+      setVoted(true);
+
       setVoting(false);
     };
 
@@ -92,6 +94,7 @@ export default function Poll({ poll }) {
       const { data } = error;
       toast.error(data.message);
       setVoting(false);
+      setVoted(false);
     };
 
     await VOTE_ON_POLL(poll.id, data, callback, onError);
@@ -204,7 +207,7 @@ export default function Poll({ poll }) {
             onClick={() => router.push(`/poll/${poll.id}/analytics`)}
             className='flex items-center py-2 px-3 space-x-2 cursor-pointer'
           >
-            <ChartBarSquareIcon className='w-5 h-5 text-green-neutral-500' />
+            <SVG className='w-5 h-5' src='/svgs/edit.svg' />
             <span className='text-coolblack-primary font-normal'>
               Expand poll results
             </span>
@@ -213,7 +216,7 @@ export default function Poll({ poll }) {
             onClick={() => router.push('/reports')}
             className='flex items-center py-2 px-3 space-x-2'
           >
-            <FlagIcon className='w-5 h-5 text-green-neutral-500' />
+            <SVG className='w-5 h-5' src='/svgs/report.svg' />
             <span className='text-red-400 font-normal'>Result</span>
           </div>
         </div>

@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import { useGlobalStore } from '@/hooks/useGlobalStore';
 import { QUICK_REGISTER } from '@/services/authentication';
 import { setCookie } from '@/services/cookies';
-import { ResponseHandler } from '@/helpers/index';
 import toast, { Toaster } from 'react-hot-toast';
 
 export default function CreateAccount({ back, next, user, setUser }) {
@@ -24,7 +23,6 @@ export default function CreateAccount({ back, next, user, setUser }) {
       setCookie(response.token);
       window.localStorage.setItem('user-data', JSON.stringify(response));
       setIsLoading(false);
-      ResponseHandler(response);
       setToken(response.token);
       let _redirect = window.localStorage.getItem('be-authorized');
       _redirect ? Router.push(_redirect) : next();

@@ -1,10 +1,12 @@
+import dynamic from 'next/dynamic';
+
 import HomeHeader from '@/components/HomeHeader';
 import ElectionCandidates from '@/components/ElectionCandidates';
-import Layout from '@/components/layout';
+const Layout = dynamic(() => import('@/components/layout'));
+const SinglePost = dynamic(() => import('@/components/discourse/singlePost'));
+
 import { useState, useEffect } from 'react';
 import { LOAD_DISCOURSSIONS_FROM_TIMELINE } from '@/services/discourse';
-import SinglePost from '@/components/discourse/singlePost';
-import { getHash } from '@/helpers/index';
 
 const people = [
   {
@@ -27,7 +29,6 @@ export default function Home() {
   const getDiscourse = async () => {
     const callback = (response) => {
       const { data } = response;
-      console.log(data);
 
       setDiscourse(data);
     };
@@ -98,12 +99,6 @@ export default function Home() {
                   post={{ comments, likes, dislikes, message, id }}
                   dispatch={(val) => _updateState(val)}
                 />
-                {/* {key !== discourse.length - 1 ? (
-                  <span
-                    className='absolute top-6 left-8 -ml-px h-full w-0.5 bg-gray-200'
-                    aria-hidden='true'
-                  />
-                ) : null} */}
               </div>
             )
           )}

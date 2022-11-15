@@ -1,10 +1,12 @@
-import BackButton from '@/components/BackButton';
+import dynamic from 'next/dynamic';
+
+const BackButton = dynamic(() => import('@/components/BackButton'));
+const SinglePost = dynamic(() => import('@/components/discourse/singlePost'));
 
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { GET_POST_BY_ID } from '@/services/posts/index';
 import { useState } from 'react';
-import SinglePost from '@/components/discourse/singlePost';
 
 export default function Poll() {
   const { query } = useRouter();

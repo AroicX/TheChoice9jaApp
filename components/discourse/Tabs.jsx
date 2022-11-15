@@ -21,7 +21,7 @@ export default function DiscourssionTabs({ discussions }) {
                   'w-full py-2.5 text-md font-medium leading-5 text-green-neutral-600',
                   'ring-white focus:outline-none focus:ring-0',
                   selected
-                    ? 'border-b border-green-neutral-700'
+                    ? 'border-b-2 border-greenPrimary'
                     : 'text-green-nuetral-800 hover:text-green-neutral-500'
                 )
               }

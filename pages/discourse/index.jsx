@@ -77,8 +77,8 @@ export default function Discussion({ discussions }) {
 
         {polls &&
           polls.length > 0 &&
-          polls.map((poll) => {
-            return <Poll key={poll.id} poll={poll} />;
+          polls.map((poll, idx) => {
+            return <Poll key={idx + 1} poll={poll} />;
           })}
       </Layout>
     </>

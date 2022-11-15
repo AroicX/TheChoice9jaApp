@@ -1,20 +1,89 @@
-import { useRouter } from 'next/router';
-import BackButton from '@/components/BackButton';
-import Layout from '@/components/layout';
-import SVG from 'react-inlinesvg';
-import Avatar from '@/components/Avatar';
+import dynamic from 'next/dynamic';
 
-import { Fragment, useState } from 'react';
-import { Dialog, Transition } from '@headlessui/react';
+const BackButton = dynamic(() => import('@/components/BackButton'));
+const Layout = dynamic(() => import('@/components/layout'));
+const Avatar = dynamic(() => import('@/components/Avatar'));
+
+import { Fragment, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
+
+import SVG from 'react-inlinesvg';
+
+import { GET_ELECTION_BY_ID, VOTE_ON_ELECTION } from '@/services/elections';
+
+import { Dialog, Transition } from '@headlessui/react';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function Vote() {
   const [open, setOpen] = useState(false);
-  const { query, push } = useRouter();
+  const [election, setElection] = useState(null);
+  const [voting, setVoting] = useState(false);
+  const [votedCandidate, setVotedCandidate] = useState(null);
+
+  const {
+    query: { id },
+    push,
+  } = useRouter();
+
+  useEffect(() => {
+    if (id) {
+      getElectionById(id);
+    }
+  }, [id]);
+
+  useEffect(() => {
+    setElection(votedCandidate);
+  }, [votedCandidate]);
+
+  const getElectionById = async (election_id) => {
+    const callback = (response) => {
+      const { election } = response;
+
+      console.log(election);
+
+      setElection(election);
+    };
+
+    const onError = (err) => {
+      console.log(err);
+    };
+
+    await GET_ELECTION_BY_ID(election_id, callback, onError);
+  };
+
+  const voteCandidate = async (option) => {
+    const data = {
+      value: option,
+    };
+
+    setVoting(true);
+
+    const callback = (response) => {
+      const { data } = response;
+
+      toast.success('Your vote has been casted');
+
+      setVotedCandidate(data);
+
+      setVoting(false);
+    };
+
+    const onError = (error) => {
+      //const { data } = error;
+      //toast.error(data.message);
+      console.log(error);
+      setVoting(false);
+    };
+
+    await VOTE_ON_ELECTION(id, data, callback, onError);
+  };
+
   return (
     <>
+      <Toaster position='top-center' reverseOrder={false} />
       <header className='px-2 py-3'>
-        <BackButton title={`${query.id} Election`} />
+        <BackButton title={`Gubernatorial Election`} />
       </header>
       <Layout>
         <div className='mb-6'>
@@ -22,9 +91,7 @@ export default function Vote() {
         </div>
 
         <div className='mb-10 text-darkColor-300 flex items-center justify-between'>
-          <h3 className='font-12 font-inter--md'>
-            Candidates
-          </h3>
+          <h3 className='font-12 font-inter--md'>Candidates</h3>
           <div className='relative inline-block'>
             <div className='flex items-center text-black-light font-12 font-inter--md px-5 py-2 rounded-md'>
               <button
@@ -37,70 +104,74 @@ export default function Vote() {
                 Showing by:
               </button>
               <select className='py-1 border-0 bg-transparent focus:border-0 outline-none'>
-                <option className='px-4 py-2 text-sm'>
-                  Most Votes
-                </option>
+                <option className='px-4 py-2 text-sm'>Most Votes</option>
               </select>
             </div>
           </div>
         </div>
 
         <ul>
-          <li className='bg-white'>
-            <div className='flex flex-shrink-0 items-center justify-between space-x-6'>
-              <div className='relative bg-green-100 flex justify-center items-center rounded-full'>
-                <Avatar
-                  style='w-16 h-16'
-                  imgSrc='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-                />
-                <SVG
-                  className='absolute w-5 h-5 top-0 left-12'
-                  src='/parties.svg'
-                />
-              </div>
-              <div className='flex-1 space-y-3'>
-                <div className='flex justify-between items-center truncate'>
-                  <div>
-                    <div className='flex items-center space-x-3'>
-                      <h3 className='truncate text-darkColor-300 font-12 font-inter--md'>
-                        LP
-                      </h3>
+          {election &&
+            Object.values(election.options).map((candidate, idx) => {
+              return (
+                <li key={idx} className='bg-white'>
+                  <div className='flex flex-shrink-0 items-center justify-between space-x-6'>
+                    <div className='relative bg-green-100 flex justify-center items-center rounded-full'>
+                      <Avatar style='w-16 h-16' imgSrc='/parties/admin.png' />
+                      <img
+                        className='absolute w-5 h-5 top-0 left-12'
+                        src={`/parties/apc.png`}
+                      />
                     </div>
-                    <p className='space-x-2 text-dark truncate font-14 font-inter--sm'>
-                      Peter Obi
-                    </p>
-                  </div>
-                  <SVG src='/caret.svg' />
-                </div>
+                    <div className='flex-1 space-y-3'>
+                      <div className='flex justify-between items-center truncate'>
+                        <div>
+                          <div className='flex items-center space-x-3'>
+                            <h3 className='truncate text-darkColor-300 font-12 font-inter--md'>
+                              LP
+                            </h3>
+                          </div>
+                          <p className='space-x-2 text-dark truncate font-14 font-inter--sm'>
+                            {candidate.text}
+                          </p>
+                        </div>
+                        <SVG src='/caret.svg' />
+                      </div>
 
-                <div className='flex justify-between items-center truncate'>
-                  <div>
-                    <div className='flex items-center space-x-3'>
-                      <h3 className='truncate uppercase text-darkColor-300 font-12 font-inter--md'>
-                        Votes
-                      </h3>
+                      <div className='flex justify-between items-center truncate'>
+                        <div>
+                          <div className='flex items-center space-x-3'>
+                            <h3 className='truncate uppercase text-darkColor-300 font-12 font-inter--md'>
+                              Votes
+                            </h3>
+                          </div>
+                          <p className='space-x-2 text-black text-lg truncate text-md'>
+                            <span className='text-greenPrimary font-14 font-inter--md'>
+                              {candidate?.value}
+                            </span>
+                            <span className='text-darkColor-300 font-14 font-inter--md'>
+                              (47.01%)
+                            </span>
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => {
+                            const option = Object.keys(election.options)[idx];
+
+                            voteCandidate(option);
+                          }}
+                          type='button'
+                          className='inline-flex space-x-2 items-center rounded-md border border-transparent bg-greenPrimary px-4 py-2 font-12 font-inter--sm text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
+                        >
+                          <SVG className='w-6 h-6' src='/svgs/user.svg' />
+                          <span>{voting ? 'voting..' : 'Vote Now'}</span>
+                        </button>
+                      </div>
                     </div>
-                    <p className='space-x-2 text-black text-lg truncate text-md'>
-                      <span className='text-greenPrimary font-14 font-inter--md'>
-                        2500
-                      </span>
-                      <span className='text-darkColor-300 font-14 font-inter--md'>
-                        (47.01%)
-                      </span>
-                    </p>
                   </div>
-                  <button
-                    onClick={() => setOpen(true)}
-                    type='button'
-                    className='inline-flex space-x-2 items-center rounded-md border border-transparent bg-greenPrimary px-4 py-2 font-12 font-inter--sm text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
-                  >
-                    <SVG className='w-6 h-6' src='/svgs/user.svg' />
-                    <span>Vote Now</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </li>
+                </li>
+              );
+            })}
         </ul>
       </Layout>
 

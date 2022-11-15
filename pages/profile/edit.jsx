@@ -1,24 +1,23 @@
-import BackButton from "@/components/BackButton";
-import Input from "@/reusable/Input";
-import Button from "@/reusable/Button";
-import { useState } from "react";
-import { useRouter } from "next/router";
-import { 
-  ResponseHandler, 
-  inputValidatorErrorState, 
-  inputValidatorChecker 
-} from "@/helpers/index"; 
-import { useGlobalStore } from "@/hooks/useGlobalStore";
-import { CHANGE_PASSWORD } from "@/services/profile";
+import BackButton from '@/components/BackButton';
+import Input from '@/reusable/Input';
+import Button from '@/reusable/Button';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import {
+  inputValidatorErrorState,
+  inputValidatorChecker,
+} from '@/helpers/index';
+import { useGlobalStore } from '@/hooks/useGlobalStore';
+import { CHANGE_PASSWORD } from '@/services/profile';
 
 export default function EditProfile() {
   const [form, setForm] = useState({
-    oldPassword: "",
-    oldPasswordError: "",
-    newPassword: "",
-    newPasswordError: "",
-    confirmPassword: "",
-    confirmPasswordError: "",
+    oldPassword: '',
+    oldPasswordError: '',
+    newPassword: '',
+    newPasswordError: '',
+    confirmPassword: '',
+    confirmPasswordError: '',
   });
   const [isLoading, setIsLoading] = useState(false);
   const { user } = useGlobalStore();
@@ -36,21 +35,20 @@ export default function EditProfile() {
       const data = {
         old_password: form.oldPassword,
         password: form.newPassword,
-        c_password: form.confirmPassword
+        c_password: form.confirmPassword,
       };
 
       const callback = (response) => {
         if (response) {
           setIsLoading(false);
-          ResponseHandler(response);
-          Router.push("/profile");
+          Router.push('/profile');
         }
-      }
+      };
 
       const onError = (error) => {
         setIsLoading(false);
-        console.log(error)
-      }
+        console.log(error);
+      };
 
       CHANGE_PASSWORD(data, callback, onError);
     } else {
@@ -77,45 +75,49 @@ export default function EditProfile() {
           return {
             ...prev,
             confirmPasswordError:
-              'Confirm Password must match with the New Password Field'
-          }
-        })
+              'Confirm Password must match with the New Password Field',
+          };
+        });
       }
     }
-  }
+  };
 
   const onChangeHandler = (data, fieldState, fieldErrorState) => {
     setForm((prev) => {
-      return {...prev, [fieldState]: data, [fieldErrorState]: ''}
-    })
-  }
+      return { ...prev, [fieldState]: data, [fieldErrorState]: '' };
+    });
+  };
 
   return (
     <>
-      <header className="border-b p-2">
-        <BackButton title="Edit Profile" />
+      <header className='border-b p-2'>
+        <BackButton title='Edit Profile' />
       </header>
 
-      <section className="space-y-6 px-2 pt-12">
+      <section className='space-y-6 px-2 pt-12'>
         <form>
-          <div className="space-y-3">
-            <Input 
-              type="password"
-              label="Current Password"
-              placeholder="Current Password"
+          <div className='space-y-3'>
+            <Input
+              type='password'
+              label='Current Password'
+              placeholder='Current Password'
               value={form.oldPassword}
-              dispatch={(data) => onChangeHandler(data, 'oldPassword', 'oldPasswordError')}
+              dispatch={(data) =>
+                onChangeHandler(data, 'oldPassword', 'oldPasswordError')
+              }
               error={form.oldPasswordError}
             />
-            <Input 
-              type="password"
+            <Input
+              type='password'
               label={'New Password'}
-              placeholder="New Password"
+              placeholder='New Password'
               value={form.newPassword}
-              dispatch={(data) => onChangeHandler(data, 'newPassword', 'newPasswordError')}
+              dispatch={(data) =>
+                onChangeHandler(data, 'newPassword', 'newPasswordError')
+              }
               error={form.newPasswordError}
             />
-            <Input 
+            <Input
               type='password'
               label={'Retype New Password'}
               placeholder={'Retype Password'}
@@ -126,15 +128,15 @@ export default function EditProfile() {
               error={form.confirmPasswordError}
             />
 
-            <Button 
-              text="Save Changes"
+            <Button
+              text='Save Changes'
               click={onSubmitHandler}
               loading={isLoading}
-              styles="bg-green-primary font-inter--sm mt-4 text-white rounded-md"
+              styles='bg-green-primary font-inter--sm mt-4 text-white rounded-md'
             />
           </div>
         </form>
       </section>
     </>
-  )
+  );
 }

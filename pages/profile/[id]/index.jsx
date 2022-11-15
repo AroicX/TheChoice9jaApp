@@ -1,9 +1,13 @@
+import dynamic from 'next/dynamic';
+
+const BackButton = dynamic(() => import('@/components/BackButton'));
+const AvatarName = dynamic(() => import('@/components/NameAvatar'));
+const SinglePost = dynamic(() => import('@/components/discourse/singlePost'));
+
 import { useEffect, useState } from 'react';
 import { GET_PROFILE_BY_ID } from '@/services/profile';
 import { useRouter } from 'next/router';
-import BackButton from '@/components/BackButton';
-import AvatarName from '@/components/NameAvatar';
-import SinglePost from '@/components/discourse/singlePost';
+
 import { Tab } from '@headlessui/react';
 import { classNames } from '@/helpers/index';
 
@@ -44,7 +48,7 @@ export default function Profile() {
     <>
       <header className='border-b-2'>
         <div className='w-full border-b text-green-neutral-primary p-2 flex items-center text-body-semibold'>
-          <BackButton title={`${user.firstName}'s Profile`} />
+          <BackButton title={`${user?.firstName ?? ''}'s Profile`} />
         </div>
       </header>
       <section className='flex items-center border-b space-x-4 py-4 px-4'>
@@ -54,7 +58,10 @@ export default function Profile() {
           </>
         ) : (
           <>
-            <AvatarName user={user} style='w-14 h-14' />
+            <AvatarName
+              user={{ firstName: user.firstName, lastName: user.lastName }}
+              style='w-14 h-14'
+            />
           </>
         )}
         <span>
@@ -91,7 +98,7 @@ export default function Profile() {
               </Tab>
             ))}
           </Tab.List>
-          <Tab.Panels>
+          {/* <Tab.Panels>
             <Tab.Panel>
               {Object.keys(user).length !== 0 &&
                 user.posts.map(
@@ -102,18 +109,12 @@ export default function Profile() {
                         user={user}
                         post={{ comments, likes, dislikes, likes, message, id }}
                       />
-                      {key !== user.posts.length - 1 ? (
-                        <span
-                          className='absolute top-6 left-8 -ml-px h-full w-0.5 bg-gray-200'
-                          aria-hidden='true'
-                        />
-                      ) : null}
                     </div>
                   )
                 )}
             </Tab.Panel>
             <Tab.Panel>Discussions</Tab.Panel>
-          </Tab.Panels>
+          </Tab.Panels> */}
         </Tab.Group>
       </section>
     </>

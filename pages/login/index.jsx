@@ -10,7 +10,7 @@ import Input from '@/reusable/Input';
 import AuthProvider from '@/components/AuthProvider';
 import Button from '@/reusable/Button';
 import toast, { Toaster } from 'react-hot-toast';
-import PhoneNumber from '@/components/authentication/login/PhoneNumber';
+import PhoneNumber from '@/components/forget-password/PhoneNumber';
 import VerifyAccount from '@/components/authentication/signup/VerifyNumber';
 
 function Login() {
@@ -48,8 +48,8 @@ function Login() {
 
     const onError = (error) => {
       setLoading(false);
-
-      toast.error(error.data.message);
+      console.log(error);
+      //toast.error(error.data.message);
     };
 
     await LOGIN_ACCOUNT(data, callback, onError);

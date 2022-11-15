@@ -4,11 +4,22 @@ const withPWA = require('next-pwa')({
   skipWaiting: true,
 });
 
-module.exports = withPWA({
-  // next.js config
-  reactStrictMode: true,
-  swcMinify: true,
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
 });
+
+module.exports = withPWA(
+  withBundleAnalyzer({
+    env: {
+      NEXT_PUBLIC_ENV: 'PRODUCTION',
+    },
+  }),
+  {
+    // next.js config
+    reactStrictMode: true,
+    swcMinify: true,
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
+  }
+);
