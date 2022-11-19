@@ -44,7 +44,7 @@ export default function Poll() {
           <p className='text-center mt-2'>Loading...</p>
         ) : (
           <>
-            <SinglePost user={post.user} post={{ ...post }} />
+            <SinglePost user={post?.user} post={{ ...post }} />
           </>
         )}
       </main>

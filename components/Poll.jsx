@@ -6,7 +6,7 @@ import Modal from '@/reusable/Modal';
 import { RadioGroup } from '@headlessui/react';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
-import { classNames } from '../helpers';
+import { classNames } from '@/helpers/index';
 import {
   EllipsisHorizontalIcon,
   ChartBarSquareIcon,
@@ -14,9 +14,11 @@ import {
 } from '@heroicons/react/24/outline';
 import { VOTE_ON_POLL } from '@/services/polls';
 import toast, { Toaster } from 'react-hot-toast';
+import { PARTIES } from '@/helpers/index';
 
 const Candidates = ({ person, option, voted, results, click }) => {
   const result = results[option].value;
+  const image = PARTIES[person.text.trim()]?.image;
   return (
     <div onClick={() => click(option)}>
       <RadioGroup.Option
@@ -31,7 +33,11 @@ const Candidates = ({ person, option, voted, results, click }) => {
         {({ active, checked }) => (
           <section>
             <div className='flex w-full items-center justify-between space-x-6'>
-              <img className='w-full rounded-t-md' src='/nuhu.png' alt='' />
+              <img
+                className='w-full object-cover rounded-t-md'
+                src={`/candidates/${image}.png`}
+                alt=''
+              />
             </div>
             <div className='p-2 h-12 font-bold flex items-center space-x-4 bg-primaryColor-200'>
               <input
@@ -112,8 +118,8 @@ export default function Poll({ poll }) {
           <div className='flex space-x-3'>
             <Avatar
               alt=''
-              style='border border-green-500 w-9 h-9'
-              imgSrc='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+              style='border border-green-500 object-cover w-9 h-9'
+              imgSrc='/parties/admin.png'
             />
             <header className=''>
               <div className='flex space-x-2'>
@@ -169,8 +175,8 @@ export default function Poll({ poll }) {
                 {poll.poll_count}{' '}
                 {`${poll.poll_count === 0 || 1 ? 'vote' : 'votes'}`}
               </span>
-              <span className='font-bold text-lg'>.</span>
-              <span>8 days left</span>
+              {/* <span className='font-bold text-lg'>.</span>
+              <span>8 days left</span> */}
             </div>
           </div>
         </div>

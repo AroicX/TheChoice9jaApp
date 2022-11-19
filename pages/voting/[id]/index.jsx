@@ -15,11 +15,77 @@ import { GET_ELECTION_BY_ID, VOTE_ON_ELECTION } from '@/services/elections';
 import { Dialog, Transition } from '@headlessui/react';
 import toast, { Toaster } from 'react-hot-toast';
 
+import { PARTIES } from '@/helpers/index';
+
+const Candidates = ({ candidate, option, results, electionCount, click }) => {
+  const result = results[option].value;
+  const logo = PARTIES[candidate?.text.trim()]?.logo;
+  const party = PARTIES[candidate?.text.trim()]?.party;
+  const image = PARTIES[candidate?.text.trim()]?.image;
+  return (
+    <li className='bg-white'>
+      <div className='flex flex-shrink-0 items-center justify-between space-x-6'>
+        <div className='relative bg-green-100 flex justify-center items-center rounded-full'>
+          <Avatar style='w-16 h-16' imgSrc={`/candidates/${image}.png`} />
+          <img
+            className='absolute w-5 h-5 top-0 left-12'
+            src={`/parties/${logo}.png`}
+          />
+        </div>
+        <div className='flex-1 space-y-3'>
+          <div className='flex justify-between items-center truncate'>
+            <div>
+              <div className='flex items-center space-x-3'>
+                <h3 className='truncate text-darkColor-300 font-12 font-inter--md'>
+                  {party}
+                </h3>
+              </div>
+              <p className='space-x-2 text-dark truncate font-14 font-inter--sm'>
+                {candidate?.text}
+              </p>
+            </div>
+            <SVG src='/caret.svg' />
+          </div>
+
+          <div className='flex justify-between items-center truncate'>
+            <div>
+              <div className='flex items-center space-x-3'>
+                <h3 className='truncate uppercase text-darkColor-300 font-12 font-inter--md'>
+                  Votes
+                </h3>
+              </div>
+              <p className='space-x-2 text-black text-lg truncate text-md'>
+                <span className='text-greenPrimary font-14 font-inter--md'>
+                  {result}
+                </span>
+                <span className='text-darkColor-300 font-14 font-inter--md'>
+                  ({Math.floor((result / electionCount) * 100) || 0}
+                  )%
+                </span>
+              </p>
+            </div>
+            <button
+              onClick={() => click(option)}
+              type='button'
+              className='inline-flex space-x-2 items-center rounded-md border border-transparent bg-greenPrimary px-4 py-2 font-12 font-inter--sm text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
+            >
+              <SVG className='w-6 h-6' src='/svgs/user.svg' />
+              <span>{'Vote Now'}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </li>
+  );
+};
+
 export default function Vote() {
   const [open, setOpen] = useState(false);
   const [election, setElection] = useState(null);
+  const [results, setResults] = useState(null);
   const [voting, setVoting] = useState(false);
-  const [votedCandidate, setVotedCandidate] = useState(null);
+  const [electionCount, setElectionCount] = useState(0);
+  const [selectedCandidate, setSelectedCandidate] = useState(null);
 
   const {
     query: { id },
@@ -32,17 +98,13 @@ export default function Vote() {
     }
   }, [id]);
 
-  useEffect(() => {
-    setElection(votedCandidate);
-  }, [votedCandidate]);
-
   const getElectionById = async (election_id) => {
     const callback = (response) => {
       const { election } = response;
 
-      console.log(election);
-
       setElection(election);
+      setResults(election.results);
+      setElectionCount(election.election_count);
     };
 
     const onError = (err) => {
@@ -64,14 +126,18 @@ export default function Vote() {
 
       toast.success('Your vote has been casted');
 
-      setVotedCandidate(data);
+      setSelectedCandidate(data.options[option]);
+
+      setElection(data);
+      setResults(data.results);
+      setElectionCount(data.election_count);
 
       setVoting(false);
+
+      setOpen(true);
     };
 
     const onError = (error) => {
-      //const { data } = error;
-      //toast.error(data.message);
       console.log(error);
       setVoting(false);
     };
@@ -110,66 +176,18 @@ export default function Vote() {
           </div>
         </div>
 
-        <ul>
+        <ul className='space-y-4'>
           {election &&
             Object.values(election.options).map((candidate, idx) => {
               return (
-                <li key={idx} className='bg-white'>
-                  <div className='flex flex-shrink-0 items-center justify-between space-x-6'>
-                    <div className='relative bg-green-100 flex justify-center items-center rounded-full'>
-                      <Avatar style='w-16 h-16' imgSrc='/parties/admin.png' />
-                      <img
-                        className='absolute w-5 h-5 top-0 left-12'
-                        src={`/parties/apc.png`}
-                      />
-                    </div>
-                    <div className='flex-1 space-y-3'>
-                      <div className='flex justify-between items-center truncate'>
-                        <div>
-                          <div className='flex items-center space-x-3'>
-                            <h3 className='truncate text-darkColor-300 font-12 font-inter--md'>
-                              LP
-                            </h3>
-                          </div>
-                          <p className='space-x-2 text-dark truncate font-14 font-inter--sm'>
-                            {candidate.text}
-                          </p>
-                        </div>
-                        <SVG src='/caret.svg' />
-                      </div>
-
-                      <div className='flex justify-between items-center truncate'>
-                        <div>
-                          <div className='flex items-center space-x-3'>
-                            <h3 className='truncate uppercase text-darkColor-300 font-12 font-inter--md'>
-                              Votes
-                            </h3>
-                          </div>
-                          <p className='space-x-2 text-black text-lg truncate text-md'>
-                            <span className='text-greenPrimary font-14 font-inter--md'>
-                              {candidate?.value}
-                            </span>
-                            <span className='text-darkColor-300 font-14 font-inter--md'>
-                              (47.01%)
-                            </span>
-                          </p>
-                        </div>
-                        <button
-                          onClick={() => {
-                            const option = Object.keys(election.options)[idx];
-
-                            voteCandidate(option);
-                          }}
-                          type='button'
-                          className='inline-flex space-x-2 items-center rounded-md border border-transparent bg-greenPrimary px-4 py-2 font-12 font-inter--sm text-white shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2'
-                        >
-                          <SVG className='w-6 h-6' src='/svgs/user.svg' />
-                          <span>{voting ? 'voting..' : 'Vote Now'}</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </li>
+                <Candidates
+                  key={candidate.id}
+                  candidate={candidate}
+                  electionCount={electionCount}
+                  results={results}
+                  click={voteCandidate}
+                  option={Object.keys(election.options)[idx]}
+                />
               );
             })}
         </ul>
@@ -212,17 +230,25 @@ export default function Vote() {
                         </span>
                         <div className='text-sm text-gray-500'>
                           <p className='text-coolblack-primary font-bold text-lg my-4'>
-                            Peter Obi
+                            {PARTIES[selectedCandidate?.text.trim()]?.name}
                           </p>
                           <div className='flex space-x-2 justify-center'>
                             <SVG src='/parties.svg' className='w-8 h-8' />
-                            <span>Labour Party (LP)</span>
+                            <span>
+                              {
+                                PARTIES[selectedCandidate?.text.trim()]
+                                  ?.fullPartyName
+                              }{' '}
+                              ({PARTIES[selectedCandidate?.text.trim()]?.party})
+                            </span>
                           </div>
 
                           <div className='mx-auto my-10 w-fit relative'>
                             <Avatar
                               style='w-[120px] h-[120px]'
-                              imgSrc='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                              imgSrc={`/candidates/${
+                                PARTIES[selectedCandidate?.text.trim()]?.image
+                              }.png`}
                             />
                             <div className='absolute left-20 bottom-2 bg-green-600 p-2 w-fit rounded-full flex justify-center items-center'>
                               <SVG

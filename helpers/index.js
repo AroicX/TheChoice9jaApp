@@ -1,6 +1,44 @@
 export const toAbsoluteUrl = (pathname) =>
   process.env.PUBLIC_URL + '/svg/' + pathname;
 
+export const PARTIES = {
+  Atiku: {
+    image: 'atiku',
+    name: 'Atiku Abubakar',
+    logo: 'pdp',
+    party: 'PDP',
+    fullPartyName: 'People Democratic Party',
+  },
+  Obi: {
+    image: 'obi',
+    name: 'Peter Obi',
+    logo: 'lp',
+    party: 'LP',
+    fullPartyName: 'Labour Party',
+  },
+  Buhari: {
+    image: 'buhari',
+    logo: 'apc',
+    name: 'Muhammadu Buhari',
+    party: 'APC',
+    fullPartyName: 'All Progressive Congress',
+  },
+  Tinubu: {
+    image: 'tinubu',
+    logo: 'apc',
+    name: 'Asiwaju Bola Ahmed Tinubu',
+    party: 'APC',
+    fullPartyName: 'All Progressive Congress',
+  },
+  Kwankwaso: {
+    image: 'rabiu',
+    logo: 'nnpp',
+    name: 'Dr Rabiu Musa Kwankwaso',
+    party: 'NNPP',
+    fullPartyName: "New Nigerian Peopl's Party",
+  },
+};
+
 export const ErrorHandler = (error) => {
   if (error.response) {
     if (error.response.data) {

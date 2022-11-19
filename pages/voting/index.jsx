@@ -6,33 +6,6 @@ import { GET_ELECTIONS } from '@/services/elections';
 import { useState, useEffect } from 'react';
 import { randomColor } from '@/helpers/index';
 
-const candidates = [
-  {
-    id: 0,
-    title: 'Presidential Election',
-    description: 'Candidates and their running mates',
-    status: 'Ongoing Election',
-    statusColor: 'bg-redColor-400 text-white font-normal',
-    slug: 'presidential',
-  },
-  {
-    id: 1,
-    title: 'Gubernatorial Election',
-    description: '',
-    status: 'Upcoming Election',
-    statusColor: 'bg-yellow-400 text-yellow-900 font-normal',
-    slug: 'gubernatorial',
-  },
-  {
-    id: 2,
-    title: 'Senatorial Election',
-    description: '',
-    status: 'Completed Election',
-    statusColor: 'bg-primaryColor-200 text-darkColor-500 font-normal',
-    slug: 'senatorial',
-  },
-];
-
 export default function Voting() {
   const router = useRouter();
   const [elections, setElections] = useState([]);
@@ -41,8 +14,6 @@ export default function Voting() {
     const callback = (response) => {
       const { election } = response;
       setElections(election);
-
-      console.log(election);
     };
 
     const onError = (error) => {

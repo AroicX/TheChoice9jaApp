@@ -16,17 +16,20 @@ import { CREATE_COMMENT } from '@/services/comments';
 
 import Link from 'next/link';
 import toast, { Toaster } from 'react-hot-toast';
+import Avatar from '../Avatar';
 
 function SinglePost({ post, user, discussion, dispatch }) {
   const [open, setOpen] = useState(false);
   const [comment, setComment] = useState('');
-  const [comm, setComm] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
+
   const [likes, setLikes] = useState({});
-  const [modal, setModal] = useState(false);
   const [dislikes, setDislikes] = useState({});
+  const [modal, setModal] = useState(false);
+
   const Router = useRouter();
 
   const thumbsUpSVGColor = liked && 'text-blueSecondary';
@@ -77,19 +80,11 @@ function SinglePost({ post, user, discussion, dispatch }) {
       message: comment,
     };
 
-    const postComments = post.comments;
-
-    console.log(postComments);
-
     setIsLoading(true);
 
     const callback = (response) => {
       setIsLoading(false);
       const { comment } = response;
-
-      console.log(comment);
-
-      setComm(comment);
 
       toast.success('Your comment is added');
 
@@ -99,7 +94,9 @@ function SinglePost({ post, user, discussion, dispatch }) {
     const onError = (error) => {
       const { data } = error;
 
-      toast.error(data.message);
+      console.log(error);
+
+      //toast.error(data.message);
 
       setIsLoading(false);
     };
@@ -112,7 +109,15 @@ function SinglePost({ post, user, discussion, dispatch }) {
       <div className='border-b p-4 relative z-[10]'>
         <Toaster position='top-center' reverseOrder={false} />
         <section className='relative flex space-x-3 mt-2 cursor-pointer '>
-          <AvatarName style='h-8 w-8' user={user} />
+          {user?.username === 'TheChoice9ja' ? (
+            <Avatar
+              alt='Administrator profile'
+              imgSrc='/parties/admin.png'
+              style='w-10 h-10'
+            />
+          ) : (
+            <AvatarName style='h-8 w-8' user={user} />
+          )}
 
           <div className='flex-1'>
             <header className='flex items-center justify-between'>
@@ -267,7 +272,7 @@ function SinglePost({ post, user, discussion, dispatch }) {
           ))}
       </div>
       {/* This modal appears when you click on EllipsisHorizontalIcon: the 3 dots */}
-      <Modal title='Discourse' toggle={modal} dispatch={() => setModal(false)}>
+      {/* <Modal title='Discourse' toggle={modal} dispatch={() => setModal(false)}>
         <div className='divide-y'>
           <div className='flex items-center py-2 px-3 space-x-2 cursor-pointer'>
             <SVG className='w-5 h-5' src='/svgs/edit.svg' />
@@ -286,7 +291,7 @@ function SinglePost({ post, user, discussion, dispatch }) {
             <span className='text-red-400 font-normal'>Report</span>
           </div>
         </div>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

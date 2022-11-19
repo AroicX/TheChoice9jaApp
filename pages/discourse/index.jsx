@@ -37,7 +37,7 @@ export default function Discussion({ discussions }) {
         <Avatar
           alt='Bash picture'
           style='w-9 h-9'
-          imgSrc='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+          imgSrc='/parties/admin.png'
         />
         <div className='flex-1 text-center'>
           <h3 className='text-greenPrimary font-14 font-inter--bold'>

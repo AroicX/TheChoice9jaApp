@@ -15,6 +15,8 @@ export default function Signup() {
     password: '',
   });
 
+  console.log('re-renders');
+
   const next = () => {
     if (selected < 4 || selected === null) {
       setSelected((prev) => {

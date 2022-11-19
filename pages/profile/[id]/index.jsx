@@ -98,7 +98,7 @@ export default function Profile() {
               </Tab>
             ))}
           </Tab.List>
-          {/* <Tab.Panels>
+          <Tab.Panels>
             <Tab.Panel>
               {Object.keys(user).length !== 0 &&
                 user.posts.map(
@@ -114,7 +114,7 @@ export default function Profile() {
                 )}
             </Tab.Panel>
             <Tab.Panel>Discussions</Tab.Panel>
-          </Tab.Panels> */}
+          </Tab.Panels>
         </Tab.Group>
       </section>
     </>
