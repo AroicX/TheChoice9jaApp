@@ -194,8 +194,8 @@ function SinglePost({ post, user, discussion, dispatch }) {
                     <button className='flex space-x-1 p-1'>
                       <SVG
                         onClick={() => setOpen(true)}
-                        className='m-auto'
-                        height='1.2rem'
+                        width={20}
+                        className='m-auto text-primaryColor-600'
                         src='/svgs/comment.svg'
                       />
                       <span className='text-base mx-0.5 my-auto'>

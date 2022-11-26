@@ -7,6 +7,7 @@ import {
   VALIDATE_ONE_PASSWORD,
 } from '@/services/authentication';
 import { useRouter } from 'next/router';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function VerifyAccount({ back, phoneNo }) {
   const [otp, setOpt] = useState('');
@@ -43,15 +44,13 @@ export default function VerifyAccount({ back, phoneNo }) {
     };
 
     const callback = (response) => {
-      console.log(response);
-
       Router.push('/home');
 
       setLoading(false);
     };
 
     const onError = (error) => {
-      console.log(error);
+      toast.error(error.data);
       setLoading(false);
     };
 
@@ -64,6 +63,7 @@ export default function VerifyAccount({ back, phoneNo }) {
 
   return (
     <AuthProvider>
+      <Toaster position='top-center' reverseOrder={false} />
       <div className='flex items-center space-x-4 xl:mt-0 mt-4'>
         <img
           onClick={() => back()}

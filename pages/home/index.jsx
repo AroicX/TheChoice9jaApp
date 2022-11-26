@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-
 import HomeHeader from '@/components/HomeHeader';
 import ElectionCandidates from '@/components/ElectionCandidates';
 const Layout = dynamic(() => import('@/components/layout'));

@@ -37,7 +37,7 @@ export default function Slug() {
 
   const color = randomColor();
 
-  const { discussion } = useSelector((state) => state.discussion);
+  const discussion = useSelector((state) => state.discussion);
   const {
     query: { slug },
   } = useRouter();
@@ -272,7 +272,7 @@ export default function Slug() {
               <h3 className='font-20 font-inter--sm'>{room?.topic}</h3>
               <p className='font-12 font-inter--regular'>
                 {room?.question}
-                {discussion ? discussion.discussion.post : ''}
+                {discussion ? discussion?.discussion.post : ''}
               </p>
             </div>
           </div>
