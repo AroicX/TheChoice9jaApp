@@ -14,6 +14,8 @@ export default function Discussion({ discussions }) {
   const router = useRouter();
   const [polls, setPolls] = useState([]);
 
+  const [bgColor, setBgColor] = useState(randomColor() || '#000');
+
   const getPolls = async () => {
     const callback = (response) => {
       const { poll } = response;
@@ -62,7 +64,7 @@ export default function Discussion({ discussions }) {
                     <div
                       className='rounded-md h-8 w-8'
                       style={{
-                        background: randomColor(),
+                        background: bgColor,
                       }}
                     />
                     <span className='font-inter--sm  text-ellipsis  font-14 '>

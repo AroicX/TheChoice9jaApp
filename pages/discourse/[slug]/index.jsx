@@ -35,7 +35,7 @@ export default function Slug() {
   const [open, setOpen] = useState(false);
   const [post, setPost] = useState('');
 
-  const color = randomColor();
+  const [bgColor, setBgColor] = useState(randomColor() || '#000');
 
   const { discussion } = useSelector((state) => state.discussion);
   const {
@@ -245,7 +245,7 @@ export default function Slug() {
         <section
           className={`pt-2`}
           style={{
-            background: color,
+            background: bgColor,
           }}
         >
           <div className='px-4'>
@@ -266,7 +266,7 @@ export default function Slug() {
             <div
               className=' space-y-2 my-2'
               style={{
-                color: contrastColor(color),
+                color: contrastColor(bgColor),
               }}
             >
               <h3 className='font-20 font-inter--sm'>{room?.topic}</h3>
@@ -292,7 +292,9 @@ export default function Slug() {
             <img
               alt='This is a preview image'
               src={`${preview ? preview : null}`}
-              className='h-auto w-auto object-fit'
+              className=' object-fit'
+              width='150px'
+              height='150px'
             />
           </div>
           <div className='overflow-hidden rounded-lg border border-gray-300 shadow-sm focus-within:border-greenPrimary focus-within:ring-1 focus-within:ring-greenPrimary'>
