@@ -1,21 +1,14 @@
 import { combineReducers } from 'redux';
-import { discussionsReducer, discussionReducer } from './discussionsReducer';
 import { userDetailsReducer } from './usersReducer';
 import {
-  postsReducer,
-  postByIdReducer,
-  postsByUserReducer,
-  postsByDiscussionReducer,
-} from './postsReducer';
+  notificationsByUserReducer,
+  getNotificationByIdReducer,
+} from './notificationsReducer';
 
 const combinedReducers = combineReducers({
-  discussions: discussionsReducer,
-  discussion: discussionReducer,
   userDetails: userDetailsReducer,
-  posts: postsReducer,
-  post: postByIdReducer,
-  postByUser: postsByUserReducer,
-  postByDiscussion: postsByDiscussionReducer,
+  notifications: notificationsByUserReducer,
+  notification: getNotificationByIdReducer,
 });
 
 export default combinedReducers;

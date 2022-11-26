@@ -1,6 +1,7 @@
 import '../styles/app.scss';
 import { GlobalStoreProvider } from '@/hooks/useGlobalStore';
 import { useStore } from 'store';
+import { useEffect } from 'react';
 import { Provider } from 'react-redux';
 import Head from 'next/head';
 
