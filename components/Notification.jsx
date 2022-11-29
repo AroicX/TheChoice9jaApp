@@ -51,7 +51,7 @@ export default function Notification(data) {
         </div>
         <div
           onClick={() => dispatch(updateNotificationById(id))}
-          className='space-y-4 flex-1'
+          className='space-y-4 pl-2 flex-1'
         >
           <p
             onClick={() => Router.push(`/notifications/${id}`)}

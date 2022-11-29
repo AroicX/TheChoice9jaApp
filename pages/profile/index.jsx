@@ -15,10 +15,10 @@ import { useRouter } from 'next/router';
 import AvatarName from '@/components/NameAvatar';
 
 const LISTS = [
-  { id: 0, title: 'Security', icon: ShieldExclamationIcon },
-  { id: 1, title: 'About App', icon: QuestionMarkCircleIcon },
-  { id: 2, title: 'Terms & Conditions', icon: NewspaperIcon },
-  { id: 3, title: 'Report a problem', icon: ExclamationTriangleIcon },
+  { id: 0, title: 'Security', href: '/security', icon: ShieldExclamationIcon },
+  { id: 1, title: 'About App', href: '', icon: QuestionMarkCircleIcon },
+  { id: 2, title: 'Terms & Conditions', href: '', icon: NewspaperIcon },
+  { id: 3, title: 'Report a problem', href: '', icon: ExclamationTriangleIcon },
 ];
 
 export default function Profile() {
@@ -67,16 +67,17 @@ export default function Profile() {
         <main className='py-10'>
           <ul className='divide-y space-y-3 font-14 font-inter--regular divide-green-neutral-200'>
             {LISTS.map((list) => (
-              <li
-                key={list.id}
-                className='flex items-center p-4 justify-between'
-              >
-                <div className='flex items-center space-x-3 text-darkColor-500'>
-                  <list.icon className='text-green-neutral-500 h-5 w-5' />
-                  <span className='text-green-neutral-dark'>{list.title}</span>
-                </div>
-                <ChevronRightIcon className='w-6 h-6 text-darkColor-600' />
-              </li>
+              <Link key={list.id} href={list.href}>
+                <li className='flex items-center p-4 justify-between cursor-pointer'>
+                  <div className='flex items-center space-x-3 text-darkColor-500'>
+                    <list.icon className='text-green-neutral-500 h-5 w-5' />
+                    <span className='text-green-neutral-dark'>
+                      {list.title}
+                    </span>
+                  </div>
+                  <ChevronRightIcon className='w-6 h-6 text-darkColor-600' />
+                </li>
+              </Link>
             ))}
           </ul>
 
