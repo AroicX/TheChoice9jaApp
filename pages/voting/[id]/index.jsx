@@ -102,6 +102,8 @@ export default function Vote() {
     const callback = (response) => {
       const { election } = response;
 
+      console.log(election);
+
       setElection(election);
       setResults(election.results);
       setElectionCount(election.election_count);
