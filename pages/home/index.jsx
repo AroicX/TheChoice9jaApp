@@ -4,17 +4,28 @@ import ElectionCandidates from '@/components/ElectionCandidates';
 const Layout = dynamic(() => import('@/components/layout'));
 const SinglePost = dynamic(() => import('@/components/discourse/singlePost'));
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import { Navigation, Pagination } from 'swiper';
+
 import { useState, useEffect } from 'react';
 import { LOAD_DISCOURSSIONS_FROM_TIMELINE } from '@/services/discourse';
 
-const people = [
+const CANDIDATES = [
   {
-    name: 'Leonard Krasner',
-    role: 'Senior Designer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80',
-    twitterUrl: '#',
-    linkedinUrl: '#',
+    id: 0,
+    election: 'Presidential',
+    status: 'Ongoing',
+  },
+  {
+    id: 1,
+    election: 'Senatorial',
+    status: 'Upcoming',
+  },
+  {
+    id: 2,
+    election: 'Gubernatorial',
+    status: 'Upcoming',
   },
 ];
 
@@ -67,9 +78,31 @@ export default function Home() {
           issues and vote your choice.
         </p>
       </div>
-      <ul className='px-4 border-b space-y-4 py-3 overflow-y-scroll'>
-        <ElectionCandidates people={people} />
-      </ul>
+      <div className='px-4 mb-4'>
+        <Swiper
+          modules={[Pagination, Navigation]}
+          navigation={true}
+          autoplay={true}
+          effect='slide'
+          pagination={{
+            el: '.swiper__pagination',
+            bulletClass: 'swiper__pagination__bullet',
+            bulletActiveClass: 'swiper__pagination__bullet--active',
+            type: 'bullets',
+            clickable: true,
+            renderBullet: function (_index, _className) {
+              return `<div class="swiper__pagination__bullet"></div>`;
+            },
+          }}
+        >
+          {CANDIDATES.map((candidate) => (
+            <SwiperSlide key={candidate.id}>
+              <ElectionCandidates candidate={candidate} />
+            </SwiperSlide>
+          ))}
+          <div className='swiper__pagination'></div>
+        </Swiper>
+      </div>
       <div className='px-3 pt-6 border-b pb-4 text-black font-16 font-inter--sm'>
         <h3>See what is happening</h3>
       </div>
