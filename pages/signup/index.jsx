@@ -59,4 +59,4 @@ function Signup() {
     </div>
   );
 }
-export default useGuest(Signup);
+export default Signup;

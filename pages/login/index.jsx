@@ -190,4 +190,4 @@ function Login() {
   );
 }
 
-export default useGuest(Login);
+export default Login;
