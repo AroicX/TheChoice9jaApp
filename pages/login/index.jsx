@@ -9,15 +9,15 @@ import Image from 'next/image';
 import Input from '@/reusable/Input';
 import AuthProvider from '@/components/AuthProvider';
 import Button from '@/reusable/Button';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 import PhoneNumber from '@/components/forget-password/PhoneNumber';
 import VerifyAccount from '@/components/authentication/signup/VerifyNumber';
 
 function Login() {
   const { setToken } = useGlobalStore();
   const [data, setData] = useState({
-    email: 'Arowosegbe67@gmail.com',
-    password: 'password',
+    email: '',
+    password: '',
     phoneNo: '',
   });
   const [selected, setSelected] = useState(null);

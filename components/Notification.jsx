@@ -9,6 +9,7 @@ import {
   EllipsisVerticalIcon,
   TrashIcon,
   BellSlashIcon,
+  UserGroupIcon,
 } from '@heroicons/react/24/outline';
 import { deleteNotificationById, updateNotificationById } from 'actions/index';
 import { useRouter } from 'next/router';
@@ -22,7 +23,7 @@ export default function Notification(data) {
   const dispatch = useDispatch();
 
   const {
-    data: { isRead, commentId, message, id, postId, createdAt },
+    data: { isRead, commentId, message, id, postId, discussionsId, createdAt },
   } = data;
   const Router = useRouter();
   return (
@@ -33,25 +34,23 @@ export default function Notification(data) {
         } flex space-x-3 p-2`}
       >
         <div className='relative'>
-          <Avatar
-            alt=''
-            style='w-12 h-12'
-            imgSrc='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
-          />
+          <Avatar alt='' style='w-12 h-12' imgSrc='/parties/admin.png' />
           <span className='absolute top-0 left-8 flex justify-center items-center bg-greenPrimary rounded-full w-6 h-6'>
-            {commentId && (
+            {commentId !== null ? (
               <SVG
                 className='m-auto text-white'
                 width={15}
                 fill='white'
                 src='/svgs/comment.svg'
               />
+            ) : (
+              <UserGroupIcon className='m-auto text-white w-8 h-8' />
             )}
           </span>
         </div>
         <div
           onClick={() => dispatch(updateNotificationById(id))}
-          className='space-y-4 flex-1'
+          className='space-y-4 pl-2 flex-1'
         >
           <p
             onClick={() => Router.push(`/notifications/${id}`)}

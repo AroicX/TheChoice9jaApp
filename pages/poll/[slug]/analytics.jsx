@@ -1,6 +1,7 @@
 import BackButton from '@/components/BackButton';
 import { useRouter } from 'next/router';
 
+import { PARTIES } from '@/helpers/index';
 import { useEffect, useState } from 'react';
 import { GET_POLL_BY_ID } from '@/services/polls';
 import Avatar from '@/components/Avatar';
@@ -13,8 +14,6 @@ export default function Analytics() {
   const getPollById = async (poll_id) => {
     const callback = (response) => {
       const { poll } = response;
-
-      console.log(poll);
 
       setPoll(poll);
       setResults(poll.results);
@@ -51,7 +50,6 @@ export default function Analytics() {
         {poll &&
           Object.values(poll.options).map((person, idx) => {
             const result = results[Object.keys(poll.options)[idx]].value;
-
             return (
               <div
                 key={person.id}
@@ -59,7 +57,9 @@ export default function Analytics() {
               >
                 <Avatar
                   style='w-9 h-9 absolute top-2 left-2 z-[10]'
-                  imgSrc='https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80'
+                  imgSrc={`/candidates/${
+                    PARTIES[person.text.trim()]?.image
+                  }.png`}
                 />
                 <div className='absolute text-sm top-2 left-14 z-[999]'>
                   <span className='block'>{person.text}</span>

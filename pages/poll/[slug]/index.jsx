@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 
 import { useEffect, useState } from 'react';
 import { GET_POLL_BY_ID } from '@/services/polls';
-import Avatar from '@/components/Avatar';
 import Poll from '@/components/Poll';
 
 export default function SinglePoll() {
@@ -14,8 +13,6 @@ export default function SinglePoll() {
   const getPollById = async (poll_id) => {
     const callback = (response) => {
       const { poll } = response;
-
-      console.log(poll);
 
       setPoll(poll);
       setResults(poll.results);

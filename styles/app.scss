@@ -16,3 +16,34 @@
 @import "./elements/inputs";
 @import "./elements/modal";
 @import "./elements/comments";
+
+@layer base {
+  .swiper-wrapper {
+    -webkit-transition-timing-function: linear !important;
+    -o-transition-timing-function: linear !important;
+    transition-timing-function: linear !important;
+  }
+
+  .swiper__pagination {
+    @apply flex space-x-4 flex-shrink-0 mt-6 items-center justify-center lg:space-x-2.5;
+  }
+
+  .swiper__pagination__bullet {
+    cursor: pointer;
+    width: 10px;
+    height: 8px;
+    background-color: theme('colors.primaryColor-300');
+    @apply rounded-full
+  }
+
+  .swiper__pagination__bullet--active {
+    background-color: theme('colors.greenPrimary');
+    width: 16px;
+  }
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    color: theme('colors.primaryColor-50') !important;
+    display: none !important;
+  }
+}

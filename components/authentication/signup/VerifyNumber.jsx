@@ -46,11 +46,13 @@ export default function VerifyAccount({ back, phoneNo }) {
     const callback = (response) => {
       Router.push('/home');
 
+      toast.success(response.message);
+
       setLoading(false);
     };
 
     const onError = (error) => {
-      toast.error(error.data);
+      toast.error('Invalid OTP');
       setLoading(false);
     };
 
@@ -73,7 +75,9 @@ export default function VerifyAccount({ back, phoneNo }) {
         />
       </div>
       <form onSubmit={validateOTP} className='space-y-8'>
-        <h3 className='mt-8 text-heading-2-semibold'>Create a Password</h3>
+        <h3 className='mt-8 text-heading-2-semibold'>
+          Enter OTP send to your phone
+        </h3>
         <div>
           <Input
             id='ot'
