@@ -4,7 +4,6 @@ import SVG from 'react-inlinesvg';
 import { useRouter } from 'next/router';
 import { GET_ELECTIONS } from '@/services/elections';
 import { useState, useEffect } from 'react';
-import { randomColor } from '@/helpers/index';
 
 export default function Voting() {
   const router = useRouter();

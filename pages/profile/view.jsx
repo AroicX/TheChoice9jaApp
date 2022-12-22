@@ -93,11 +93,11 @@ export default function ViewProfile() {
             text='Edit Profile'
             styles='border border-greenPrimary rounded-full font-14 font-inter--sm text-greenPrimary'
           />
-          <Button
+          {/* <Button
             click={() => Router.push('/verification')}
             text='Get Verified'
             styles='border border-green-500 rounded-full font-14 font-inter--sm bg-green-500 text-white'
-          />
+          /> */}
         </div>
       </section>
 

@@ -20,9 +20,10 @@ export default function VerifyAccount({ back, phoneNo }) {
       phoneNo,
     };
     const callback = (response) => {
-      const res = response.data[0];
-
-      setReferenceId(res.reference_id);
+      const { data, message } = response;
+      console.log('data', response);
+      setReferenceId(data[0].reference_id);
+      toast.success(message);
     };
 
     const onError = (error) => {
@@ -44,15 +45,13 @@ export default function VerifyAccount({ back, phoneNo }) {
     };
 
     const callback = (response) => {
-      Router.push('/home');
-
       toast.success(response.message);
-
       setLoading(false);
+      Router.push('/login');
     };
 
-    const onError = (error) => {
-      toast.error('Invalid OTP');
+    const onError = () => {
+      // toast.error('Invalid OTP');
       setLoading(false);
     };
 

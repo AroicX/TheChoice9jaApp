@@ -29,9 +29,10 @@ export default function CreateAccount({ back, next, user, setUser }) {
     };
 
     const onError = (error) => {
-      const { data } = error;
+      // const { data } = error;
       setIsLoading(false);
-      toast.error(data.message);
+      console.log(error);
+      // toast.error(data?.message[0]);
     };
 
     QUICK_REGISTER(user, callback, onError);
@@ -78,11 +79,11 @@ export default function CreateAccount({ back, next, user, setUser }) {
           required
         />
       </form>
-      <div className='flex justify-end mt-2'>
+      {/* <div className='flex justify-end mt-2'>
         <span className='text-green-600 text-caption-3-medium'>
           Use Phone Number Instead
         </span>
-      </div>
+      </div> */}
       <div className='flex md:mt-12 mt-10'>
         <Button
           text='continue'
