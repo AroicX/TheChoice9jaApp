@@ -12,6 +12,7 @@ import Button from '@/reusable/Button';
 import { Toaster } from 'react-hot-toast';
 import PhoneNumber from '@/components/forget-password/PhoneNumber';
 import VerifyAccount from '@/components/authentication/signup/VerifyNumber';
+import useGuest from '@/hooks/useGuest';
 
 function Login() {
   const { setToken } = useGlobalStore();
@@ -189,4 +190,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default useGuest(Login);

@@ -277,9 +277,9 @@ export default function Slug() {
             </div>
           </div>
           <div className='text-white py-2 px-4 border border-t'>
-            <p>
+            {/* <p>
               {Math.floor(Math.random() * (1000 - 100) + 100)} People Joined
-            </p>
+            </p> */}
           </div>
         </section>
         <DiscourssionTabs discussions={discussions} />

@@ -3,8 +3,9 @@ import { useState } from 'react';
 import SignUp from '@/components/authentication/signup/SignUp';
 import CreateAccount from '@/components/authentication/signup/CreateAccount';
 import VerifyAccount from '@/components/authentication/signup/VerifyNumber';
+import useGuest from '@/hooks/useGuest';
 
-export default function Signup() {
+function Signup() {
   const [selected, setSelected] = useState(null);
   const [user, setUser] = useState({
     firstName: '',
@@ -58,3 +59,4 @@ export default function Signup() {
     </div>
   );
 }
+export default useGuest(Signup);

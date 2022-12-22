@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getToken } from './cookies';
+import toast, { Toaster } from 'react-hot-toast';
 
 const environment = process.env.NODE_ENV;
 
@@ -23,7 +24,7 @@ requests.interceptors.response.use(
         return window.location.replace('/login');
       }
     } else if (400 === error.response.status) {
-      console.log('error', error.response.data.message);
+      toast.error(error.response.data.message);
       // Swal.fire({
       //   title: 'Bad Request',
       //   text: error.response.data.message,

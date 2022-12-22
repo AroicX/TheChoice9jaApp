@@ -8,6 +8,7 @@
 #service-workers
 
 /public/*.js
+**/public/*.js
 
 # testing
 /coverage
