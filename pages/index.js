@@ -2,7 +2,6 @@ import Button from '@/reusable/Button';
 import { useRouter } from 'next/router';
 import AuthProvider from '@/components/AuthProvider';
 import Image from 'next/image';
-import useGuest from '@/hooks/useGuest';
 import SVG from 'react-inlinesvg';
 import { useEffect, useState } from 'react';
 

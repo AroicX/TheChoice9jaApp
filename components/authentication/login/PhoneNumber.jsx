@@ -1,10 +1,9 @@
 import Input from '@/reusable/Input';
-import AuthProvider from '@/components/AuthProvider';
 import Button from '@/reusable/Button';
 
 export default function PhoneNumber({ back, next, user, setUser }) {
   return (
-    <AuthProvider>
+    <div className='p-4 h-screen'>
       <div className='flex items-center space-x-4 xl:mt-0 mt-4'>
         <img
           onClick={back}
@@ -32,6 +31,6 @@ export default function PhoneNumber({ back, next, user, setUser }) {
           />
         </div>
       </form>
-    </AuthProvider>
+    </div>
   );
 }

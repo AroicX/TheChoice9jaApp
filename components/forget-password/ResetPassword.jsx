@@ -7,6 +7,7 @@ import { RESET_PASSWORD } from '@/services/authentication';
 import { useState } from 'react';
 import Link from '../Link';
 import toast from 'react-hot-toast';
+
 export default function SignUp({ back }) {
   const Router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -41,7 +42,7 @@ export default function SignUp({ back }) {
   };
 
   return (
-    <AuthProvider>
+    <div className='p-4 h-screen'>
       <form onSubmit={onSubmitHandler} className='space-y-8'>
         <XMarkIcon onClick={back} className='w-6 h-6 cursor-pointer' />
         <h3 className='mt-8 text-black font-inter--sm font-22'>
@@ -98,6 +99,6 @@ export default function SignUp({ back }) {
           </Link>
         </span>
       </div>
-    </AuthProvider>
+    </div>
   );
 }

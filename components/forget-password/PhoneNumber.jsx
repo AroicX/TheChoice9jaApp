@@ -10,6 +10,10 @@ export default function PhoneNumber({ user, setUser, next }) {
   const [loading, setLoading] = useState(false);
   const Router = useRouter();
 
+  const { phoneNo } = user;
+
+  const disabled = phoneNo === '' || phoneNo?.length !== 11;
+
   const onSubmit = (event) => {
     event.preventDefault();
 
@@ -38,7 +42,7 @@ export default function PhoneNumber({ user, setUser, next }) {
   };
 
   return (
-    <AuthProvider>
+    <div className='p-4 h-screen'>
       <Toaster position='top-center' reverseOrder={false} />
       <div
         onClick={() => Router.back()}
@@ -72,11 +76,14 @@ export default function PhoneNumber({ user, setUser, next }) {
           <Button
             text='Continue'
             type='submit'
+            disabled={disabled}
             loading={loading}
-            styles='inline-flex justify-center items-center bg-greenPrimary lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 text-base font-medium text-white shadow-sm'
+            styles={`${
+              !disabled ? 'bg-greenPrimary' : 'bg-darkColor-300'
+            } inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 font-inter--bold font-14 text-white shadow-sm`}
           />
         </div>
       </form>
-    </AuthProvider>
+    </div>
   );
 }
