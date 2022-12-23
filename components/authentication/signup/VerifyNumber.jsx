@@ -63,7 +63,7 @@ export default function VerifyAccount({ back, phoneNo }) {
   }, []);
 
   return (
-    <AuthProvider>
+    <div className='p-4 h-screen'>
       <Toaster position='top-center' reverseOrder={false} />
       <div className='flex items-center space-x-4 xl:mt-0 mt-4'>
         <img
@@ -109,6 +109,6 @@ export default function VerifyAccount({ back, phoneNo }) {
           />
         </div>
       </form>
-    </AuthProvider>
+    </div>
   );
 }

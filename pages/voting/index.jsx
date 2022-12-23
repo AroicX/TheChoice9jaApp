@@ -1,5 +1,6 @@
 import Layout from '@/components/layout';
 import Avatar from '@/components/Avatar';
+import AuthProvider from '@/components/AuthProvider';
 import SVG from 'react-inlinesvg';
 import { useRouter } from 'next/router';
 import { GET_ELECTIONS } from '@/services/elections';
@@ -27,7 +28,7 @@ export default function Voting() {
     getElections();
   }, []);
   return (
-    <>
+    <AuthProvider>
       <header className='mb-3 flex items-center px-3 py-2 border-b pb-3'>
         <Avatar style='w-9 h-9' imgSrc='/parties/admin.png' />
         <div className='w-full text-center'>
@@ -100,6 +101,6 @@ export default function Voting() {
           </ul>
         </main>
       </Layout>
-    </>
+    </AuthProvider>
   );
 }

@@ -13,8 +13,10 @@ export default function CreateAccount({ back, next, user, setUser }) {
   const [isLoading, setIsLoading] = useState(false);
   const Router = useRouter();
 
-  const { phoneNo, email, password } = user;
-  const disabled = phoneNo === '' || email === '' || password === '';
+  const { phoneNo, username, password } = user;
+  const disabled = phoneNo === '' || username === '' || password === '';
+
+  console.log(disabled);
 
   const onSubmitHandler = () => {
     setIsLoading(true);
@@ -39,7 +41,7 @@ export default function CreateAccount({ back, next, user, setUser }) {
   };
 
   return (
-    <AuthProvider>
+    <div className='p-4 h-screen'>
       <Toaster position='top-center' reverseOrder={false} />
       <div className='flex items-center space-x-4 xl:mt-0 mt-4'>
         <img
@@ -94,6 +96,6 @@ export default function CreateAccount({ back, next, user, setUser }) {
           } inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 font-inter--bold font-14 text-white shadow-sm`}
         />
       </div>
-    </AuthProvider>
+    </div>
   );
 }

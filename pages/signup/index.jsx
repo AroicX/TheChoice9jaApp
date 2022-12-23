@@ -3,7 +3,6 @@ import { useState } from 'react';
 import SignUp from '@/components/authentication/signup/SignUp';
 import CreateAccount from '@/components/authentication/signup/CreateAccount';
 import VerifyAccount from '@/components/authentication/signup/VerifyNumber';
-import useGuest from '@/hooks/useGuest';
 
 function Signup() {
   const [selected, setSelected] = useState(null);

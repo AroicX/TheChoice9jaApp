@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import AuthProvider from '@/components/AuthProvider';
 
 /** COMPONENTS **/
 const BackButton = dynamic(() => import('@/components/BackButton'));
@@ -228,7 +229,7 @@ export default function Slug() {
   }, [image]);
 
   return (
-    <>
+    <AuthProvider>
       <Layout style='px-0'>
         {joined && (
           <button
@@ -367,6 +368,6 @@ export default function Slug() {
         </form>
       </Modal>
       <Toaster position='top-center' reverseOrder={false} />
-    </>
+    </AuthProvider>
   );
 }

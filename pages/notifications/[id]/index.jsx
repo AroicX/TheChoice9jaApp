@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
+import AuthProvider from '@/components/AuthProvider';
 import BackButton from '@/components/BackButton';
 import Notification from '@/components/Notification';
 
@@ -18,7 +19,7 @@ export default function SingleNotification() {
   }, []);
 
   return (
-    <>
+    <AuthProvider>
       <header className='mb-2 border-b py-2 px-2'>
         <BackButton title='Notification' />
       </header>
@@ -43,6 +44,6 @@ export default function SingleNotification() {
           </>
         )}
       </main>
-    </>
+    </AuthProvider>
   );
 }

@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import dynamic from 'next/dynamic';
 import HomeHeader from '@/components/HomeHeader';
 import ElectionCandidates from '@/components/ElectionCandidates';
 const Layout = dynamic(() => import('@/components/layout'));
 const SinglePost = dynamic(() => import('@/components/discourse/singlePost'));
+import useAuth from '@/hooks/useAuth';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -29,7 +31,7 @@ const CANDIDATES = [
   },
 ];
 
-export default function Home() {
+function Home() {
   const [discourse, setDiscourse] = useState([]);
 
   useEffect(() => {
@@ -51,19 +53,17 @@ export default function Home() {
   };
 
   const _updateState = async (data) => {
-    const { id } = data;
+    const postId = data.postsId;
+
     const oldState = discourse;
 
-    const filter = oldState.filter((x) => x.id === id)[0];
-    const removeItem = oldState.filter((x) => x.id !== id);
-    filter.likes = data.likes;
-    filter.dislikes = data.dislikes;
+    const DISCOURSE = oldState.find((dic) => dic.id === postId);
 
-    // removeItem.sort((a, b) => a - b);
+    const newDiscussions = oldState.filter((dic) => dic.id !== postId);
 
-    // removeItem = [...removeItem, filter];
+    DISCOURSE.comments.push(data);
 
-    // setDiscourse(removeItem);
+    setDiscourse(() => [...newDiscussions, DISCOURSE].reverse());
   };
 
   return (
@@ -139,3 +139,5 @@ export default function Home() {
     </>
   );
 }
+
+export default useAuth(Home);

@@ -7,10 +7,7 @@ const environment = process.env.NODE_ENV;
 console.log('environment', environment);
 
 const requests = axios.create({
-  baseURL:
-    environment === 'production'
-      ? process.env.NEXT_PUBLIC_BASE_URL
-      : process.env.NEXT_PUBLIC_DEV_URL,
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
 });
 
 requests.interceptors.response.use(

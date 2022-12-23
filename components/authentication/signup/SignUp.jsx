@@ -6,12 +6,12 @@ import { XMarkIcon } from '@heroicons/react/24/outline';
 export default function SignUp({ next, setUser, user }) {
   const router = useRouter();
 
-  const { firstName, lastName, username } = user;
+  const { firstName, lastName, email } = user;
 
-  const disabled = firstName === '' || lastName === '' || username === '';
+  const disabled = firstName === '' || lastName === '' || email === '';
 
   return (
-    <AuthProvider>
+    <div className='p-4 h-screen'>
       <form className='space-y-8'>
         <XMarkIcon
           onClick={() => router.push('/')}
@@ -60,10 +60,10 @@ export default function SignUp({ next, setUser, user }) {
           click={() => next()}
           text='continue'
           styles={`${
-            disabled ? 'bg-darkColor-300' : 'bg-greenPrimary'
+            !disabled ? 'bg-greenPrimary' : 'bg-darkColor-300'
           } inline-flex justify-center items-center lg:mb-10 mb-4 uppercase w-full rounded-lg border border-gray-300  px-6 py-4 font-inter--bold font-14 text-white shadow-sm`}
         />
       </div>
-    </AuthProvider>
+    </div>
   );
 }

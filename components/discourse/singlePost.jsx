@@ -86,6 +86,8 @@ function SinglePost({ post, user, discussion, dispatch }) {
       setIsLoading(false);
       const { comment } = response;
 
+      dispatch(comment);
+
       toast.success('Your comment is added');
 
       setOpen(false);

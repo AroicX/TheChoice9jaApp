@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Layout from '@/components/layout';
+import AuthProvider from '@/components/AuthProvider';
 import {
   ChevronRightIcon,
   ExclamationTriangleIcon,
@@ -36,7 +37,7 @@ export default function Profile() {
   };
 
   return (
-    <>
+    <AuthProvider>
       <header className='border-b-2'>
         <div className='py-6 px-2 flex space-x-10'>
           <AvatarName
@@ -91,6 +92,6 @@ export default function Profile() {
           </button>
         </main>
       </Layout>
-    </>
+    </AuthProvider>
   );
 }

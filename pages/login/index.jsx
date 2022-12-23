@@ -3,16 +3,15 @@ import { useRouter } from 'next/router';
 import { LOGIN_ACCOUNT } from '@/services/authentication';
 import { useGlobalStore } from '@/hooks/useGlobalStore';
 import { setCookie } from '@/services/cookies';
+import useGuest from '@/hooks/useGuest';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import Image from 'next/image';
 import Input from '@/reusable/Input';
-import AuthProvider from '@/components/AuthProvider';
 import Button from '@/reusable/Button';
-import { Toaster } from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 import PhoneNumber from '@/components/forget-password/PhoneNumber';
 import VerifyAccount from '@/components/authentication/signup/VerifyNumber';
-import useGuest from '@/hooks/useGuest';
 
 function Login() {
   const { setToken } = useGlobalStore();
@@ -49,7 +48,6 @@ function Login() {
 
     const onError = (error) => {
       setLoading(false);
-      console.log(error);
       //toast.error(error.data.message);
     };
 
@@ -81,7 +79,7 @@ function Login() {
   return (
     <>
       {selected === null ? (
-        <AuthProvider>
+        <div className='p-4'>
           <Toaster position='top-center' reverseOrder={false} />
           <XMarkIcon
             onClick={() => router.push('/')}
@@ -172,7 +170,7 @@ function Login() {
               </p>
             </div>
           </form>
-        </AuthProvider>
+        </div>
       ) : (
         ''
       )}

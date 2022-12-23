@@ -14,9 +14,9 @@ import {
 import { deleteNotificationById, updateNotificationById } from 'actions/index';
 import { useRouter } from 'next/router';
 import { useSelector, useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-export default function Notification(data) {
+export default function Notification(props) {
   const [modal, setModal] = useState(false);
   const [notificationId, setNotifcationId] = useState(0);
   const { isDeleting } = useSelector((state) => state.notifications);
@@ -24,8 +24,11 @@ export default function Notification(data) {
 
   const {
     data: { isRead, commentId, message, id, postId, discussionsId, createdAt },
-  } = data;
+  } = props;
   const Router = useRouter();
+
+  const MESSAGE =
+    discussionsId !== null && postId === null ? 'Disucussion' : 'Post';
   return (
     <>
       <li
@@ -49,7 +52,7 @@ export default function Notification(data) {
           </span>
         </div>
         <div
-          onClick={() => dispatch(updateNotificationById(id))}
+          onClick={() => dispatch(updateNotificationById(2))}
           className='space-y-4 pl-2 flex-1'
         >
           <p
@@ -60,9 +63,13 @@ export default function Notification(data) {
           </p>
           <Button
             click={() => {
-              Router.push(`/post/${postId}`);
+              let route =
+                discussionsId !== null
+                  ? `/discourse/${discussionsId}`
+                  : `/post/${postId}`;
+              Router.push(route);
             }}
-            text='View Post'
+            text={`View ${MESSAGE}`}
             styles='text-greenPrimary border-2 border-greenPrimary w-48 rounded-full font-12 font-inter--md'
           />
         </div>

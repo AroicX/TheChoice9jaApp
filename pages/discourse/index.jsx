@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import services from '@/services/index';
 import Avatar from '@/components/Avatar';
 import Layout from '@/components/layout';
+import AuthProvider from '@/components/AuthProvider';
 
 import { useState, useEffect } from 'react';
 
@@ -34,7 +35,7 @@ export default function Discussion({ discussions }) {
   }, []);
 
   return (
-    <>
+    <AuthProvider>
       <header className='flex items-center px-2 py-2 border-b border-darkColor-200 pb-2'>
         <Avatar
           alt='Bash picture'
@@ -83,7 +84,7 @@ export default function Discussion({ discussions }) {
             return <Poll key={idx + 1} poll={poll} />;
           })}
       </Layout>
-    </>
+    </AuthProvider>
   );
 }
 
