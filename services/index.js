@@ -2,12 +2,15 @@ import axios from 'axios';
 import { getToken } from './cookies';
 import toast, { Toaster } from 'react-hot-toast';
 
-const environment = process.env.NODE_ENV;
+const environment =
+  process.env.NODE_ENV === 'development'
+    ? process.env.NEXT_PUBLIC_DEV_URL
+    : process.env.NEXT_PUBLIC_BASE_URL;
 
 console.log('environment', environment);
 
 const requests = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: environment,
 });
 
 requests.interceptors.response.use(
