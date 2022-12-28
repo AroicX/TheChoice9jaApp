@@ -1,7 +1,7 @@
 import Input from '@/reusable/Input';
 import AuthProvider from '@/components/AuthProvider';
 import Button from '@/reusable/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { FORGET_PASSWORD } from '@/services/authentication';
 import toast, { Toaster } from 'react-hot-toast';
@@ -10,9 +10,13 @@ export default function PhoneNumber({ user, setUser, next }) {
   const [loading, setLoading] = useState(false);
   const Router = useRouter();
 
+  let disabled = false;
+
   const { phoneNo } = user;
 
-  const disabled = phoneNo === '' || phoneNo?.length !== 11;
+  useEffect(() => {
+    disabled = phoneNo.length > 11 ? true : false;
+  }, [phoneNo]);
 
   const onSubmit = (event) => {
     event.preventDefault();

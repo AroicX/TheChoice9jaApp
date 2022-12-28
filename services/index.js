@@ -7,7 +7,7 @@ const environment = process.env.NODE_ENV;
 console.log('environment', environment);
 
 const requests = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: 'http://localhost:3333/api',
 });
 
 requests.interceptors.response.use(

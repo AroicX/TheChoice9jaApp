@@ -27,7 +27,7 @@ export default function CreateAccount({ back, next, user, setUser }) {
       setIsLoading(false);
       setToken(response.token);
       let _redirect = window.localStorage.getItem('be-authorized');
-      _redirect ? Router.push(_redirect) : next();
+      _redirect ? Router.push(_redirect) : Router.push('/login');
     };
 
     const onError = (error) => {
