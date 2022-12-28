@@ -35,3 +35,19 @@ jobs:
 
 #       - name: Test 🚨
 #         run: yarn test
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy NodeJS app
+        uses: appleboy/ssh-action@v0.1.2
+        with:
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{ secrets.SSH_USERNAME }}
+     
+          script: |
+            cd /var/www/html 
+            git pull origin main
+            yarn build
+            pm2 reload app
+            echo 'Deployment successful to digital ocean' 
