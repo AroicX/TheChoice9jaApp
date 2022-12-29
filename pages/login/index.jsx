@@ -9,7 +9,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Input from '@/reusable/Input';
 import Button from '@/reusable/Button';
-import toast, { Toaster } from 'react-hot-toast';
+import  { Toaster } from 'react-hot-toast';
 import PhoneNumber from '@/components/forget-password/PhoneNumber';
 import VerifyAccount from '@/components/authentication/signup/VerifyNumber';
 
